@@ -291,7 +291,7 @@ function Navbar() {
           <a href="#anasayfa" className="inline-flex items-center gap-2.5">
             <span className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(214,255,63,0.6)]" />
             <span className="font-display text-base font-semibold tracking-tight text-ink">
-              arch-yunus
+              bahattinyunus
             </span>
             <span className="hidden rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-faint sm:inline-block">
               ODTÜ & Hacettepe
@@ -376,7 +376,7 @@ function Navbar() {
             className="fixed inset-0 z-[70] flex flex-col bg-canvas/95 backdrop-blur-xl xl:hidden"
           >
             <div className={`${WRAP} flex h-16 items-center justify-between`}>
-              <span className="font-display font-medium text-ink">arch-yunus</span>
+              <span className="font-display font-medium text-ink">bahattinyunus</span>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Kapat"

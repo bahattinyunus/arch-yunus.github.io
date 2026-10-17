@@ -4,10 +4,10 @@
 ### **AI Developer · UAV Systems Architect · Embedded Systems Engineer**
 **Founder @ Arat Labs · Tulpar Aero-Dynamics · Arkıl Games · MERL · Budak · Anka Silicon Dynamics**
 
-[![Live Demo](https://img.shields.io/badge/LIVE_SYSTEM-arch--yunus.github.io-00f3ff?style=for-the-badge&logo=google-chrome&logoColor=black)](https://arch-yunus.github.io/)
+[![Live Demo](https://img.shields.io/badge/LIVE_SYSTEM-bahattinyunus.github.io-00f3ff?style=for-the-badge&logo=google-chrome&logoColor=black)](https://bahattinyunus.github.io/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-12.6K+-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/bahattinyunus/)
-[![GitHub Repos](https://img.shields.io/badge/GitHub_Repos-231+-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arch-yunus)
-[![Medium](https://img.shields.io/badge/Medium-Articles-black?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@archyunus)
+[![GitHub Repos](https://img.shields.io/badge/GitHub_Repos-231+-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/bahattinyunus)
+[![Medium](https://img.shields.io/badge/Medium-Articles-black?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@bahattinyunus)
 
 <br/>
 
@@ -29,7 +29,7 @@
 
 Bu repo; **Otonom İHA/SİHA Sistemleri**, **Büyük Dil Modelleri (LLM/Knowledge Distillation)**, **Edge-AI Optimizasyonu (%80 Pruning)**, **Gömülü Sistemler (RTOS/RISC-V)** ve **Siber Savunma** disiplinlerinde geliştirilen yüksek teknolojili Ar-Ge projelerini, girişimleri, interaktif telemetri simülatörlerini ve akademik faaliyetleri sergileyen yeni nesil **Cyberpunk / Metal Yaka v5.0** portföy sistemidir.
 
-🔗 **Canlı Sistem:** [https://arch-yunus.github.io/](https://arch-yunus.github.io/)
+🔗 **Canlı Sistem:** [https://bahattinyunus.github.io/](https://bahattinyunus.github.io/)
 
 ---
 

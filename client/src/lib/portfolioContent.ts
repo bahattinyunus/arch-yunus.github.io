@@ -20,13 +20,13 @@ export const IDENTITY: Identity = {
   name: "Bahattin Yunus Çetin",
   firstName: "Bahattin",
   lastName: "Yunus Çetin",
-  handle: "arch-yunus",
-  githubUser: "arch-yunus",
+  handle: "bahattinyunus",
+  githubUser: "bahattinyunus",
   email: "bahattinyunuscetin@hotmail.com",
   location: "Ankara, Türkiye",
-  github: "https://github.com/arch-yunus",
+  github: "https://github.com/bahattinyunus",
   linkedin: "https://www.linkedin.com/in/bahattinyunus",
-  medium: "https://medium.com/@archyunus",
+  medium: "https://medium.com/@bahattinyunus",
   statsFallback: {
     repos: 231,
     stars: 1500,
@@ -209,7 +209,7 @@ export const CONTENT = {
             "Security-by-Design prensipleriyle AES-256 şifreli komuta hattı",
           ],
           stack: ["ROS2", "C++20", "Unreal Engine 5", "PX4", "PyTorch", "FastDDS"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "tulpar",
         },
         {
@@ -228,7 +228,7 @@ export const CONTENT = {
             "Knowledge Distillation ile perplexity kaybı olmaksızın sıkıştırma",
           ],
           stack: ["PyTorch", "vLLM", "Unsloth", "CUDA", "TFLite", "ONNX"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "budak",
         },
         {
@@ -247,7 +247,7 @@ export const CONTENT = {
             "Operasyonel maliyetleri %70 azaltan otonom derleme hattı",
           ],
           stack: ["Python", "PyTorch", "LLM Agents", "FastAPI", "Docker", "WASM"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "merl",
         },
         {
@@ -266,7 +266,7 @@ export const CONTENT = {
             "SDR (Software Defined Radio) donanım modülleriyle tam uyum",
           ],
           stack: ["C++17", "Python", "SDR", "OpenCV", "FFT", "Cryptography"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "deepantenna",
         },
       ],
@@ -295,7 +295,7 @@ export const CONTENT = {
           code: "TR-IHA1H10609053",
           skill: "İHA & Aviyonik",
           icon: "Plane",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "İnsansız Hava Araçlarına Giriş Eğitimi",
@@ -304,7 +304,7 @@ export const CONTENT = {
           code: "DVYGTrb0",
           skill: "Robotik & Otonom",
           icon: "Orbit",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "DATATHON 2026 İnovasyon & Veri Bilimi",
@@ -313,7 +313,7 @@ export const CONTENT = {
           code: "DATA-2026-TR",
           skill: "Veri Bilimi & AI",
           icon: "Award",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Siber Güvenlik Temelleri & Giriş",
@@ -322,7 +322,7 @@ export const CONTENT = {
           code: "41952ce4-30bd-498f",
           skill: "Siber Güvenlik",
           icon: "Shield",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Uygulamalı Kaggle ile Makine Öğrenimi",
@@ -331,7 +331,7 @@ export const CONTENT = {
           code: "BTK-KAGGLE-26",
           skill: "Makine Öğrenimi",
           icon: "Brain",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "T3 Akademi Otonom Araçlar & Robotik",
@@ -340,7 +340,7 @@ export const CONTENT = {
           code: "T3-AUTO-2026",
           skill: "Otonom Sistemler",
           icon: "Cpu",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Turkcell Geleceği Yazanlar: Derin Öğrenme",
@@ -349,7 +349,7 @@ export const CONTENT = {
           code: "TRK-DL-2026",
           skill: "Derin Öğrenme",
           icon: "Code2",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Temel Elektronik & Donanım Sistemleri",
@@ -358,7 +358,7 @@ export const CONTENT = {
           code: "BILGE-ODTU-EE",
           skill: "Gömülü Donanım",
           icon: "Cpu",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
       ],
     },
@@ -587,7 +587,7 @@ export const CONTENT = {
             "AES-256 encrypted command tunnel following Security-by-Design",
           ],
           stack: ["ROS2", "C++20", "Unreal Engine 5", "PX4", "PyTorch", "FastDDS"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "tulpar",
         },
         {
@@ -606,7 +606,7 @@ export const CONTENT = {
             "Zero perplexity regression through knowledge distillation",
           ],
           stack: ["PyTorch", "vLLM", "Unsloth", "CUDA", "TFLite", "ONNX"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "budak",
         },
         {
@@ -625,7 +625,7 @@ export const CONTENT = {
             "Autonomous compilation pipelines slashing operational overhead by 70%",
           ],
           stack: ["Python", "PyTorch", "LLM Agents", "FastAPI", "Docker", "WASM"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "merl",
         },
         {
@@ -644,7 +644,7 @@ export const CONTENT = {
             "Full compatibility with Software Defined Radio (SDR) hardware",
           ],
           stack: ["C++17", "Python", "SDR", "OpenCV", "FFT", "Cryptography"],
-          github: "https://github.com/arch-yunus",
+          github: "https://github.com/bahattinyunus",
           visualType: "deepantenna",
         },
       ],
@@ -673,7 +673,7 @@ export const CONTENT = {
           code: "TR-IHA1H10609053",
           skill: "UAV & Avionics",
           icon: "Plane",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Introduction to Unmanned Aerial Vehicles",
@@ -682,7 +682,7 @@ export const CONTENT = {
           code: "DVYGTrb0",
           skill: "Robotics & Flight",
           icon: "Orbit",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "DATATHON 2026 Innovation & Data Science",
@@ -691,7 +691,7 @@ export const CONTENT = {
           code: "DATA-2026-TR",
           skill: "Data Science & AI",
           icon: "Award",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Cybersecurity Fundamentals & Architecture",
@@ -700,7 +700,7 @@ export const CONTENT = {
           code: "41952ce4-30bd-498f",
           skill: "Cybersecurity",
           icon: "Shield",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Applied Machine Learning with Kaggle",
@@ -709,7 +709,7 @@ export const CONTENT = {
           code: "BTK-KAGGLE-26",
           skill: "Machine Learning",
           icon: "Brain",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "T3 Autonomous Vehicles & Robotics",
@@ -718,7 +718,7 @@ export const CONTENT = {
           code: "T3-AUTO-2026",
           skill: "Autonomous Systems",
           icon: "Cpu",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Turkcell Writers of Future: Deep Learning",
@@ -727,7 +727,7 @@ export const CONTENT = {
           code: "TRK-DL-2026",
           skill: "Deep Learning",
           icon: "Code2",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
         {
           title: "Fundamentals of Electronic & Embedded Systems",
@@ -736,7 +736,7 @@ export const CONTENT = {
           code: "BILGE-ODTU-EE",
           skill: "Embedded Hardware",
           icon: "Cpu",
-          url: "https://github.com/arch-yunus",
+          url: "https://github.com/bahattinyunus",
         },
       ],
     },
