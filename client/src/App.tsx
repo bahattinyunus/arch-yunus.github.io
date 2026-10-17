@@ -16,18 +16,52 @@ import { VaultProvider } from "./contexts/VaultContext";
 
 function Router() {
   return (
-    <CyberShell>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/arsenal" component={Arsenal} />
-        <Route path="/operations" component={Operations} />
-        <Route path="/intelligence" component={Intelligence} />
-        <Route path="/doctrine" component={Doctrine} />
-        <Route path="/operations/:projectId" component={ProjectDetail} />
-        <Route path="/comms" component={Comms} />
-        <Route component={NotFound} />
-      </Switch>
-    </CyberShell>
+    <Switch>
+      <Route path="/" component={Home} />
+      <Route path="/arsenal">
+        {() => (
+          <CyberShell>
+            <Arsenal />
+          </CyberShell>
+        )}
+      </Route>
+      <Route path="/operations">
+        {() => (
+          <CyberShell>
+            <Operations />
+          </CyberShell>
+        )}
+      </Route>
+      <Route path="/intelligence">
+        {() => (
+          <CyberShell>
+            <Intelligence />
+          </CyberShell>
+        )}
+      </Route>
+      <Route path="/doctrine">
+        {() => (
+          <CyberShell>
+            <Doctrine />
+          </CyberShell>
+        )}
+      </Route>
+      <Route path="/operations/:projectId">
+        {() => (
+          <CyberShell>
+            <ProjectDetail />
+          </CyberShell>
+        )}
+      </Route>
+      <Route path="/comms">
+        {() => (
+          <CyberShell>
+            <Comms />
+          </CyberShell>
+        )}
+      </Route>
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 

@@ -4,14 +4,25 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "General Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Clash Display", "General Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --font-body: "DM Sans", sans-serif;
-  --color-neon-blue: #b9f36b;
+  --font-body: "General Sans", sans-serif;
+
+  --color-canvas: #08080a;
+  --color-surface: #101013;
+  --color-elevated: #16161a;
+  --color-line: #232328;
+  --color-ink: #f3f1ec;
+  --color-muted: #9a9aa2;
+  --color-faint: #5c5c63;
+  --color-accent: #d6ff3f;
+
+  --color-neon-blue: #d6ff3f;
   --color-neon-red: #f08a7e;
-  --color-neon-green: #b9f36b;
-  --color-cyber-black: #0b0d0f;
-  --color-cyber-gray: #14181a;
+  --color-neon-green: #d6ff3f;
+  --color-cyber-black: #08080a;
+  --color-cyber-gray: #101013;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -22,10 +33,6 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -37,43 +44,53 @@
 }
 
 :root {
-  --background: #0b0d0f;
-  --foreground: #f3f5f4;
-  --card: #15191b;
-  --card-foreground: #f3f5f4;
-  --popover: #15191b;
-  --popover-foreground: #f3f5f4;
-  --primary: #b9f36b;
-  --primary-foreground: #0b0d0f;
-  --secondary: #f08a7e;
-  --secondary-foreground: #0b0d0f;
-  --muted: #1a2020;
-  --muted-foreground: #a0aaa5;
-  --accent: #b9f36b;
-  --accent-foreground: #0b0d0f;
+  color-scheme: dark;
+  --background: #08080a;
+  --foreground: #f3f1ec;
+  --card: #101013;
+  --card-foreground: #f3f1ec;
+  --popover: #101013;
+  --popover-foreground: #f3f1ec;
+  --primary: #d6ff3f;
+  --primary-foreground: #08080a;
+  --secondary: #16161a;
+  --secondary-foreground: #f3f1ec;
+  --muted: #16161a;
+  --muted-foreground: #9a9aa2;
+  --accent: #d6ff3f;
+  --accent-foreground: #08080a;
   --destructive: #ef6e68;
   --destructive-foreground: #fff;
-  --border: rgba(243, 245, 244, 0.12);
-  --input: rgba(243, 245, 244, 0.1);
-  --ring: #b9f36b;
+  --border: #232328;
+  --input: #232328;
+  --ring: #d6ff3f;
   --radius: 0.75rem;
 }
 
 @layer base {
   * { @apply border-border; }
 
-  html { scroll-behavior: smooth; }
+  html { 
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
   body {
     margin: 0;
     min-width: 320px;
     overflow-x: hidden;
-    background: #0b0d0f;
-    color: #f3f5f4;
-    font-family: var(--font-body);
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #08080a;
   }
 
   a { color: inherit; text-decoration: none; }
@@ -83,6 +100,84 @@
     margin: 0;
     font-family: var(--font-display);
     letter-spacing: -0.03em;
+  }
+}
+
+/* Koyu kaydırma çubuğu */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-canvas);
+}
+::-webkit-scrollbar-thumb {
+  background: #232328;
+  border-radius: 999px;
+  border: 2px solid var(--color-canvas);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #34343c;
+}
+
+/* Sonsuz kayan şerit (marquee) */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 50s linear infinite;
+}
+
+/* Meteor / yıldız kayması animasyonu */
+.meteor {
+  position: absolute;
+  width: 1.5px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to top,
+    rgba(214, 255, 63, 0.6) 0%,
+    rgba(255, 255, 255, 0.25) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0;
+  transform: translate3d(0, -10vh, 0) rotate(22deg);
+  animation-name: meteor-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes meteor-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(22deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.55;
+  }
+  88% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(-24vw, 115vh, 0) rotate(22deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+  .meteor {
+    display: none;
   }
 }
 
