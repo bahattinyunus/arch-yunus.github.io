@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -5,14 +6,24 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "@/pages/Home";
-import Arsenal from "@/pages/Arsenal";
-import Operations from "@/pages/Operations";
-import Comms from "@/pages/Comms";
-import { Intelligence } from "@/pages/Intelligence";
-import Doctrine from "@/pages/Doctrine";
-import ProjectDetail from "@/pages/ProjectDetail";
 import { CyberShell } from "./components/layout/CyberShell";
 import { VaultProvider } from "./contexts/VaultContext";
+
+const Arsenal = lazy(() => import("@/pages/Arsenal"));
+const Operations = lazy(() => import("@/pages/Operations"));
+const Comms = lazy(() => import("@/pages/Comms"));
+const Intelligence = lazy(() => import("@/pages/Intelligence").then((m) => ({ default: m.Intelligence })));
+const Doctrine = lazy(() => import("@/pages/Doctrine"));
+const ProjectDetail = lazy(() => import("@/pages/ProjectDetail"));
+
+function CyberLoading() {
+  return (
+    <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4 text-neon-blue font-mono text-xs">
+      <div className="w-10 h-10 border-2 border-neon-blue/20 border-t-neon-blue rounded-full animate-spin" />
+      <span className="tracking-widest animate-pulse">DECRYPTING_TACTICAL_INTERFACE...</span>
+    </div>
+  );
+}
 
 function Router() {
   return (
@@ -21,42 +32,54 @@ function Router() {
       <Route path="/arsenal">
         {() => (
           <CyberShell>
-            <Arsenal />
+            <Suspense fallback={<CyberLoading />}>
+              <Arsenal />
+            </Suspense>
           </CyberShell>
         )}
       </Route>
       <Route path="/operations">
         {() => (
           <CyberShell>
-            <Operations />
+            <Suspense fallback={<CyberLoading />}>
+              <Operations />
+            </Suspense>
           </CyberShell>
         )}
       </Route>
       <Route path="/intelligence">
         {() => (
           <CyberShell>
-            <Intelligence />
+            <Suspense fallback={<CyberLoading />}>
+              <Intelligence />
+            </Suspense>
           </CyberShell>
         )}
       </Route>
       <Route path="/doctrine">
         {() => (
           <CyberShell>
-            <Doctrine />
+            <Suspense fallback={<CyberLoading />}>
+              <Doctrine />
+            </Suspense>
           </CyberShell>
         )}
       </Route>
       <Route path="/operations/:projectId">
         {() => (
           <CyberShell>
-            <ProjectDetail />
+            <Suspense fallback={<CyberLoading />}>
+              <ProjectDetail />
+            </Suspense>
           </CyberShell>
         )}
       </Route>
       <Route path="/comms">
         {() => (
           <CyberShell>
-            <Comms />
+            <Suspense fallback={<CyberLoading />}>
+              <Comms />
+            </Suspense>
           </CyberShell>
         )}
       </Route>

@@ -273,28 +273,28 @@ export const profileData = {
     {
       title: "🇹🇷 Çelik MCU ve Türkiye’nin Yapay Zekâ Geleceği",
       summary: "Beko & Yongatek ortaklığıyla üretilen ilk yerli RISC-V çip: Küçük bir çipten çok daha fazlası. Donanım bağımsızlığı ve Edge AI vizyonu.",
-      url: "https://medium.com/@archyunus/%C3%A7elik-mcu-ve-t%C3%BCrkiyenin-yapay-zek%C3%A2-gelece%C4%9Fi-k%C3%BC%C3%A7%C3%BCk-bir-%C3%A7ipten-%C3%A7ok-daha-fazlas%C4%B1-c75426266242",
+      url: "https://medium.com/@bahattinyunus/%C3%A7elik-mcu-ve-t%C3%BCrkiyenin-yapay-zek%C3%A2-gelece%C4%9Fi-k%C3%BC%C3%A7%C3%BCk-bir-%C3%A7ipten-%C3%A7ok-daha-fazlas%C4%B1-c75426266242",
       image: "/images/blog/iha.jpg",
       date: "9 ay önce"
     },
     {
       title: "TEKNOFEST: Türkiye’nin En Büyük Açık Kaynaklı Mühendislik Fakültesi",
       summary: "Şartnameleri müfredata, raporları vaka analizine dönüştürmek: Yarışma sahasında olmasan da kendi diplomanı alma sanatı.",
-      url: "https://medium.com/@archyunus/teknofest-bir-yar%C4%B1%C5%9Fma-de%C4%9Fil-bir-okuldur-m%C3%BChendislik-vizyonunuzu-yeniden-tan%C4%B1mlay%C4%B1n-908bce0bd7ab",
+      url: "https://medium.com/@bahattinyunus/teknofest-bir-yar%C4%B1%C5%9Fma-de%C4%9Fil-bir-okuldur-m%C3%BChendislik-vizyonunuzu-yeniden-tan%C4%B1mlay%C4%B1n-908bce0bd7ab",
       image: "/images/blog/teknofest.jpg",
       date: "8 ay önce"
     },
     {
       title: "2026’ya Doğru Yazılım ve Siber Güvenlikte Paradigma Değişimi",
       summary: "Teknolojik Dönüşüm ve İş Gücünün Geleceği: Hayatta Kalma Reçetesi",
-      url: "https://medium.com/@archyunus/2026ya-do%C4%9Fru-yaz%C4%B1l%C4%B1m-ve-siber-g%C3%BCvenlikte-paradigma-de%C4%9Fi%C5%9Fimi-hayatta-kalma-re%C3%A7etesi-19f6f09f75c7",
+      url: "https://medium.com/@bahattinyunus/2026ya-do%C4%9Fru-yaz%C4%B1l%C4%B1m-ve-siber-g%C3%BCvenlikte-paradigma-de%C4%9Fi%C5%9Fimi-hayatta-kalma-re%C3%A7etesi-19f6f09f75c7",
       image: "/images/blog/paradigma.jpg",
       date: "2 Ocak 2026"
     },
     {
       title: "Yapay Genel Zekâ (AGI) Yolunda Büyük Çatlak",
       summary: "İlya, LeCun ve Altman Nereye Koşuyor? Yapay Zekâda Yol Ayrımı: Devrim mi, İllüzyon mu?",
-      url: "https://medium.com/@archyunus/yapay-genel-zek%C3%A2-agi-yolunda-b%C3%BCy%C3%BCk-%C3%A7atlak-i%CC%87lya-lecun-ve-altman-nereye-ko%C5%9Fuyor-c0535a22703e",
+      url: "https://medium.com/@bahattinyunus/yapay-genel-zek%C3%A2-agi-yolunda-b%C3%BCy%C3%BCk-%C3%A7atlak-i%CC%87lya-lecun-ve-altman-nereye-ko%C5%9Fuyor-c0535a22703e",
       image: "/images/blog/agi.jpg",
       date: "27 Aralık 2025"
     }

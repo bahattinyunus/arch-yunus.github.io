@@ -82,16 +82,16 @@ Bu repo; **Otonom İHA/SİHA Sistemleri**, **Büyük Dil Modelleri (LLM/Knowledg
 
 ## 💻 Amiral Gemisi Açık Kaynak Repolar
 
-- **[BeeRoute](https://github.com/arch-yunus/BeeRoute):** Bio-mimetic Yapay Arı Kolonisi (ABC) NP-Hard rota optimizasyonu ($O(G \cdot S \cdot n^2)$).
-- **[Tulpar-Aero-Simulator](https://github.com/arch-yunus/tulpar-aero-dynamics):** UE5 & ROS2 telemetri ve aerodinamik uçuş simülatörü.
-- **[Budak-Edge-Pruner](https://github.com/arch-yunus/budak-edge-ai):** PyTorch/ONNX %80 model budama ve INT8/INT4 cihaz üstü gizlilik motoru.
-- **[Anka-Distill-Core](https://github.com/arch-yunus/anka-silicon-dynamics):** 70B teacher modellerini 7B/8B student modellerine aktaran Knowledge Distillation mimarisi.
-- **[FezaArsivi](https://github.com/arch-yunus/FezaArsivi):** TÜBİTAK/TUA destekli radyo astronomi ve CubeSat telemetri merkezi.
-- **[Aura-Hockey-AR](https://github.com/arch-yunus/Aura-Hockey-AR):** MediaPipe & Three.js 3D WebGL Ankara AI Hackathon AR projesi.
-- **[Celik-MCU-RISCV-SDK](https://github.com/arch-yunus/Celik-MCU-SDK):** İlk yerli RISC-V çipi Çelik MCU için gömülü C++ SDK ve RTOS HAL katmanı.
-- **[Trabzon-Protocol-MQTT](https://github.com/arch-yunus/Trabzon-Protocol):** Denizcilik ve İHA telemetrisi için hafif asenkron ikili haberleşme protokolü.
-- **[Arkil-Mythos-Engine](https://github.com/arch-yunus/arkil-games):** Türk mitolojisi tabanlı prosedürel evren ve UE5 C++ davranış ağaçları motoru.
-- **[Math2Code-Guide](https://github.com/arch-yunus/Math2Code-A-Practical-Guide-for-Developers):** Matematiksel modelleri yüksek başarımlı koda dönüştürme rehberi (200+ Yıldız).
+- **[BeeRoute](https://github.com/bahattinyunus/BeeRoute):** Bio-mimetic Yapay Arı Kolonisi (ABC) NP-Hard rota optimizasyonu ($O(G \cdot S \cdot n^2)$).
+- **[Tulpar-Aero-Simulator](https://github.com/bahattinyunus/tulpar-aero-dynamics):** UE5 & ROS2 telemetri ve aerodinamik uçuş simülatörü.
+- **[Budak-Edge-Pruner](https://github.com/bahattinyunus/budak-edge-ai):** PyTorch/ONNX %80 model budama ve INT8/INT4 cihaz üstü gizlilik motoru.
+- **[Anka-Distill-Core](https://github.com/bahattinyunus/anka-silicon-dynamics):** 70B teacher modellerini 7B/8B student modellerine aktaran Knowledge Distillation mimarisi.
+- **[FezaArsivi](https://github.com/bahattinyunus/FezaArsivi):** TÜBİTAK/TUA destekli radyo astronomi ve CubeSat telemetri merkezi.
+- **[Aura-Hockey-AR](https://github.com/bahattinyunus/Aura-Hockey-AR):** MediaPipe & Three.js 3D WebGL Ankara AI Hackathon AR projesi.
+- **[Celik-MCU-RISCV-SDK](https://github.com/bahattinyunus/Celik-MCU-SDK):** İlk yerli RISC-V çipi Çelik MCU için gömülü C++ SDK ve RTOS HAL katmanı.
+- **[Trabzon-Protocol-MQTT](https://github.com/bahattinyunus/Trabzon-Protocol):** Denizcilik ve İHA telemetrisi için hafif asenkron ikili haberleşme protokolü.
+- **[Arkil-Mythos-Engine](https://github.com/bahattinyunus/arkil-games):** Türk mitolojisi tabanlı prosedürel evren ve UE5 C++ davranış ağaçları motoru.
+- **[Math2Code-Guide](https://github.com/bahattinyunus/Math2Code-A-Practical-Guide-for-Developers):** Matematiksel modelleri yüksek başarımlı koda dönüştürme rehberi (200+ Yıldız).
 
 ---
 
@@ -112,8 +112,8 @@ Bu repo; **Otonom İHA/SİHA Sistemleri**, **Büyük Dil Modelleri (LLM/Knowledg
 
 ```bash
 # 1. Depoyu klonlayın
-git clone https://github.com/arch-yunus/arch-yunus.github.io.git
-cd arch-yunus.github.io
+git clone https://github.com/bahattinyunus/bahattinyunus.github.io.git
+cd bahattinyunus.github.io
 
 # 2. Bağımlılıkları yükleyin
 npm install
@@ -131,8 +131,8 @@ npm run build
 
 - **E-Posta:** [bahattinyunuscetin@hotmail.com](mailto:bahattinyunuscetin@hotmail.com)
 - **LinkedIn:** [linkedin.com/in/bahattinyunus](https://www.linkedin.com/in/bahattinyunus/) (12.644+ Bağlantı & Takipçi)
-- **GitHub:** [github.com/arch-yunus](https://github.com/arch-yunus) (231+ Kamu Reposu)
-- **Medium:** [medium.com/@archyunus](https://medium.com/@archyunus)
+- **GitHub:** [github.com/bahattinyunus](https://github.com/bahattinyunus) (231+ Kamu Reposu)
+- **Medium:** [medium.com/@bahattinyunus](https://medium.com/@bahattinyunus)
 
 ---
 

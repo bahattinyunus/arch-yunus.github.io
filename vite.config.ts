@@ -1,6 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
-import fs from "node:fs";
 import path from "path";
 import { defineConfig } from "vite";
 
@@ -22,10 +21,20 @@ export default defineConfig({
     emptyOutDir: true,
     minify: "esbuild",
     sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-icons': ['lucide-react'],
+        },
+      },
+    },
   },
   server: {
     port: 3000,
-    strictPort: false, // Will find next available port if 3000 is busy
+    strictPort: false,
     host: true,
     allowedHosts: [
       ".manuspre.computer",

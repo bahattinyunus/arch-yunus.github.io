@@ -49,9 +49,16 @@ import {
   Activity,
   Terminal as TerminalIcon,
   ExternalLink,
+  Volume2,
+  VolumeX,
+  Zap,
 } from "lucide-react";
 import { CONTENT, IDENTITY } from "@/lib/portfolioContent";
 import { ProjectVisualMock } from "@/components/portfolio/ProjectMockups";
+import { CyberLabsModal, type CyberLabType } from "@/components/portfolio/CyberLabsModal";
+import { CuratedProjects } from "@/components/portfolio/CuratedProjects";
+import { VanguardAI } from "@/components/cyber-ui/VanguardAI";
+import { useCyberSound } from "@/hooks/use-cyber-sound";
 
 const SECTION_IDS = [
   "anasayfa",
@@ -87,7 +94,7 @@ const STATEMENT_TONE_CLASS = {
 const NOISE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
 /* ================================================================== */
-/*  Dil Yönetimi (Context)                                             */
+/*  Dil YÃ¶netimi (Context)                                             */
 /* ================================================================== */
 type LangType = "tr" | "en";
 interface LangContextType {
@@ -104,7 +111,7 @@ const LangCtx = createContext<LangContextType>({
 const useLang = () => useContext(LangCtx);
 
 /* ================================================================== */
-/*  Yardımcı Bileşenler ve Hook'lar                                    */
+/*  YardÄ±mcÄ± BileÅŸenler ve Hook'lar                                    */
 /* ================================================================== */
 function Reveal({
   children,
@@ -196,7 +203,7 @@ function useScrollSpy(ids: string[]) {
   return active;
 }
 
-// GitHub Canlı Verisi (Stats + Repolar)
+// GitHub CanlÄ± Verisi (Stats + Repolar)
 function useGithub(user: string, fallback: typeof IDENTITY.statsFallback) {
   const [data, setData] = useState({ stats: fallback, repos: [] as any[] });
   useEffect(() => {
@@ -226,7 +233,7 @@ function useGithub(user: string, fallback: typeof IDENTITY.statsFallback) {
           });
         }
       } catch {
-        /* Ağ hatası durumunda fallback değerlerde kal */
+        /* AÄŸ hatasÄ± durumunda fallback deÄŸerlerde kal */
       }
     })();
     return () => {
@@ -237,14 +244,14 @@ function useGithub(user: string, fallback: typeof IDENTITY.statsFallback) {
 }
 
 /* ================================================================== */
-/*  Navigasyon & Dil Seçici & Mobil Menü                               */
+/*  Navigasyon & Dil SeÃ§ici & Mobil MenÃ¼                               */
 /* ================================================================== */
 function LangSwitch({ className = "" }: { className?: string }) {
   const { lang, setLang } = useLang();
   return (
     <button
       onClick={() => setLang(lang === "tr" ? "en" : "tr")}
-      aria-label="Dil değiştir / Switch language"
+      aria-label="Dil deÄŸiÅŸtir / Switch language"
       className={`inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink transition-colors ${NAV_ACTION_INDICATOR} ${className}`}
     >
       <Globe className="h-3.5 w-3.5 text-accent" />
@@ -256,13 +263,14 @@ function LangSwitch({ className = "" }: { className?: string }) {
 const IS_MAC =
   typeof navigator !== "undefined" &&
   /Mac|iPhone|iPad|iPod/.test(navigator.platform || "");
-const META_LABEL = IS_MAC ? "⌘" : "Ctrl";
+const META_LABEL = IS_MAC ? "âŒ˜" : "Ctrl";
 
-function Navbar() {
+function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
   const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const active = useScrollSpy(SECTION_IDS);
+  const { playSound, isAmbientPlaying, toggleAmbient } = useCyberSound();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -294,7 +302,7 @@ function Navbar() {
               bahattinyunus
             </span>
             <span className="hidden rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-faint sm:inline-block">
-              ODTÜ & Hacettepe
+              ODTÃœ & Hacettepe
             </span>
           </a>
 
@@ -332,6 +340,30 @@ function Navbar() {
               </kbd>
             </button>
 
+            <button
+              type="button"
+              onClick={() => {
+                toggleAmbient();
+                playSound("click");
+              }}
+              title={isAmbientPlaying ? "Mute Cyber Audio Synth" : "Enable Procedural Cyber Audio"}
+              aria-label="Ses efektlerini aç/kapat"
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors ${
+                isAmbientPlaying
+                  ? "border-accent/60 bg-accent/15 text-accent shadow-[0_0_12px_rgba(214,255,63,0.3)]"
+                  : "border-line text-muted hover:border-line/80 hover:text-ink"
+              }`}
+            >
+              {isAmbientPlaying ? (
+                <Volume2 className="h-3.5 w-3.5 text-accent animate-pulse" />
+              ) : (
+                <VolumeX className="h-3.5 w-3.5 text-faint" />
+              )}
+              <span className="hidden 2xl:inline font-mono text-[10px]">
+                {isAmbientPlaying ? "AUDIO: ON" : "AUDIO: OFF"}
+              </span>
+            </button>
+
             <LangSwitch />
 
             <a
@@ -353,10 +385,25 @@ function Navbar() {
           </div>
 
           <div className="flex items-center gap-2 xl:hidden">
+            <button
+              type="button"
+              onClick={() => {
+                toggleAmbient();
+                playSound("click");
+              }}
+              aria-label="Ses"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink"
+            >
+              {isAmbientPlaying ? (
+                <Volume2 className="h-4 w-4 text-accent animate-pulse" />
+              ) : (
+                <VolumeX className="h-4 w-4 text-faint" />
+              )}
+            </button>
             <LangSwitch />
             <button
               onClick={() => setOpen(true)}
-              aria-label="Menü"
+              aria-label="MenÃ¼"
               className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink"
             >
               <Menu className="h-5 w-5" />
@@ -365,7 +412,7 @@ function Navbar() {
         </nav>
       </header>
 
-      {/* Mobil Menü */}
+      {/* Mobil MenÃ¼ */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -438,7 +485,7 @@ function Navbar() {
 }
 
 /* ================================================================== */
-/*  HERO Bölümü                                                        */
+/*  HERO BÃ¶lÃ¼mÃ¼                                                        */
 /* ================================================================== */
 const headlineParent = {
   hidden: {},
@@ -466,8 +513,8 @@ function AnimatedWord({ text }: { text: string }) {
   );
 }
 
-function Hero() {
-  const { t } = useLang();
+function Hero({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
+  const { t, lang } = useLang();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -560,20 +607,50 @@ function Hero() {
               {t.hero.tagline}
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-4">
-            <a
-              href="#projeler"
-              className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-canvas transition hover:opacity-90"
-            >
-              {t.hero.ctaProjects}
-              <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-            </a>
-            <a
-              href="#iletisim"
-              className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 text-sm font-medium text-ink transition hover:bg-surface"
-            >
-              {t.hero.ctaContact}
-            </a>
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="#projeler"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-canvas transition hover:opacity-90"
+              >
+                {t.hero.ctaProjects}
+                <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+              </a>
+              <a
+                href="#iletisim"
+                className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 text-sm font-medium text-ink transition hover:bg-surface"
+              >
+                {t.hero.ctaContact}
+              </a>
+            </div>
+
+            {/* Hizli Canli Simulatör Başlatıcıları */}
+            <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
+              <button
+                type="button"
+                onClick={() => onOpenLab?.("tulpar")}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-neon-blue/40 bg-neon-blue/10 text-neon-blue hover:bg-neon-blue/20 transition-all shadow-[0_0_15px_rgba(0,243,255,0.12)]"
+              >
+                <Plane className="h-3.5 w-3.5 animate-pulse" />
+                <span>🛫 {lang === "tr" ? "Uçuş Simülatörü (HUD)" : "Flight Deck HUD"}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onOpenLab?.("budak")}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-yellow-500/40 bg-yellow-500/10 text-yellow-400 hover:bg-yellow-500/20 transition-all shadow-[0_0_15px_rgba(234,179,8,0.12)]"
+              >
+                <Zap className="h-3.5 w-3.5 animate-pulse" />
+                <span>⚡ {lang === "tr" ? "Edge-AI Lab (%80)" : "Edge-AI Lab"}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("toggle-vanguard"))}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-line bg-surface/80 text-muted hover:text-ink hover:border-accent/40 transition-colors"
+              >
+                <Brain className="h-3.5 w-3.5 text-accent" />
+                <span>🧠 {lang === "tr" ? "Vanguard AI" : "Vanguard AI"}</span>
+              </button>
+            </div>
           </div>
         </motion.div>
       </motion.div>
@@ -582,7 +659,7 @@ function Hero() {
 }
 
 /* ================================================================== */
-/*  Kayan Şerit (Marquee Ticker)                                       */
+/*  Kayan Åerit (Marquee Ticker)                                       */
 /* ================================================================== */
 function Marquee() {
   const { t } = useLang();
@@ -590,7 +667,7 @@ function Marquee() {
   return (
     <div
       className="relative overflow-hidden border-y border-line py-5 bg-surface/30"
-      aria-label="Yetenek şeridi"
+      aria-label="Yetenek ÅŸeridi"
     >
       <div className="flex w-max items-center gap-10">
         <div className="flex w-max animate-marquee items-center gap-10 will-change-transform">
@@ -599,7 +676,7 @@ function Marquee() {
               <span className="font-display text-base uppercase tracking-wider text-muted">
                 {item}
               </span>
-              <span className="text-accent text-xs">✦</span>
+              <span className="text-accent text-xs">âœ¦</span>
             </span>
           ))}
         </div>
@@ -612,7 +689,7 @@ function Marquee() {
               <span className="font-display text-base uppercase tracking-wider text-muted">
                 {item}
               </span>
-              <span className="text-accent text-xs">✦</span>
+              <span className="text-accent text-xs">âœ¦</span>
             </span>
           ))}
         </div>
@@ -622,7 +699,7 @@ function Marquee() {
 }
 
 /* ================================================================== */
-/*  Hakkımda (About)                                                   */
+/*  HakkÄ±mda (About)                                                   */
 /* ================================================================== */
 function About() {
   const { t } = useLang();
@@ -842,7 +919,7 @@ function Skills() {
 }
 
 /* ================================================================== */
-/*  GitHub Canlı İstatistikleri                                         */
+/*  GitHub CanlÄ± Ä°statistikleri                                         */
 /* ================================================================== */
 function Counter({ value, duration = 2 }: { value: number; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -932,12 +1009,16 @@ function ProjectCard({
   reverse,
   viewLabel,
   statusLabel,
+  onOpenLab,
+  lang = "tr",
 }: {
   project: any;
   num: string;
   reverse: boolean;
   viewLabel: string;
   statusLabel: string;
+  onOpenLab?: (type: CyberLabType) => void;
+  lang?: "tr" | "en";
 }) {
   return (
     <Reveal y={0} x={reverse ? 80 : -80}>
@@ -951,7 +1032,7 @@ function ProjectCard({
             <span className="text-accent">({num})</span>
             <span className="h-px w-8 bg-line" />
             <span className="text-muted">{project.type}</span>
-            <span>·</span>
+            <span>Â·</span>
             <span>{project.year}</span>
             <span className="ml-auto rounded-full border border-line px-2.5 py-0.5 text-[10px]">
               {project.license}
@@ -1006,7 +1087,7 @@ function ProjectCard({
             ))}
           </div>
 
-          <div className="mt-8 flex items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
               href={project.github}
               target="_blank"
@@ -1016,6 +1097,28 @@ function ProjectCard({
               <Github className="h-4 w-4" /> {viewLabel}
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
             </a>
+
+            {(project.id === "tulpar-aero" || project.visualType === "tulpar") && (
+              <button
+                type="button"
+                onClick={() => onOpenLab?.("tulpar")}
+                className="inline-flex items-center gap-2 rounded-full border border-neon-blue/60 bg-neon-blue/15 px-4 py-2.5 text-xs font-mono font-semibold text-neon-blue hover:bg-neon-blue hover:text-black transition-all shadow-[0_0_20px_rgba(0,243,255,0.2)]"
+              >
+                <Plane className="h-3.5 w-3.5 animate-pulse" />
+                <span>{lang === "tr" ? "Canlı Uçuş Telemetrisi (HUD)" : "Launch Flight Deck HUD"}</span>
+              </button>
+            )}
+
+            {(project.id === "budak-edge" || project.visualType === "budak") && (
+              <button
+                type="button"
+                onClick={() => onOpenLab?.("budak")}
+                className="inline-flex items-center gap-2 rounded-full border border-yellow-500/60 bg-yellow-500/15 px-4 py-2.5 text-xs font-mono font-semibold text-yellow-400 hover:bg-yellow-500 hover:text-black transition-all shadow-[0_0_20px_rgba(234,179,8,0.2)]"
+              >
+                <Zap className="h-3.5 w-3.5 animate-pulse" />
+                <span>{lang === "tr" ? "%80 Model Budama Lab'ını Test Et" : "Test Edge-AI Pruning Lab"}</span>
+              </button>
+            )}
           </div>
         </div>
       </article>
@@ -1089,8 +1192,8 @@ function MoreRepos({
   );
 }
 
-function Projects() {
-  const { t } = useLang();
+function Projects({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
+  const { t, lang } = useLang();
   const p = t.projects;
   const { stats, repos } = useGithub(IDENTITY.githubUser, IDENTITY.statsFallback);
 
@@ -1112,9 +1215,13 @@ function Projects() {
             reverse={i % 2 === 1}
             viewLabel={p.view}
             statusLabel={p.statusLabel}
+            onOpenLab={onOpenLab}
+            lang={lang}
           />
         ))}
       </div>
+
+      <CuratedProjects lang={lang} onOpenLab={onOpenLab} />
 
       <MoreRepos repos={repos} labels={p.more} />
     </section>
@@ -1293,23 +1400,29 @@ function Certificates() {
 }
 
 /* ================================================================== */
-/*  İnteraktif CLI Terminal                                            */
+/*  Ä°nteraktif CLI Terminal                                            */
 /* ================================================================== */
 const TERMINAL_CMDS = [
   "help",
+  "tulpar",
+  "budak",
+  "vanguard",
   "whoami",
   "about",
   "skills",
   "projects",
   "ventures",
   "certs",
+  "education",
+  "pilot",
+  "stats",
   "contact",
   "social",
   "date",
   "clear",
 ];
 
-function InteractiveTerminal() {
+function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
   const { t, lang } = useLang();
   const tt = t.terminal;
   const prompt = `${tt.user}@${tt.host}:~$`;
@@ -1350,6 +1463,55 @@ function InteractiveTerminal() {
     const [name, ...rest] = trimmed.toLowerCase().split(/\s+/);
 
     switch (name) {
+      case "tulpar":
+        onOpenLab?.("tulpar");
+        return [
+          out("▸ TULPAR AERO-DYNAMICS // PX4 & ROS2 FLIGHT DECK BAŞLATILDI", "accent"),
+          out("  [AVİYONİK] 6-DoF Uçuş Dinamiği Motoru Aktif"),
+          out("  [TELEMETRİ] İrtifa: 1420m | Hız: 185 km/h | Batarya: %87 | Waypoint: WP-04"),
+          out("  İnteraktif telemetri HUD penceresi açıldı.", "muted"),
+        ];
+      case "budak":
+        onOpenLab?.("budak");
+        return [
+          out("▸ BUDAK // EDGE-AI %80 MODEL BUDAMA LABORATUVARI BAŞLATILDI", "accent"),
+          out("  [METRİK] Budama Oranı: %80 Yapılandırılmış | Nicemleme: INT4"),
+          out("  [PERFORMANS] Gecikme: 18ms | VRAM Tasarrufu: 11.2GB (%73)"),
+          out("  İnteraktif Edge-AI budama penceresi açıldı.", "muted"),
+        ];
+      case "vanguard":
+        window.dispatchEvent(new CustomEvent("toggle-vanguard"));
+        return [
+          out("▸ VANGUARD AI // TAKTİK ASİSTAN AKTİF EDİLDİ", "accent"),
+          out("  Siber taktik zeka asistanı ekranın sağ altında açıldı.", "muted"),
+        ];
+      case "pilot":
+        return [
+          out("▸ SİVİL HAVACILIK GENEL MÜDÜRLÜĞÜ (SHGM) PİLOTAJ LİSANSI", "accent"),
+          out("  Lisans No: TR-IHA1H10609053"),
+          out("  Kategori: İHA-1 Sportif / Amatör Ticari Pilot"),
+          out("  Durum: Doğrulandı ve Aktif"),
+        ];
+      case "education":
+        return [
+          out("▸ AKADEMİK EĞİTİM MATRİSİ:", "accent"),
+          out("  1. ODTÜ — Fizik Öğretmenliği (İngilizce Hazırlık) [2026 - Devam]"),
+          out("  2. Hacettepe Üniversitesi — Alternatif Enerji Kaynakları [2026 - Devam]"),
+          out("  3. Karadeniz Teknik Üniversitesi — Yazılım Mühendisliği [2023 - 2026]"),
+          out("  4. İstanbul Üniversitesi — Yönetim Bilişim Sistemleri (AUZEF) [2025 - 2029]"),
+          out("  5. Anadolu Üniversitesi — Bilgisayar Programcılığı (AÖF) [2025 - 2027]"),
+          out("  6. Atatürk Üniversitesi — Tarih (ATA-AÖF) [2026 - 2030]"),
+        ];
+      case "stats":
+        return [
+          out("▸ CANLI DOĞRULANMIŞ GÖSTERGELER:", "accent"),
+          out("  Açık Kaynak Repo: 231+ Public Repositories"),
+          out("  GitHub Yıldız: 1,500+ Stars"),
+          out("  GitHub Takipçi: 2,060+ Followers"),
+          out("  LinkedIn Bağlantı: 12,640+ Professionals"),
+          out("  Ar-Ge Girişimleri: 6 Lab (Arat, Tulpar, Arkıl, MERL, Budak, Anka)"),
+          out("  Sertifikalar: 120+ Onaylı Ulusal ve Uluslararası Belge"),
+        ];
       case "help":
         return [
           out(tt.helpTitle, "accent"),
@@ -1359,7 +1521,7 @@ function InteractiveTerminal() {
         ];
       case "whoami":
         return [
-          out(`${IDENTITY.name} · @${IDENTITY.handle}`, "accent"),
+          out(`${IDENTITY.name} Â· @${IDENTITY.handle}`, "accent"),
           out(t.hero.role),
           out(`Location: ${IDENTITY.location}`),
           out(`METU Physics & Hacettepe Alternative Energy`),
@@ -1372,32 +1534,32 @@ function InteractiveTerminal() {
         return [
           out(`${tt.labels.langs}:`, "accent"),
           ...t.skills.languages.map((l) =>
-            out(`  ▸ ${l.name.padEnd(10)} ${l.note}`)
+            out(`  â–¸ ${l.name.padEnd(10)} ${l.note}`)
           ),
           out(""),
           out(`${tt.labels.focus}:`, "accent"),
-          ...t.skills.focus.map((f) => out(`  ▸ ${f.title}`)),
+          ...t.skills.focus.map((f) => out(`  â–¸ ${f.title}`)),
         ];
       case "projects":
         return t.projects.items.flatMap((p) => [
-          out(`  ▸ ${p.name} (${p.year}) — ${p.type}`, "accent"),
+          out(`  â–¸ ${p.name} (${p.year}) â€” ${p.type}`, "accent"),
           out(`    ${p.github}`, "link"),
         ]);
       case "ventures":
         return [
           out("6 R&D Initiatives & Laboratories:", "accent"),
-          out("  1. Arat Labs — Next-Gen AI & Complex Systems"),
-          out("  2. Tulpar Aero-Dynamics — UAV/SİHA Flight & UE5 Sim"),
-          out("  3. Arkıl Games — Mythology & AI Mechanics"),
-          out("  4. MERL — Autonomous Code Synthesis Factory"),
-          out("  5. Budak — 80% Edge-AI Model Pruning"),
-          out("  6. Anka Silicon Dynamics — Embedded Hardware Co-Design"),
+          out("  1. Arat Labs â€” Next-Gen AI & Complex Systems"),
+          out("  2. Tulpar Aero-Dynamics â€” UAV/SÄ°HA Flight & UE5 Sim"),
+          out("  3. ArkÄ±l Games â€” Mythology & AI Mechanics"),
+          out("  4. MERL â€” Autonomous Code Synthesis Factory"),
+          out("  5. Budak â€” 80% Edge-AI Model Pruning"),
+          out("  6. Anka Silicon Dynamics â€” Embedded Hardware Co-Design"),
         ];
       case "certs":
         return [
           out(`${t.certificates.items.length} ${tt.labels.certCount}:`, "accent"),
           ...t.certificates.items.map((c) =>
-            out(`  ✓ [${c.code}] ${c.title} · ${c.issuer} (${c.date})`)
+            out(`  âœ“ [${c.code}] ${c.title} Â· ${c.issuer} (${c.date})`)
           ),
         ];
       case "contact":
@@ -1495,7 +1657,7 @@ function InteractiveTerminal() {
 
       <Reveal y={36} delay={0.05}>
         <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-[#09090c] shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)]">
-          {/* Başlık Çubuğu */}
+          {/* BaÅŸlÄ±k Ã‡ubuÄŸu */}
           <div className="flex items-center gap-3 border-b border-line bg-surface/80 px-4 py-3">
             <div className="flex items-center gap-2">
               <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -1507,7 +1669,7 @@ function InteractiveTerminal() {
             </span>
           </div>
 
-          {/* Gövde */}
+          {/* GÃ¶vde */}
           <div
             ref={bodyRef}
             onClick={() => inputRef.current?.focus()}
@@ -1531,7 +1693,7 @@ function InteractiveTerminal() {
               )
             )}
 
-            {/* Giriş Satırı */}
+            {/* GiriÅŸ SatÄ±rÄ± */}
             <div className="flex gap-2">
               <span className="shrink-0 text-accent">{prompt}</span>
               <input
@@ -1554,7 +1716,7 @@ function InteractiveTerminal() {
 }
 
 /* ================================================================== */
-/*  İletişim (Contact)                                                 */
+/*  Ä°letiÅŸim (Contact)                                                 */
 /* ================================================================== */
 function CopyEmail({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
@@ -1564,7 +1726,7 @@ function CopyEmail({ email }: { email: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* sessizce geç */
+      /* sessizce geÃ§ */
     }
   };
   return (
@@ -1638,7 +1800,7 @@ function Contact() {
 }
 
 /* ================================================================== */
-/*  Komut Paleti (⌘K / Ctrl+K)                                         */
+/*  Komut Paleti (âŒ˜K / Ctrl+K)                                         */
 /* ================================================================== */
 function CommandPalette() {
   const { t, lang, setLang } = useLang();
@@ -1665,6 +1827,36 @@ function CommandPalette() {
     return [
       ...sections,
       {
+        id: "tulpar-lab",
+        label: "🛫 Tulpar UAV Uçuş Simülatörü (HUD)",
+        hint: "Simülatörü Aç",
+        icon: Plane,
+        action: () => {
+          setOpen(false);
+          onOpenLab?.("tulpar");
+        },
+      },
+      {
+        id: "budak-lab",
+        label: "⚡ Budak Edge-AI %80 Model Budama Labı",
+        hint: "Laboratuvarı Aç",
+        icon: Zap,
+        action: () => {
+          setOpen(false);
+          onOpenLab?.("budak");
+        },
+      },
+      {
+        id: "vanguard-ai",
+        label: "🧠 Vanguard AI Siber Taktik Asistanı",
+        hint: "AI Ajanı Başlat",
+        icon: Brain,
+        action: () => {
+          setOpen(false);
+          window.dispatchEvent(new CustomEvent("toggle-vanguard"));
+        },
+      },
+      {
         id: "operations",
         label: "Siber Operasyonlar Merkezi (HUD)",
         hint: "Sayfayı Aç",
@@ -1679,8 +1871,29 @@ function CommandPalette() {
         action: () => (window.location.href = "/arsenal"),
       },
       {
+        id: "intelligence",
+        label: "120+ Sertifika, Eğitim & İstihbarat",
+        hint: "Sayfayı Aç",
+        icon: Award,
+        action: () => (window.location.href = "/intelligence"),
+      },
+      {
+        id: "doctrine",
+        label: "Mühendislik Doktrini & Manifestosu",
+        hint: "Sayfayı Aç",
+        icon: BrainCircuit,
+        action: () => (window.location.href = "/doctrine"),
+      },
+      {
+        id: "comms",
+        label: "Şifreli İletişim Hattı (Comms)",
+        hint: "Sayfayı Aç",
+        icon: Mail,
+        action: () => (window.location.href = "/comms"),
+      },
+      {
         id: "lang",
-        label: lang === "tr" ? "Switch to English" : "Türkçe'ye Geç",
+        label: lang === "tr" ? "Switch to English" : "TÃ¼rkÃ§e'ye GeÃ§",
         hint: t.cmd.lang,
         icon: Languages,
         action: () => setLang(lang === "tr" ? "en" : "tr"),
@@ -1694,14 +1907,14 @@ function CommandPalette() {
       },
       {
         id: "github",
-        label: `GitHub · @${IDENTITY.githubUser}`,
+        label: `GitHub Â· @${IDENTITY.githubUser}`,
         hint: t.cmd.open,
         icon: Github,
         action: () => window.open(IDENTITY.github, "_blank", "noopener"),
       },
       {
         id: "linkedin",
-        label: "LinkedIn · Bahattin Yunus",
+        label: "LinkedIn Â· Bahattin Yunus",
         hint: t.cmd.open,
         icon: Linkedin,
         action: () => window.open(IDENTITY.linkedin, "_blank", "noopener"),
@@ -1852,7 +2065,7 @@ function CommandPalette() {
 }
 
 /* ================================================================== */
-/*  Meteors (Düşen Yıldız Animasyonu)                                  */
+/*  Meteors (DÃ¼ÅŸen YÄ±ldÄ±z Animasyonu)                                  */
 /* ================================================================== */
 function Meteors({ count = 10 }: { count?: number }) {
   const meteors = useMemo(
@@ -1899,7 +2112,7 @@ function Footer() {
         className={`${WRAP} flex flex-col items-center justify-between gap-4 py-8 text-sm text-muted md:flex-row`}
       >
         <span>
-          © {new Date().getFullYear()} {IDENTITY.name} —{" "}
+          Â© {new Date().getFullYear()} {IDENTITY.name} â€”{" "}
           <span className="font-mono text-faint">@{IDENTITY.handle}</span>
         </span>
         <div className="flex flex-wrap items-center justify-center gap-5">
@@ -1931,7 +2144,7 @@ function Footer() {
 }
 
 /* ================================================================== */
-/*  Ana Sayfa Bileşeni                                                 */
+/*  Ana Sayfa BileÅŸeni                                                 */
 /* ================================================================== */
 export default function Home() {
   const [lang, setLang] = useState<LangType>(() => {
@@ -1939,6 +2152,7 @@ export default function Home() {
     const saved = window.localStorage.getItem("lang");
     return saved === "en" || saved === "tr" ? saved : "tr";
   });
+  const [activeLab, setActiveLab] = useState<CyberLabType>(null);
 
   useEffect(() => {
     window.localStorage.setItem("lang", lang);
@@ -1950,7 +2164,13 @@ export default function Home() {
   return (
     <LangCtx.Provider value={{ lang, setLang, t }}>
       <ScrollProgress />
-      <CommandPalette />
+      <CommandPalette onOpenLab={setActiveLab} />
+
+      {/* İnteraktif Siber Simülatör Modalı */}
+      <CyberLabsModal type={activeLab} onClose={() => setActiveLab(null)} lang={lang} />
+
+      {/* Vanguard AI Siber Asistan */}
+      <VanguardAI />
 
       {/* Radial Gradient Glow & Background Effects */}
       <div
@@ -1968,16 +2188,16 @@ export default function Home() {
         style={{ backgroundImage: NOISE }}
       />
 
-      <Navbar />
+      <Navbar onOpenLab={setActiveLab} />
 
       <main className="relative z-10">
-        <Hero />
+        <Hero onOpenLab={setActiveLab} />
         <Marquee />
         <About />
         <Skills />
-        <Projects />
+        <Projects onOpenLab={setActiveLab} />
         <Certificates />
-        <InteractiveTerminal />
+        <InteractiveTerminal onOpenLab={setActiveLab} />
         <Contact />
       </main>
 

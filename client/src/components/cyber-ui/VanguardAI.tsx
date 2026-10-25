@@ -41,6 +41,12 @@ export const VanguardAI = () => {
         }
     }, [messages, isOpen]);
 
+    useEffect(() => {
+        const handleToggle = () => setIsOpen(prev => !prev);
+        window.addEventListener("toggle-vanguard", handleToggle);
+        return () => window.removeEventListener("toggle-vanguard", handleToggle);
+    }, []);
+
     const generateResponse = (query: string): { text: string; action?: { label: string; path: string } } => {
         const q = query.toLowerCase().trim();
 
