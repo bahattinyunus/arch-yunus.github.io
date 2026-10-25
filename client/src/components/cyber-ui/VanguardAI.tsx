@@ -94,8 +94,8 @@ export const VanguardAI = () => {
 
         if (q.includes("eğitim") || q.includes("üniversite") || q.includes("okul") || q.includes("sertifika") || q.includes("lisans") || q.includes("btk") || q.includes("akademik")) {
             return {
-                text: "Akademik Eğitim:\n- Orta Doğu Teknik Ünv. (ODTÜ) (Fizik Öğretmenliği - İngilizce Hazırlık | 2026 – Devam Ediyor)\n- Hacettepe Ünv. (Alternatif Enerji Kaynakları Teknolojisi | 2026 – Devam Ediyor)\n- Karadeniz Teknik Ünv. (Yazılım Mühendisliği | 2023 – 2026)\n- İstanbul Ünv. (Yönetim Bilişim Sistemleri - Lisans | 2025 – 2029)\n- Anadolu Ünv. (Bilgisayar Programcılığı | 2025 – 2027)\n- Atatürk Ünv. (Tarih - Lisans | 2026 – 2030)\n\nAkreditasyonlar: SHGM İHA-1 Lisansı, TEI Havacılık Motorları, TÜBİTAK Uzay, T3 Vakfı Sualtı, TUA Interstellar ve BTK Akademi bünyesinde 120'den fazla onaylı sertifika.",
-                action: { label: "120+ Sertifika & Eğitim Kasası", path: "/intelligence" }
+                text: "Akademik Eğitim:\n- Orta Doğu Teknik Ünv. (ODTÜ) (Bilgisayar ve Öğretim Teknolojileri Eğitimi - BÖTE | 2026 – 2032)\n- Hacettepe Üniversitesi (2026 – 2030)\n- Karadeniz Teknik Ünv. (Yazılım Mühendisliği | 2024 – 2026)\n- Recep Tayyip Erdoğan Üniversitesi (2024 – 2026)\n- T.C. Gençlik ve Spor Bakanlığı Gönüllü Gençlik Lideri (2024 – Devam)\n- KTÜ Elektronik ve Haberleşme Kulübü Yönetim Kurulu Üyesi (2024 – 2025)\n- Türkiye–Fransa Gençlik Değişimi (66.500+ başvuru arasından seçilen 20 gençten biri; Avrupa Parlamentosu & AİHM)\n\nAkreditasyonlar: SHGM İHA-1 Lisansı, Siber Vatan Beyaz Şapkalı Hacker, TEI Havacılık Motorları, TÜBİTAK Uzay, TUA Interstellar ve 270'ten fazla onaylı sertifika.",
+                action: { label: "270+ Sertifika & Eğitim Kasası", path: "/intelligence" }
             };
         }
 
@@ -115,7 +115,7 @@ export const VanguardAI = () => {
 
         if (q.includes("iletişim") || q.includes("mail") || q.includes("contact") || q.includes("ulaş")) {
             return {
-                text: "Yunus Çetin ile bahattinyunuscetin@hotmail.com e-posta adresi, LinkedIn veya şifreli Comms kanalı üzerinden doğrudan güvenli bağlantı kurabilirsiniz.",
+                text: "Yunus Çetin ile bahattinyunusct1@gmail.com e-posta adresi, LinkedIn veya şifreli Comms kanalı üzerinden doğrudan güvenli bağlantı kurabilirsiniz.",
                 action: { label: "Comms Kanalını Aç", path: "/comms" }
             };
         }

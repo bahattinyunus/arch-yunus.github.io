@@ -5,6 +5,7 @@ export interface Identity {
   handle: string;
   githubUser: string;
   email: string;
+  phone?: string;
   location: string;
   github: string;
   linkedin: string;
@@ -22,7 +23,8 @@ export const IDENTITY: Identity = {
   lastName: "Yunus Çetin",
   handle: "bahattinyunus",
   githubUser: "bahattinyunus",
-  email: "bahattinyunuscetin@hotmail.com",
+  email: "bahattinyunusct1@gmail.com",
+  phone: "+90 551 668 86 24",
   location: "Ankara, Türkiye",
   github: "https://github.com/bahattinyunus",
   linkedin: "https://www.linkedin.com/in/bahattinyunus",
@@ -49,9 +51,9 @@ export const CONTENT = {
     hero: {
       available: "Yeni projelere & Ar-Ge işbirliklerine açığım",
       location: "Ankara, Türkiye",
-      role: "AI Developer · UAV Systems Architect · Embedded Systems",
+      role: "Developer · Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler",
       tagline:
-        "Otonom İHA aviyonik mimarisinden %80 Edge-AI model budamaya kadar; derin öğrenmeyi donanımla birleştiren, yüksek performanslı ve gerçek zamanlı sistemler inşa ediyorum.",
+        "ODTÜ BÖTE & Hacettepe | Yapay zekâ, siber güvenlik ve gömülü sistemler üzerine çalışan; yazılım ve donanım odaklı projeler, otonom sistemler ve veri modelleri inşa eden bir geliştirici.",
       ctaProjects: "Projelerim",
       ctaContact: "İletişime Geç",
     },
@@ -85,19 +87,19 @@ export const CONTENT = {
         { text: " çalışması beni heyecanlandırıyor.", tone: "normal" as const },
       ],
       paragraphs: [
-        "ODTÜ Fizik Öğretmenliği (İngilizce Hazırlık) ve Hacettepe Üniversitesi Alternatif Enerji Kaynakları Teknolojisi öğrencisi olarak; fiziksel dünya ile algoritmik zekanın kesiştiği otonom sistemler (ROS2), Büyük Dil Modelleri (LLM), Model Budama (%80 Edge-AI) ve Gömülü Sistemler üzerine yoğunlaşıyorum.",
-        "Python (PyTorch) ve C++17/20 hibrit teknoloji yığını üzerinde uzmanlaşırken; aviyonik mimari, UE5 tabanlı aerodinamik fizik simülasyonları ve saha operasyonlarını bizzat yürütüyorum. Arat Labs, Tulpar Aero-Dynamics, Arkıl Games, MERL, Budak ve Anka Silicon Dynamics ile savunma, yapay zeka ve otonom araç sektörlerine yönelik bağımsız çözümler üretiyorum.",
-        "Açık kaynak ekosisteminde 230'un üzerinde repo ve binlerce yıldızla küresel standartlarda teknoloji geliştiriyor; TEKNOFEST, BTK Akademi ve Sivil Havacılık Genel Müdürlüğü (SHGM İHA-1 Pilot Lisansı) gibi kurumlardan doğrulanmış sertifikalarla disiplinimi sürekli genişletiyorum.",
+        "Yazılım geliştirme, yapay zekâ, siber güvenlik ve gömülü sistemler alanlarında kendini sürekli geliştiren, veri yarışmaları ve hackathonlara aktif katılan bir geliştiriciyim. Python, JavaScript, C/C++ ve Go ile hem yazılım hem donanım odaklı projeler geliştiriyor; insansız hava ve sualtı araçları, havacılık-uzay ve girişimcilik alanlarında eğitim ve kamplara katılıyorum.",
+        "Orta Doğu Teknik Üniversitesi Bilgisayar ve Öğretim Teknolojileri Eğitimi (2026 – 2032) ve Hacettepe Üniversitesi (2026 – 2030) öğrenimimi sürdürürken; Karadeniz Teknik Üniversitesi Yazılım Mühendisliği ve Recep Tayyip Erdoğan Üniversitesi ile çok disiplinli bir akademik matris inşa ettim. T.C. Gençlik ve Spor Bakanlığı Gönüllü Gençlik Lideri ve KTÜ EHK Yönetim Kurulu Üyesi olarak topluluk ve teknoloji çalışmalarını yürütüyorum.",
+        "T.C. Gençlik ve Spor Bakanlığı – Türkiye Maarif Vakfı Türkiye–Fransa Gençlik Değişimi Programı'nda 66.500'ü aşkın başvuru arasından seçilen 20 gençten biri olarak Avrupa Parlamentosu ve AİHM ziyaretlerinde bulundum. Türkiye Siber Vatan Programı (Beyaz Şapkalı Hacker), TEI Havacılık Motorları Okulu, TÜBİTAK Uzay Kampı ve SHGM İHA-1 Lisansı ile 270'ten fazla onaylı belgeye sahibim.",
       ],
       facts: [
-        { label: "Üniversite (ODTÜ)", value: "Orta Doğu Teknik Üniversitesi (Fizik)" },
-        { label: "Üniversite (Hacettepe)", value: "Hacettepe Üniv. (Alternatif Enerji)" },
+        { label: "Üniversite (ODTÜ)", value: "ODTÜ (BÖTE / CEIT, 2026-2032)" },
+        { label: "Üniversite (Hacettepe)", value: "Hacettepe Üniversitesi (2026-2030)" },
+        { label: "Üniversite (KTÜ)", value: "Karadeniz Teknik Üniv. (Yazılım Müh.)" },
+        { label: "Üniversite (RTEÜ)", value: "Recep Tayyip Erdoğan Üniversitesi" },
+        { label: "Deneyim (GSB)", value: "Gönüllü Gençlik Lideri (2024-Devam)" },
+        { label: "Uluslararası Başarı", value: "Fransa Değişimi (20 / 66.500+)" },
         { label: "Açık Kaynak Repo", value: "231+ Public Repo" },
-        { label: "GitHub Takipçi", value: "2,060+ Geliştirici" },
-        { label: "GitHub Yıldız", value: "1,500+ Star" },
-        { label: "Girişim & Lab", value: "6 Ar-Ge İnisiyatifi" },
-        { label: "Sertifikalar", value: "15+ Doğrulanmış" },
-        { label: "Konum", value: "Ankara, Türkiye" },
+        { label: "Sertifikalar", value: "270+ Doğrulanmış Belge" },
       ],
     },
     skills: {
@@ -434,9 +436,9 @@ export const CONTENT = {
     hero: {
       available: "Available for new projects & R&D collaboration",
       location: "Ankara, Turkey",
-      role: "AI Developer · UAV Systems Architect · Embedded Systems",
+      role: "Developer · AI · Cyber Security · Embedded Systems",
       tagline:
-        "From autonomous UAV avionics architecture to 80% edge-AI model pruning; I engineer high-performance, real-time systems that bridge deep learning and bare-metal hardware.",
+        "METU CEIT & Hacettepe | Developer engineering high-performance systems across artificial intelligence, cybersecurity, and embedded robotics.",
       ctaProjects: "Explore Projects",
       ctaContact: "Get in Touch",
     },
@@ -469,19 +471,19 @@ export const CONTENT = {
         { text: "it is fusing with hardware to execute in autonomous systems with real-time zero latency.", tone: "accent" as const },
       ],
       paragraphs: [
-        "Studying Physics Education at METU (English Prep) and Alternative Energy Sources Technology at Hacettepe University; I specialize at the intersection of the physical world and algorithmic intelligence: Autonomous Systems (ROS2), Large Language Models (LLM), Model Pruning (80% Edge-AI), and Embedded Systems.",
-        "Mastering a hybrid stack of Python (PyTorch) and modern C++17/20, I personally direct avionics architecture, UE5-based aerodynamic physics simulation, and field deployment. Through Arat Labs, Tulpar Aero-Dynamics, Arkıl Games, MERL, Budak, and Anka Silicon Dynamics, I build sovereign solutions for defense, AI, and autonomous vehicles.",
-        "With 230+ open-source repositories and thousands of stars across the global developer community, I hold verified credentials from TEKNOFEST, BTK Akademi, and the Turkish Directorate General of Civil Aviation (DGCA SHGM UAV-1 Commercial Pilot License).",
+        "A developer continuously advancing in software engineering, artificial intelligence, cyber security, and embedded systems, actively competing in data science competitions and hackathons. Developing software and hardware solutions with Python, JavaScript, C/C++, and Go; participating in UAV, UUV, space-aerospace, and tech camps.",
+        "Studying at Middle East Technical University (METU - Computer Education and Instructional Technology, 2026–2032) and Hacettepe University (2026–2030), having built software engineering foundations at Karadeniz Technical University and RTEU. Serving as a Volunteer Youth Leader at the Ministry of Youth and Sports and Board Member at KTU Electronics & Communications Club.",
+        "Selected among the top 20 youth out of 66,500+ applicants in the Turkey–France International Youth Exchange Program (visiting the European Parliament, ECHR, and Strasbourg). Awarded credentials in Turkey Cyber Homeland (White Hat Hacker), TEI Aviation Engines School, TUBITAK Space Camp, and holding a DGCA (SHGM) UAV-1 Pilot License with 270+ verified certificates.",
       ],
       facts: [
-        { label: "University (METU)", value: "Middle East Technical University" },
-        { label: "University (Hacettepe)", value: "Hacettepe University (Energy)" },
+        { label: "University (METU)", value: "METU (CEIT, 2026-2032)" },
+        { label: "University (Hacettepe)", value: "Hacettepe University (2026-2030)" },
+        { label: "University (KTU)", value: "Karadeniz Technical Univ (Software Eng)" },
+        { label: "University (RTEU)", value: "Recep Tayyip Erdogan University" },
+        { label: "Experience (GSB)", value: "Volunteer Youth Leader (2024-Present)" },
+        { label: "Global Honor", value: "France Exchange (20 / 66,500+)" },
         { label: "Open Source Repos", value: "231+ Public Repos" },
-        { label: "GitHub Followers", value: "2,060+ Engineers" },
-        { label: "GitHub Stars", value: "1,500+ Stars" },
-        { label: "Ventures & Labs", value: "6 R&D Initiatives" },
-        { label: "Certifications", value: "15+ Verified" },
-        { label: "Location", value: "Ankara, Turkey" },
+        { label: "Certificates", value: "270+ Verified Credentials" },
       ],
     },
     skills: {

@@ -7,7 +7,7 @@ export const profileData = {
     username: "bahattinyunus",
     location: "Ankara, Türkiye",
     title: "AI Developer · UAV Systems Architect · Embedded Systems",
-    email: "bahattinyunuscetin@hotmail.com",
+    email: "bahattinyunusct1@gmail.com",
     bio: `ODTÜ Fizik Öğretmenliği (İngilizce Hazırlık) ve Hacettepe Üniversitesi Alternatif Enerji Kaynakları Teknolojisi öğrencisi; Otonom Sistemler (ROS2), Büyük Dil Modelleri (LLM), Model Budama (%80 Edge-AI) ve Gömülü Sistemler üzerine yoğunlaşan bir geliştirici ve teknoloji girişimcisiyim. Python (PyTorch) ve C++17/20 hibrit teknoloji yığını üzerinde uzmanlaşırken; donanım entegrasyonu, aviyonik mimari ve saha operasyonlarını bizzat yürütüyorum. Arat Labs, Tulpar Aero-Dynamics, Arkıl Games, MERL, Budak ve Anka Silicon Dynamics ile savunma, yapay zeka ve otonom araç sektörlerine yönelik bağımsız çözümler üretiyorum.`,
     tagline: "ODTÜ Fizik & Hacettepe Alternatif Enerji | AI Developer · UAV Systems Architect · Embedded Systems | Founder @ Arat Labs, Tulpar Aero, Arkıl, MERL, Budak & Anka",
     avatar_url: "/images/ai-avatar.jpg",

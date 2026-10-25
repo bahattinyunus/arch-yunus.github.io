@@ -2,7 +2,7 @@ import { CheckCircle2, Github, Linkedin, Mail, MapPin, Send } from "lucide-react
 import { useState } from "react";
 import { profileData } from "@/lib/data";
 
-const email = "bahattinyunuscetin@hotmail.com";
+const email = "bahattinyunusct1@gmail.com";
 
 export default function Comms() {
   const [sent, setSent] = useState(false);

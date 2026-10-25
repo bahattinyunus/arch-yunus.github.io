@@ -1495,7 +1495,7 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
       case "education":
         return [
           out("▸ AKADEMİK EĞİTİM MATRİSİ:", "accent"),
-          out("  1. ODTÜ — Fizik Öğretmenliği (İngilizce Hazırlık) [2026 - Devam]"),
+          out("  1. ODTÜ — Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE) [2026 - 2032]"),
           out("  2. Hacettepe Üniversitesi — Alternatif Enerji Kaynakları [2026 - Devam]"),
           out("  3. Karadeniz Teknik Üniversitesi — Yazılım Mühendisliği [2023 - 2026]"),
           out("  4. İstanbul Üniversitesi — Yönetim Bilişim Sistemleri (AUZEF) [2025 - 2029]"),
@@ -1524,7 +1524,7 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
           out(`${IDENTITY.name} Â· @${IDENTITY.handle}`, "accent"),
           out(t.hero.role),
           out(`Location: ${IDENTITY.location}`),
-          out(`METU Physics & Hacettepe Alternative Energy`),
+          out(`METU CEIT (2026-2032) · Hacettepe Univ · KTU Software Eng`),
         ];
       case "about":
         return t.about.facts.map((f) =>
