@@ -23,7 +23,7 @@ export function Intelligence() {
             AKADEMİK, TEKNİK & DOKTRİNEL ARŞİV
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/60 font-mono">
-            Havacılık (İHA-1), Otonom Sistemler, Edge-AI, 120+ Sertifika, Üniversite Eğitimleri ve Stratejik Mühendislik Doktrinleri.
+            Havacılık (İHA-1), Otonom Sistemler, Edge-AI, 266+ Lisans & Sertifika, Üniversite Eğitimleri ve Stratejik Mühendislik Doktrinleri.
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export function Intelligence() {
         <div className="flex flex-wrap gap-2">
           {[
             { id: "all", label: "TÜMÜ" },
-            { id: "certs", label: "120+ SERTİFİKA" },
+            { id: "certs", label: "266+ SERTİFİKA" },
             { id: "education", label: "EĞİTİM & PİLOTAJ" },
             { id: "articles", label: "DOKTRİNLER & YAZILAR" }
           ].map((tab) => (

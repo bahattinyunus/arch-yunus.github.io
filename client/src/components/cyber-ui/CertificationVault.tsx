@@ -1,276 +1,322 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, Search, Filter, ShieldCheck, CheckCircle, ExternalLink, Sparkles, BookOpen, Layers, Cpu, Terminal, Radio } from "lucide-react";
+import { 
+  Award, Search, Filter, ShieldCheck, CheckCircle2, Copy, Check, 
+  ExternalLink, Sparkles, Cpu, Terminal, Radio, Bookmark, Eye, Layers
+} from "lucide-react";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
+import { ALL_CERTIFICATES, CertificateRecord } from "@/lib/certificatesData";
 
-interface CertItem {
-  name: string;
-  issuer: string;
-  category: string;
-  date?: string;
-  credential_id?: string;
-}
-
-const certificationsData: CertItem[] = [
-  // 🤖 Yapay Zekâ & Büyük Dil Modelleri
-  { name: "Yapay Zekâya Giriş", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Yapay Zekâ Dünyasına Giriş", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Üretken Yapay Zekâya Giriş", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Yapay Zekâ ile Görsel Sentez", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Yapay Zekâ Etiği", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Yapay Zekâ Hukuku", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Uluslararası İlişkilerde Yapay Zekâ", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Araştırmada Üretken Yapay Zekâ Kullanımı", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Sosyal Medyada Yapay Zeka ile Dijital Pazarlama", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Makine Öğrenmesinin Matematiksel Temelleri", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Yapay Zeka ve Algoritmalarına Giriş", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Multimedya Veri Güvenliğinde Yapay Zekâ Kullanımı", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Anthropic Claude", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "ChatGPT", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "DeepSeek", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Manus AI", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "NotebookLM", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Perplexity", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "HeyGen", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "ElevenLabs", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Gemini Veo", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Hailuo AI", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Canva Magic Design", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Gamma", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Microsoft 365 Copilot ve Office Uygulamaları", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Üretken Yapay Zekâ ile Tercüme", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Üretken Yapay Zekâ ile Sunum Hazırlama", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-  { name: "Kişiselleştirilmiş GPT'ler", issuer: "BTK Akademi", category: "Yapay Zekâ & LLM" },
-
-  // 💻 Programlama & Yazılım Geliştirme
-  { name: "C Programlama Dili", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "C++ ile Programlamaya Giriş", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Python 1 – Yeni Başlayanlar", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Python 2", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Go ile Programlamaya Giriş", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Javascript Temelleri", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "HTML5 ile Web Geliştirme", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "CSS Temelleri", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Versiyon Kontrolü: Git ve GitHub", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Small Basic", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "MicroPython ile MicroBit Programlama", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Tinkercad ile Arduino Programlama", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Proteus ile Devre Tasarımı", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Temel Elektronik ve Robotiğe Giriş", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-  { name: "Articulate Storyline 360 ile İleri Seviye İçerik Hazırlama", issuer: "BTK Akademi", category: "Programlama & Yazılım" },
-
-  // 🔐 Siber Güvenlik & Ağ
-  { name: "Beyaz Şapkalı Hacker Eğitimi", issuer: "Siber Vatan (SSB)", category: "Siber Güvenlik & Ağ" },
-  { name: "Kamp+ Siber Güvenlik Kampı", issuer: "Bilgi Güvenliği Derneği", category: "Siber Güvenlik & Ağ" },
-  { name: "Siber Güvenliğe Giriş", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Temel Kriptografi", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Güvenlik Duvarına Giriş", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "SIEM Temelleri", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Bilgi Güvenliği Yönetim Sistemi (ISO 27001)", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Mobil Güvenlik ve Sızma Teknikleri", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Sosyal Mühendislik ve Oltalama", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "DoS/DDoS Saldırıları ve Koruma", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Telekomünikasyon Sistemleri Güvenliği", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Nesnelerin İnterneti (IoT) ve Güvenliği", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Uzaktan Erişim Araçları", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "API ve API Testi", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-  { name: "Web Sitesi Kullanılabilirliği", issuer: "BTK Akademi", category: "Siber Güvenlik & Ağ" },
-
-  // 🛸 Havacılık, Uzay & Otonom Sistemler
-  { name: "İHA-1 Sportif/Amatör Pilotaj Lisansı", issuer: "Sivil Havacılık Genel Müdürlüğü (SHGM)", category: "Havacılık & Otonom" },
-  { name: "6. Dönem Havacılık Motorları Okulu", issuer: "TEI - TUSAŞ Motor Sanayii A.Ş.", category: "Havacılık & Otonom" },
-  { name: "KAMP+ Havacılık ve Uzay Kampı (Bursa)", issuer: "T.C. GSB & TÜBİTAK", category: "Havacılık & Otonom" },
-  { name: "İnsansız Hava Araçlarına Giriş Eğitimi", issuer: "BTK Akademi", category: "Havacılık & Otonom" },
-  { name: "TUA Astro Hackathon (15 Açık Kaynak Proje)", issuer: "Türkiye Uzay Ajansı (TUA)", category: "Havacılık & Otonom" },
-  { name: "Ankara AI Hackathon '26 (Aura Hockey AR)", issuer: "BTK Akademi & Teknopark Ankara", category: "Havacılık & Otonom" },
-  { name: "Sualtı Sistemleri Eğitimi", issuer: "T3 Vakfı", category: "Havacılık & Otonom" },
-  { name: "INTERSTELLAR PROBLEM SOLVER", issuer: "Türkiye Uzay Ajansı (TUA)", category: "Havacılık & Otonom" },
-  { name: "ROTAMIZ UFKUN ÖTESİ", issuer: "KTÜ GEMİDTEK", category: "Havacılık & Otonom" },
-
-  // 📊 Veri Bilimi & Analitik
-  { name: "Veri Bilimi için Temel İstatistik", issuer: "BTK Akademi", category: "Veri & Analitik" },
-  { name: "Matematik 101", issuer: "BTK Akademi", category: "Veri & Analitik" },
-  { name: "Veri Okuryazarlığı", issuer: "BTK Akademi", category: "Veri & Analitik" },
-  { name: "Veri Okuryazarlığı Eğitimi", issuer: "23 | Yirmi Üç", category: "Veri & Analitik" },
-  { name: "Doküman Tipleri ve Veri Formatları", issuer: "BTK Akademi", category: "Veri & Analitik" },
-  { name: "Datathon 2025 Veri Yarışması", issuer: "BTK Akademi", category: "Veri & Analitik" },
-  { name: "Web Tabanlı Coğrafi Bilgi Sistemleri (GIS)", issuer: "BTK Akademi", category: "Veri & Analitik" },
-
-  // ⚙️ Proje Yönetimi & Standartlar
-  { name: "Proje Yönetimi", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "Proje Yönetim Temelleri", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "Proje ve Risk Yönetimi", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "Program ve Portföy Yönetimi", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "Uluslararası İş Analizi Metodolojisi ve Teknikleri", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "Kamu İhale Kanunu", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "Sözleşme Yönetimi Hukuku", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "TS EN 50600 Veri Merkezi Tesisleri Standardı", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-  { name: "Sitescope ile Sistem İzleme", issuer: "BTK Akademi", category: "Proje & Yönetim" },
-
-  // ⚖️ Hukuk & Fikri Mülkiyet
-  { name: "Patent ve Faydalı Modellerin Korunması", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "Markaların Korunması", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "Tasarımların Korunması", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "Coğrafi İşaretlerin Korunması", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "Fikri ve Sınai Mülkiyet Hakları", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "KVKK, GDPR Eğitim Seti", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "Bilişim Hukuku", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "İnternet Alan Adları Hukuku", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-  { name: "İnsan Haklarına Giriş", issuer: "BTK Akademi", category: "Hukuk & Fikri Mülkiyet" },
-
-  // 📈 Girişimcilik & Finans
-  { name: "Girişimcilik Temelleri", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Uygulamalı İş Modeli Üretimi", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Şirket Değerleme ve Yatırım Süreçleri", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Pazar Araştırması ve Fiyatlandırma Stratejileri", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Finansal Piyasalara Giriş", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Finansal Okuryazarlık", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Finansal Okuryazarlık Eğitimi", issuer: "23 | Yirmi Üç", category: "Girişimcilik & Finans" },
-  { name: "E-Ticarete Giriş", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Google Dijital Pazarlama Temelleri", issuer: "Google", category: "Girişimcilik & Finans" },
-  { name: "Sosyal Medyada Marka İletişimi ve İşbirlikleri", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-  { name: "Satış ve Pazarlama Yönetimi", issuer: "BTK Akademi", category: "Girişimcilik & Finans" },
-
-  // 🎓 Etkinlik & Zirveler
-  { name: "Ankara AI Hackathon", issuer: "Teknopark Ankara (Şub 2026)", category: "Etkinlik & Zirveler" },
-  { name: "Karadeniz Bilişim Zirvesi KBZ'26", issuer: "KTÜ YBS Kulübü (Nis 2026)", category: "Etkinlik & Zirveler" },
-  { name: "Ford Otosan Kariyer ve Gelişim Haftası", issuer: "Ford Otosan (Nis 2026)", category: "Etkinlik & Zirveler" },
-  { name: "Yapay Zeka Zirvesi 2024", issuer: "Türkiye Girişimcilik Vakfı", category: "Etkinlik & Zirveler" },
-  { name: "DATA&AI SUMMIT", issuer: "KTÜ Yapay Zeka Topluluğu", category: "Etkinlik & Zirveler" },
-  { name: "DevFest Trabzon", issuer: "GDG Trabzon (Ara 2024)", category: "Etkinlik & Zirveler" },
-  { name: "Android Atölyesi", issuer: "GDG Trabzon (May 2025)", category: "Etkinlik & Zirveler" },
-  { name: "8. Yazılım Günü", issuer: "KTÜ Yazılım Kulübü", category: "Etkinlik & Zirveler" },
-  { name: "Gençlik Vizyon Çalıştayı", issuer: "Gençlik ve Spor Bakanlığı", category: "Etkinlik & Zirveler" },
-  { name: "Hüyük Gençlik Kampı", issuer: "Gençlik ve Spor Bakanlığı", category: "Etkinlik & Zirveler" },
-  { name: "21. Yüzyılda Sahadan Akademiye Uluslararası Terörizm", issuer: "Türk Dünyası Gençlik Vakfı", category: "Etkinlik & Zirveler" },
-  { name: "Türk Kültür Mitolojisinde Türeyiş-Yeniden Doğuş Sembolü: Kurt", issuer: "Türk Dünyası Gençlik Vakfı", category: "Etkinlik & Zirveler" },
-
-  // 🌱 Kişisel Gelişim & Soft Skills
-  { name: "Etkili İletişim Stratejileri", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Topluluk Önünde Konuşma ve Sunum Teknikleri", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Girişimcilikte Sunum Teknikleri ve İletişim Yönetimi", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "İkna Becerileri", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Problem Çözme Teknikleri", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Ekip Kurma ve Yönetme", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Mülakat Teknikleri", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Kariyerde Hedef Belirleme", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Kariyeri Tehdit Eden Yaklaşımlar", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "Stresle Başa Çıkma ve Bilinçli Farkındalık", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "İletişim ve Network Yönetimi", issuer: "BTK Akademi", category: "Kişisel Gelişim" },
-  { name: "LinkedIn'de Etkili Profil Oluşturma", issuer: "BTK Akademi", category: "Kişisel Gelişim" }
-];
+// Önemli kurum rozetleri
+const ISSUER_BADGES: Record<string, { bg: string; text: string; border: string }> = {
+  "BTK Akademi": { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/30" },
+  "Bilgeİş": { bg: "bg-emerald-500/10", text: "text-emerald-400", border: "border-emerald-500/30" },
+  "Turkcell Geleceği Yazanlar": { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30" },
+  "T3 Akademi": { bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/30" },
+  "TBD TÜRKİYE BİLİŞİM DERNEĞİ": { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30" },
+  "Sivil Havacılık Genel Müdürlüğü (SHGM)": { bg: "bg-cyan-500/10", text: "text-cyan-400", border: "border-cyan-500/30" },
+  "TEI - TUSAŞ Motor Sanayii A.Ş.": { bg: "bg-sky-500/10", text: "text-sky-400", border: "border-sky-500/30" },
+  "Siber Vatan (SSB)": { bg: "bg-neon-magenta/10", text: "text-neon-magenta", border: "border-neon-magenta/30" }
+};
 
 export const CertificationVault: React.FC = () => {
   const { playSound } = useCyberSound();
   const [search, setSearch] = useState("");
-  const [selectedCat, setSelectedCat] = useState<string>("ALL");
+  const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
+  const [selectedIssuer, setSelectedIssuer] = useState<string>("ALL");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [displayCount, setDisplayCount] = useState<number>(24);
 
-  const categories = useMemo(() => {
-    const cats = new Set<string>();
-    certificationsData.forEach((c) => cats.add(c.category));
-    return ["ALL", ...Array.from(cats)];
-  }, []);
+  // Kategori tanımları
+  const categories = [
+    { id: "ALL", label: "Tüm Sertifikalar", count: ALL_CERTIFICATES.length },
+    { id: "software", label: "Yazılım & Web", count: ALL_CERTIFICATES.filter(c => c.category === "software").length },
+    { id: "ai", label: "Yapay Zekâ & Veri", count: ALL_CERTIFICATES.filter(c => c.category === "ai").length },
+    { id: "cyber", label: "Siber Güvenlik", count: ALL_CERTIFICATES.filter(c => c.category === "cyber").length },
+    { id: "embedded", label: "Gömülü & Donanım", count: ALL_CERTIFICATES.filter(c => c.category === "embedded").length },
+    { id: "business", label: "Girişim & Yönetim", count: ALL_CERTIFICATES.filter(c => c.category === "business").length },
+    { id: "general", label: "Kişisel & Kamu", count: ALL_CERTIFICATES.filter(c => c.category === "general").length },
+  ];
 
+  // Başlıca Kurumlar
+  const topIssuers = [
+    "ALL",
+    "BTK Akademi",
+    "Bilgeİş",
+    "Turkcell Geleceği Yazanlar",
+    "T3 Akademi",
+    "TBD TÜRKİYE BİLİŞİM DERNEĞİ",
+    "Diğer Kurumlar"
+  ];
+
+  // Filtreleme
   const filteredCerts = useMemo(() => {
-    return certificationsData.filter((cert) => {
-      const matchCat = selectedCat === "ALL" || cert.category === selectedCat;
+    return ALL_CERTIFICATES.filter((cert) => {
+      const matchCategory = selectedCategory === "ALL" || cert.category === selectedCategory;
+      
+      let matchIssuer = true;
+      if (selectedIssuer === "Diğer Kurumlar") {
+        matchIssuer = !["BTK Akademi", "Bilgeİş", "Turkcell Geleceği Yazanlar", "T3 Akademi", "TBD TÜRKİYE BİLİŞİM DERNEĞİ"].includes(cert.issuer);
+      } else if (selectedIssuer !== "ALL") {
+        matchIssuer = cert.issuer.toLowerCase().includes(selectedIssuer.toLowerCase());
+      }
+
+      const q = search.trim().toLowerCase();
       const matchSearch =
-        cert.name.toLowerCase().includes(search.toLowerCase()) ||
-        cert.issuer.toLowerCase().includes(search.toLowerCase()) ||
-        cert.category.toLowerCase().includes(search.toLowerCase());
-      return matchCat && matchSearch;
+        !q ||
+        cert.title.toLowerCase().includes(q) ||
+        cert.issuer.toLowerCase().includes(q) ||
+        (cert.code && cert.code.toLowerCase().includes(q)) ||
+        (cert.date && cert.date.toLowerCase().includes(q));
+
+      return matchCategory && matchIssuer && matchSearch;
     });
-  }, [search, selectedCat]);
+  }, [search, selectedCategory, selectedIssuer]);
+
+  const displayedList = useMemo(() => {
+    return filteredCerts.slice(0, displayCount);
+  }, [filteredCerts, displayCount]);
+
+  const copyCredential = (code: string, id: string) => {
+    if (!code || code === "—") return;
+    navigator.clipboard.writeText(code);
+    setCopiedId(id);
+    playSound("click");
+    setTimeout(() => setCopiedId(null), 2500);
+  };
 
   return (
-    <div className="space-y-6">
-      {/* Header Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-white/5 border border-white/10 rounded-2xl">
-        <div className="flex items-center gap-3">
-          <div className="p-3 bg-neon-blue/10 border border-neon-blue/40 rounded-xl text-neon-blue">
-            <Award className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-[family-name:var(--font-display)] font-bold text-white tracking-wide">
-              120+ SERTİFİKA, AKREDİTASYON & ZİRVE KASASI
-            </h3>
-            <p className="text-xs font-mono text-white/50">
-              BTK AKADEMİ · SİBER VATAN · SHGM İHA-1 · TUA · TÜBİTAK · T3 VAKFI
+    <div className="space-y-8" id="certification-vault">
+      {/* Üst Başlık & İstatistik Paneli */}
+      <div className="relative overflow-hidden p-6 md:p-8 bg-gradient-to-br from-black/80 via-black/50 to-neon-blue/5 border border-white/10 rounded-2xl">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-neon-blue/5 blur-3xl pointer-events-none" />
+        
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neon-blue/10 border border-neon-blue/30 text-neon-blue text-xs font-mono">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>RESMİ AKREDİTASYON & YETKİNLİK SİCİLİ</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-display)] font-extrabold text-white tracking-wide">
+              LİSANSLAR VE SERTİFİKALAR <span className="text-neon-blue font-mono text-2xl">({ALL_CERTIFICATES.length}+)</span>
+            </h2>
+            <p className="text-sm font-mono text-white/60 max-w-2xl leading-relaxed">
+              T.C. Cumhurbaşkanlığı İnsan Kaynakları Ofisi, BTK Akademi, ODTÜ destekli Bilgeİş, Turkcell Geleceği Yazanlar, T3 Vakfı ve SHGM onaylı pilotaj ve mühendislik akreditasyonları.
             </p>
           </div>
-        </div>
 
-        <div className="flex items-center gap-2 font-mono text-xs text-white/60">
-          <span className="px-3 py-1.5 bg-neon-blue/10 border border-neon-blue/30 text-neon-blue rounded-lg font-bold">
-            {certificationsData.length} TOPLAM AKREDİTASYON
-          </span>
+          {/* İstatistik Metrikleri */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
+            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+              <span className="text-2xl font-bold text-neon-blue block">266+</span>
+              <span className="text-[10px] text-white/50 uppercase">Sertifika</span>
+            </div>
+            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+              <span className="text-2xl font-bold text-emerald-400 block">70+</span>
+              <span className="text-[10px] text-white/50 uppercase">Bilgeİş (ODTÜ)</span>
+            </div>
+            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+              <span className="text-2xl font-bold text-amber-400 block">100+</span>
+              <span className="text-[10px] text-white/50 uppercase">BTK Akademi</span>
+            </div>
+            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+              <span className="text-2xl font-bold text-red-400 block">İHA-1</span>
+              <span className="text-[10px] text-white/50 uppercase">SHGM Pilot</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Search & Category Filter Pills */}
+      {/* Kontrol Çubuğu (Arama & Filtreler) */}
       <div className="space-y-4">
+        {/* Arama Barı */}
         <div className="relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neon-blue" />
           <input
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Sertifika adı, kurum (BTK, Siber Vatan, SHGM...) veya yetkinlik ara..."
-            className="w-full pl-10 pr-4 py-3 bg-black/60 border border-white/15 rounded-xl text-sm font-mono text-white placeholder:text-white/30 focus:outline-none focus:border-neon-blue transition-all"
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setDisplayCount(24);
+            }}
+            placeholder="Sertifika adı, kurum veya kimlik numarası (Credential ID) ile ara..."
+            className="w-full pl-11 pr-4 py-3.5 bg-black/70 border border-white/15 focus:border-neon-blue rounded-xl text-sm font-mono text-white placeholder:text-white/30 outline-none transition-all shadow-[0_0_20px_rgba(0,0,0,0.5)]"
           />
-        </div>
-
-        {/* Category Buttons */}
-        <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setSelectedCat(cat);
-                playSound("click");
-              }}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-all ${
-                selectedCat === cat
-                  ? "border-neon-blue bg-neon-blue/20 text-neon-blue font-bold shadow-[0_0_10px_rgba(0,243,255,0.2)]"
-                  : "border-white/10 text-white/50 hover:text-white hover:border-white/30"
-              }`}
+          {search && (
+            <button 
+              onClick={() => setSearch("")}
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-mono text-white/40 hover:text-white"
             >
-              {cat} {cat === "ALL" && `(${certificationsData.length})`}
+              Temizle
             </button>
-          ))}
+          )}
+        </div>
+
+        {/* Kategori Sekmeleri */}
+        <div className="flex flex-wrap gap-2">
+          {categories.map((cat) => {
+            const active = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  setSelectedCategory(cat.id);
+                  setDisplayCount(24);
+                  playSound("click");
+                }}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-mono border transition-all flex items-center gap-1.5 ${
+                  active
+                    ? "bg-neon-blue/20 border-neon-blue text-neon-blue font-bold shadow-[0_0_12px_rgba(0,243,255,0.25)]"
+                    : "bg-white/5 border-white/10 text-white/60 hover:text-white hover:border-white/20"
+                }`}
+              >
+                <span>{cat.label}</span>
+                <span className={`text-[10px] px-1.5 py-0.2 rounded ${active ? "bg-neon-blue text-black font-bold" : "bg-white/10 text-white/40"}`}>
+                  {cat.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Kurum Hızlı Filtreleri */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs font-mono">
+          <span className="text-white/40 text-[11px] shrink-0 flex items-center gap-1">
+            <Filter className="w-3 h-3" /> Kurum:
+          </span>
+          {topIssuers.map((issuer) => {
+            const active = selectedIssuer === issuer;
+            return (
+              <button
+                key={issuer}
+                onClick={() => {
+                  setSelectedIssuer(issuer);
+                  setDisplayCount(24);
+                  playSound("click");
+                }}
+                className={`px-2.5 py-1 rounded text-[11px] whitespace-nowrap transition-all ${
+                  active
+                    ? "bg-white text-black font-bold"
+                    : "bg-white/5 text-white/60 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                {issuer === "ALL" ? "Tüm Kurumlar" : issuer}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Certifications Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {filteredCerts.map((cert, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: Math.min(idx * 0.02, 0.4) }}
-            className="p-4 bg-white/[0.03] border border-white/10 hover:border-neon-blue/40 rounded-xl transition-all group relative overflow-hidden"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-white/50 border border-white/5">
-                  {cert.category}
-                </span>
-                <h4 className="text-sm font-semibold text-white group-hover:text-neon-blue transition-colors leading-snug pt-1">
-                  {cert.name}
-                </h4>
-                <p className="text-xs font-mono text-neon-blue/70 flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-emerald-400" /> {cert.issuer}
-                </p>
-              </div>
-
-              <div className="p-1.5 bg-white/5 rounded-lg text-white/30 group-hover:text-neon-blue group-hover:bg-neon-blue/10 transition-colors shrink-0">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
-              </div>
-            </div>
-          </motion.div>
-        ))}
+      {/* Sonuç Sayısı ve Sıralama Bilgisi */}
+      <div className="flex items-center justify-between text-xs font-mono text-white/40 border-b border-white/10 pb-2">
+        <span>Filtrelenen: <strong className="text-white">{filteredCerts.length}</strong> / {ALL_CERTIFICATES.length} sertifika</span>
+        <span>Gösterilen: 1 - {Math.min(displayCount, filteredCerts.length)}</span>
       </div>
+
+      {/* Sertifika Kartları Grid'i */}
+      {displayedList.length === 0 ? (
+        <div className="p-12 text-center bg-white/5 border border-white/10 rounded-2xl space-y-3">
+          <Sparkles className="w-8 h-8 text-white/30 mx-auto" />
+          <p className="text-white/70 font-mono text-sm">Arama kriterlerine uygun sertifika bulunamadı.</p>
+          <button
+            onClick={() => {
+              setSearch("");
+              setSelectedCategory("ALL");
+              setSelectedIssuer("ALL");
+            }}
+            className="px-4 py-2 bg-neon-blue/20 border border-neon-blue/40 text-neon-blue font-mono text-xs rounded-lg hover:bg-neon-blue/30 transition-all"
+          >
+            Filtreleri Sıfırla
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {displayedList.map((cert, index) => {
+            const badge = ISSUER_BADGES[cert.issuer] || { bg: "bg-white/5", text: "text-white/70", border: "border-white/10" };
+            const isCopied = copiedId === cert.id;
+            const hasCode = cert.code && cert.code !== "—";
+
+            return (
+              <motion.div
+                key={cert.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, delay: Math.min(index * 0.015, 0.3) }}
+                className="group relative p-5 bg-gradient-to-br from-white/[0.04] to-transparent border border-white/10 hover:border-neon-blue/50 rounded-xl transition-all flex flex-col justify-between hover:shadow-[0_0_20px_rgba(0,243,255,0.1)]"
+              >
+                <div>
+                  {/* Üst Bar: Kurum & Tarih */}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${badge.bg} ${badge.text} ${badge.border} truncate max-w-[200px]`}>
+                      {cert.issuer}
+                    </span>
+                    <span className="text-[10px] font-mono text-white/40 shrink-0">
+                      {cert.date}
+                    </span>
+                  </div>
+
+                  {/* Sertifika Başlığı */}
+                  <h3 className="text-sm font-semibold text-white group-hover:text-neon-blue transition-colors line-clamp-2 leading-snug">
+                    {cert.title}
+                  </h3>
+                </div>
+
+                {/* Alt Bar: Doğrulama Kodu / Credential ID */}
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between gap-2 font-mono text-[11px]">
+                  {hasCode ? (
+                    <div className="flex items-center justify-between w-full">
+                      <span className="text-white/40 truncate text-[10px] max-w-[170px]" title={cert.code}>
+                        ID: <code className="text-white/70">{cert.code}</code>
+                      </span>
+                      <button
+                        onClick={() => copyCredential(cert.code, cert.id)}
+                        className={`p-1.5 rounded transition-all flex items-center gap-1 text-[10px] ${
+                          isCopied
+                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
+                            : "bg-white/5 hover:bg-neon-blue/20 text-white/50 hover:text-neon-blue border border-white/5 hover:border-neon-blue/30"
+                        }`}
+                        title="Kimlik Numarasını Kopyala"
+                      >
+                        {isCopied ? (
+                          <>
+                            <Check className="w-3 h-3" />
+                            <span>Kopyalandı</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3 h-3" />
+                            <span>Kopyala</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between w-full text-white/30 text-[10px]">
+                      <span>Onaylı Sicil Kaydı</span>
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Daha Fazla Göster Butonu */}
+      {filteredCerts.length > displayCount && (
+        <div className="text-center pt-4">
+          <button
+            onClick={() => {
+              setDisplayCount(prev => prev + 24);
+              playSound("click");
+            }}
+            className="px-6 py-3 bg-neon-blue/15 hover:bg-neon-blue/25 border border-neon-blue/40 hover:border-neon-blue text-neon-blue font-mono text-sm rounded-xl transition-all shadow-[0_0_15px_rgba(0,243,255,0.2)]"
+          >
+            Daha Fazla Göster (+{Math.min(24, filteredCerts.length - displayCount)} / {filteredCerts.length - displayCount} Kalan)
+          </button>
+        </div>
+      )}
     </div>
   );
 };

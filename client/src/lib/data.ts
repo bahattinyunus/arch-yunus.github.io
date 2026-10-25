@@ -8,8 +8,8 @@ export const profileData = {
     location: "Ankara, Türkiye",
     title: "AI Developer · UAV Systems Architect · Embedded Systems",
     email: "bahattinyunusct1@gmail.com",
-    bio: `ODTÜ Fizik Öğretmenliği (İngilizce Hazırlık) ve Hacettepe Üniversitesi Alternatif Enerji Kaynakları Teknolojisi öğrencisi; Otonom Sistemler (ROS2), Büyük Dil Modelleri (LLM), Model Budama (%80 Edge-AI) ve Gömülü Sistemler üzerine yoğunlaşan bir geliştirici ve teknoloji girişimcisiyim. Python (PyTorch) ve C++17/20 hibrit teknoloji yığını üzerinde uzmanlaşırken; donanım entegrasyonu, aviyonik mimari ve saha operasyonlarını bizzat yürütüyorum. Arat Labs, Tulpar Aero-Dynamics, Arkıl Games, MERL, Budak ve Anka Silicon Dynamics ile savunma, yapay zeka ve otonom araç sektörlerine yönelik bağımsız çözümler üretiyorum.`,
-    tagline: "ODTÜ Fizik & Hacettepe Alternatif Enerji | AI Developer · UAV Systems Architect · Embedded Systems | Founder @ Arat Labs, Tulpar Aero, Arkıl, MERL, Budak & Anka",
+    bio: `ODTÜ Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE / CEIT) ve Hacettepe Üniversitesi öğrencisi; Otonom Sistemler (ROS2), Büyük Dil Modelleri (LLM), Model Budama (%80 Edge-AI), Siber Güvenlik ve Gömülü Sistemler üzerine yoğunlaşan bir geliştirici ve teknoloji üreticisiyim. Python (PyTorch) ve C++17/20 hibrit teknoloji yığını üzerinde uzmanlaşırken; donanım entegrasyonu, aviyonik mimari ve saha operasyonlarını bizzat yürütüyorum. Arat Labs, Tulpar Aero-Dynamics, Arkıl Games, MERL, Budak ve Anka Silicon Dynamics ile savunma, yapay zeka ve otonom araç sektörlerine yönelik bağımsız çözümler üretiyorum.`,
+    tagline: "ODTÜ BÖTE & Hacettepe | Developer | Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler | Founder @ Arat Labs, Tulpar Aero, Arkıl, MERL, Budak & Anka",
     avatar_url: "/images/ai-avatar.jpg",
     github_url: "https://github.com/bahattinyunus",
     linkedin_url: "https://www.linkedin.com/in/bahattinyunus",
@@ -142,28 +142,36 @@ export const profileData = {
   ],
   education: [
     {
-      school: "Orta Doğu Teknik Üniversitesi",
+      school: "Orta Doğu Teknik Üniversitesi (ODTÜ)",
       degree: "Lisans",
-      field: "Fizik Öğretmenliği (İngilizce Hazırlık)",
-      period: "2026 – Devam Ediyor",
+      field: "Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE / CEIT)",
+      period: "2026 – 2032",
       icon: "Orbit",
-      description: "Temel fizik prensipleri, analitik düşünme, kuantum ve mekanik temelleri ile ileri düzey pedagojik ve bilimsel formasyon (İngilizce Hazırlık Eğitimi)."
+      description: "Yazılım geliştirme, eğitim teknolojileri, algoritmik düşünme, yapay zekâ entegrasyonu ve ileri seviye teknoloji eğitimi."
     },
     {
       school: "Hacettepe Üniversitesi",
-      degree: "Ön Lisans",
-      field: "Alternatif Enerji Kaynakları Teknolojisi",
-      period: "2026 – Devam Ediyor",
+      degree: "Lisans / Ön Lisans",
+      field: "Mühendislik & Teknoloji Formasyonu",
+      period: "2026 – 2030",
       icon: "Zap",
-      description: "Yenilenebilir ve alternatif enerji teknolojileri, enerji depolama sistemleri, donanım güç optimizasyonu ve otonom sistemlerde sürdürülebilir enerji yönetimi."
+      description: "İleri teknoloji sistemleri, enerji, veri analitiği ve otonom sistemlerde donanım-yazılım optimizasyonu."
     },
     {
-      school: "Karadeniz Teknik Üniversitesi",
+      school: "Karadeniz Teknik Üniversitesi (KTÜ)",
       degree: "Lisans",
       field: "Yazılım Mühendisliği",
-      period: "2023 – 2026",
+      period: "2024 – 2026",
       icon: "Terminal",
       description: "Sistem mimarisi, AI/LLM entegrasyonu, stokastik optimizasyon (BeeRoute), düşük seviyeli sistem tasarımı ve ileri seviye yazılım mühendisliği."
+    },
+    {
+      school: "Recep Tayyip Erdoğan Üniversitesi (RTEÜ)",
+      degree: "Önlisans / Lisans",
+      field: "Bilişim ve Teknoloji",
+      period: "2024 – 2026",
+      icon: "Cpu",
+      description: "Gömülü sistemler, mikrodenetleyiciler ve bilişim sistemleri altyapısı."
     },
     {
       school: "İstanbul Üniversitesi",

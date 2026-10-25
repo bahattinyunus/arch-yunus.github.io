@@ -282,8 +282,8 @@ export const CONTENT = {
     },
     certificates: {
       index: "04",
-      title: "Sertifikalar",
-      kicker: "Doğrulanmış yetkinlikler & akreditasyonlar",
+      title: "Lisanslar & Sertifikalar (266+)",
+      kicker: "Doğrulanmış yetkinlikler, ODTÜ Bilgeİş, BTK Akademi & SHGM Pilotaj Akreditasyonları",
       verified: "Doğrulandı",
       validates: "Yetkinlik",
       view: "İncele",
