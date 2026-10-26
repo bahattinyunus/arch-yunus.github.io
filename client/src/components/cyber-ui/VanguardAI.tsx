@@ -115,7 +115,7 @@ export const VanguardAI = () => {
 
         if (q.includes("iletişim") || q.includes("mail") || q.includes("contact") || q.includes("ulaş")) {
             return {
-                text: "Yunus Çetin ile bahattinyunusct1@gmail.com e-posta adresi, LinkedIn veya şifreli Comms kanalı üzerinden doğrudan güvenli bağlantı kurabilirsiniz.",
+                text: "Yunus Çetin ile bahattinyunuscetin1@gmail.com e-posta adresi, LinkedIn veya şifreli Comms kanalı üzerinden doğrudan güvenli bağlantı kurabilirsiniz.",
                 action: { label: "Comms Kanalını Aç", path: "/comms" }
             };
         }

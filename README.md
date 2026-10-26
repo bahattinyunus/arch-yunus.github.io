@@ -129,7 +129,7 @@ npm run build
 
 ## 📬 İletişim & Ağ
 
-- **E-Posta:** [bahattinyunusct1@gmail.com](mailto:bahattinyunusct1@gmail.com)
+- **E-Posta:** [bahattinyunuscetin1@gmail.com](mailto:bahattinyunuscetin1@gmail.com)
 - **LinkedIn:** [linkedin.com/in/bahattinyunus](https://www.linkedin.com/in/bahattinyunus/) (12.644+ Bağlantı & Takipçi)
 - **GitHub:** [github.com/bahattinyunus](https://github.com/bahattinyunus) (231+ Kamu Reposu)
 - **Medium:** [medium.com/@bahattinyunus](https://medium.com/@bahattinyunus)

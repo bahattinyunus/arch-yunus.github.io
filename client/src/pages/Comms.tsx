@@ -2,7 +2,7 @@ import { CheckCircle2, Github, Linkedin, Mail, MapPin, Phone, Send, Sparkles, Me
 import { useState } from "react";
 import { profileData } from "@/lib/data";
 
-const email = "bahattinyunusct1@gmail.com";
+const email = "bahattinyunuscetin1@gmail.com";
 const phone = "+90 551 668 86 24";
 
 export default function Comms() {

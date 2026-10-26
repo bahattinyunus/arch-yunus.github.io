@@ -23,7 +23,7 @@ export const IDENTITY: Identity = {
   lastName: "Yunus Çetin",
   handle: "bahattinyunus",
   githubUser: "bahattinyunus",
-  email: "bahattinyunusct1@gmail.com",
+  email: "bahattinyunuscetin1@gmail.com",
   phone: "+90 551 668 86 24",
   location: "Ankara, Türkiye",
   github: "https://github.com/bahattinyunus",

@@ -1663,14 +1663,14 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
         return [
           out("▸ BAHATTİN YUNUS ÇETİN — ÖZGEÇMİŞ DOSYASI", "accent"),
           out("  Unvan: Developer | Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler"),
-          out("  E-posta: bahattinyunusct1@gmail.com | Tel: +90 551 668 86 24"),
+          out("  E-posta: bahattinyunuscetin1@gmail.com | Tel: +90 551 668 86 24"),
           out("  Eğitim:"),
           out("    • ODTÜ — Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE / CEIT, 2026-2032)"),
           out("    • Hacettepe Üniversitesi (2026-2030)"),
           out("    • KTÜ — Yazılım Mühendisliği (2024-2026)"),
           out("    • RTEÜ — Bilişim & Teknoloji (2024-2026)"),
           out("  Lisanslar: SHGM İHA-1 Pilot Lisansı, Siber Vatan Beyaz Şapkalı Hacker, 266+ Akreditasyon"),
-          out("  İletişim: bahattinyunusct1@gmail.com / linkedin.com/in/bahattinyunus"),
+          out("  İletişim: bahattinyunuscetin1@gmail.com / linkedin.com/in/bahattinyunus"),
         ];
       case "matrix":
         return [
