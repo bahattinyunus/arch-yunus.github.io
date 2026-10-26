@@ -265,7 +265,7 @@ function LangSwitch({ className = "" }: { className?: string }) {
 const IS_MAC =
   typeof navigator !== "undefined" &&
   /Mac|iPhone|iPad|iPod/.test(navigator.platform || "");
-const META_LABEL = IS_MAC ? "âŒ˜" : "Ctrl";
+const META_LABEL = IS_MAC ? "⌘" : "Ctrl";
 
 function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
   const { t } = useLang();
@@ -2036,6 +2036,13 @@ function Contact() {
           <div className="flex flex-wrap items-center gap-3">
             <CopyEmail email={IDENTITY.email} />
             <a
+              href="tel:+905516688624"
+              className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/50 px-5 py-3 text-sm text-ink transition-colors hover:bg-surface font-mono text-xs md:text-sm"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>+90 551 668 86 24</span>
+            </a>
+            <a
               href={IDENTITY.github}
               target="_blank"
               rel="noreferrer"
@@ -2059,7 +2066,7 @@ function Contact() {
 }
 
 /* ================================================================== */
-/*  Komut Paleti (âŒ˜K / Ctrl+K)                                         */
+/*  Komut Paleti (⌘K / Ctrl+K)                                         */
 /* ================================================================== */
 function CommandPalette() {
   const { t, lang, setLang } = useLang();

@@ -177,23 +177,51 @@ export const CertificationVault: React.FC = () => {
           </div>
         </div>
 
-        {/* İstatistik Metrikleri */}
+        {/* İstatistik Metrikleri & Kurum Dağılımı */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono mt-6 pt-6 border-t border-white/10">
           <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
-            <span className="text-2xl font-bold text-neon-blue block">266+</span>
-            <span className="text-[10px] text-white/50 uppercase">Toplam Belge</span>
+            <span className="text-2xl font-bold text-accent block">266+</span>
+            <span className="text-[10px] text-white/50 uppercase tracking-wider">Doğrulanmış Sicil</span>
           </div>
           <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
             <span className="text-2xl font-bold text-emerald-400 block">70+</span>
-            <span className="text-[10px] text-white/50 uppercase">Bilgeİş (ODTÜ)</span>
+            <span className="text-[10px] text-white/50 uppercase tracking-wider">Bilgeİş (ODTÜ)</span>
           </div>
           <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
-            <span className="text-2xl font-bold text-amber-400 block">100+</span>
-            <span className="text-[10px] text-white/50 uppercase">BTK Akademi</span>
+            <span className="text-2xl font-bold text-blue-400 block">100+</span>
+            <span className="text-[10px] text-white/50 uppercase tracking-wider">BTK Akademi</span>
           </div>
           <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
             <span className="text-2xl font-bold text-red-400 block">İHA-1</span>
-            <span className="text-[10px] text-white/50 uppercase">SHGM Pilot</span>
+            <span className="text-[10px] text-white/50 uppercase tracking-wider">SHGM Ticari Pilot</span>
+          </div>
+        </div>
+
+        {/* Çok Renkli Kategori Dağılım İlerleme Çubuğu */}
+        <div className="mt-6 pt-6 border-t border-white/10 space-y-2">
+          <div className="flex items-center justify-between text-xs font-mono text-white/60">
+            <span className="flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-accent" /> YETKİNLİK MATRİSİ DAĞILIMI
+            </span>
+            <span className="text-[11px] text-white/40">266 Kayıt · 6 Ana Disiplin</span>
+          </div>
+
+          <div className="h-2.5 w-full rounded-full bg-white/5 overflow-hidden flex p-0.5 border border-white/10">
+            <div style={{ width: "22%" }} className="h-full bg-blue-500 rounded-l-full" title="Yazılım & Web: 56 Belge (%22)" />
+            <div style={{ width: "21%" }} className="h-full bg-accent" title="Girişim & Yönetim: 56 Belge (%21)" />
+            <div style={{ width: "20%" }} className="h-full bg-purple-500" title="Kişisel & Kamu: 54 Belge (%20)" />
+            <div style={{ width: "16%" }} className="h-full bg-emerald-400" title="Yapay Zekâ & Veri: 43 Belge (%16)" />
+            <div style={{ width: "12%" }} className="h-full bg-cyan-400" title="Gömülü & Donanım: 28 Belge (%12)" />
+            <div style={{ width: "9%" }} className="h-full bg-red-400 rounded-r-full" title="Siber Güvenlik: 16 Belge (%9)" />
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-mono text-white/50 pt-1">
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500" /> Yazılım (56)</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-400" /> Yapay Zekâ (43)</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-cyan-400" /> Gömülü/Aviyonik (28)</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-400" /> Siber Güvenlik (16)</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-accent" /> Girişim & Yönetim (56)</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-purple-500" /> Kişisel/Kamu (54)</span>
           </div>
         </div>
       </div>
