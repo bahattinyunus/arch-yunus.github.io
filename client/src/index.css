@@ -320,3 +320,56 @@ main .space-y-12 > div:first-child h2, main .space-y-12 > h2 { letter-spacing: -
   .profile-meta span { font-size: 9px; }
 }
 
+
+
+/* Modern Deep-Tech Visual Extensions */
+.bg-deep-mesh {
+  background-color: #07080a;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(214, 255, 63, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(0, 240, 255, 0.03) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+}
+
+.glass-surface {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-surface:hover {
+  border-color: rgba(214, 255, 63, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(214, 255, 63, 0.08);
+}
+
+.text-gradient-silver {
+  background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #D6FF3F 0%, #00F0FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-pill {
+  position: relative;
+}
+.glow-pill::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(90deg, rgba(214,255,63,0.4), rgba(0,240,255,0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}

@@ -333,7 +333,7 @@ export const CertificationVault: React.FC = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2, delay: Math.min(index * 0.015, 0.3) }}
-                className="group relative p-5 bg-gradient-to-br from-white/[0.04] to-transparent border border-white/10 hover:border-neon-blue/50 rounded-xl transition-all flex flex-col justify-between hover:shadow-[0_0_20px_rgba(0,243,255,0.1)]"
+                className="group relative p-6 glass-surface rounded-2xl transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 hover:border-accent/40"
               >
                 <div>
                   {/* Üst Bar: Kurum & Tarih */}

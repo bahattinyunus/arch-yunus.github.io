@@ -290,21 +290,18 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "border-b border-line bg-canvas/85 backdrop-blur-md"
-            : "border-b border-transparent"
-        }`}
-      >
-        <nav className={`${WRAP} flex h-16 items-center justify-between md:h-20`}>
-          <a href="#anasayfa" className="inline-flex items-center gap-2.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(214,255,63,0.6)]" />
-            <span className="font-display text-base font-semibold tracking-tight text-ink">
+            <header className="fixed inset-x-0 top-3 md:top-5 z-50 px-4 md:px-8 pointer-events-none">
+        <nav className="mx-auto max-w-7xl pointer-events-auto flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3 rounded-full border border-white/10 bg-[#08080a]/85 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all">
+          <a href="#anasayfa" className="inline-flex items-center gap-3 group">
+            <span className="relative flex h-3 w-3">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-accent shadow-[0_0_10px_rgba(214,255,63,0.8)]" />
+            </span>
+            <span className="font-display text-sm md:text-base font-bold tracking-tight text-white group-hover:text-accent transition-colors">
               bahattinyunus
             </span>
-            <span className="hidden rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-faint sm:inline-block">
-              ODTÜ & Hacettepe
+            <span className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-[10px] text-white/50">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> ODTÜ BÖTE & Hacettepe
             </span>
           </a>
 
@@ -315,15 +312,15 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
                 <a
                   key={n.href}
                   href={n.href}
-                  className={`relative whitespace-nowrap text-xs transition-colors 2xl:text-sm ${
-                    isActive ? "text-ink font-medium" : "text-muted hover:text-ink"
+                  className={`relative px-2 py-1 text-xs font-mono transition-colors ${
+                    isActive ? "text-accent font-semibold" : "text-white/60 hover:text-white"
                   }`}
                 >
                   {(t.nav as any)[n.key]}
                   {isActive && (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute -bottom-1.5 left-0 right-0 mx-auto h-1 w-1 rounded-full bg-accent"
+                      className="absolute -bottom-1 left-2 right-2 h-0.5 rounded-full bg-accent shadow-[0_0_8px_rgba(214,255,63,0.8)]"
                     />
                   )}
                 </a>
@@ -334,10 +331,10 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent("toggle-cmdk"))}
               aria-label={t.cmd.placeholder}
-              className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:bg-surface hover:text-ink"
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/60 transition-all hover:bg-white/10 hover:text-white hover:border-white/20"
             >
-              <Search className="h-3.5 w-3.5" />
-              <kbd className="font-mono text-[10px] tracking-wide text-faint">
+              <Search className="h-3.5 w-3.5 text-accent" />
+              <kbd className="font-mono text-[10px] tracking-wide text-white/40">
                 {META_LABEL} K
               </kbd>
             </button>
@@ -350,16 +347,16 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
               }}
               title={isAmbientPlaying ? "Mute Cyber Audio Synth" : "Enable Procedural Cyber Audio"}
               aria-label="Ses efektlerini aç/kapat"
-              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-colors ${
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs transition-all ${
                 isAmbientPlaying
                   ? "border-accent/60 bg-accent/15 text-accent shadow-[0_0_12px_rgba(214,255,63,0.3)]"
-                  : "border-line text-muted hover:border-line/80 hover:text-ink"
+                  : "border-white/10 text-white/50 hover:border-white/20 hover:text-white"
               }`}
             >
               {isAmbientPlaying ? (
                 <Volume2 className="h-3.5 w-3.5 text-accent animate-pulse" />
               ) : (
-                <VolumeX className="h-3.5 w-3.5 text-faint" />
+                <VolumeX className="h-3.5 w-3.5 text-white/40" />
               )}
               <span className="hidden 2xl:inline font-mono text-[10px]">
                 {isAmbientPlaying ? "AUDIO: ON" : "AUDIO: OFF"}
@@ -371,15 +368,15 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
             <a
               href="/operations"
               aria-label="Siber Operasyonlar Paneli"
-              className={`inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full border border-line px-3.5 text-xs text-muted transition-colors ${NAV_ACTION_INDICATOR}`}
+              className="inline-flex min-h-8 shrink-0 items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3.5 text-xs font-mono text-accent hover:bg-accent/20 transition-all shadow-[0_0_15px_rgba(214,255,63,0.15)]"
             >
-              <TerminalIcon className="h-3.5 w-3.5 text-accent" />
+              <TerminalIcon className="h-3.5 w-3.5" />
               <span>{t.nav.login}</span>
             </a>
 
             <a
               href={`mailto:${IDENTITY.email}`}
-              className={`inline-flex min-h-9 shrink-0 items-center gap-2 rounded-full border border-line bg-surface/50 px-3.5 text-xs text-ink transition-colors ${NAV_ACTION_INDICATOR}`}
+              className="inline-flex min-h-8 shrink-0 items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 text-xs font-mono text-white hover:bg-white/10 hover:border-white/30 transition-all"
             >
               <Mail className="h-3.5 w-3.5 text-accent" />
               <span>{t.nav.mail}</span>
@@ -394,21 +391,23 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
                 playSound("click");
               }}
               aria-label="Ses"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white hover:bg-white/5"
             >
               {isAmbientPlaying ? (
                 <Volume2 className="h-4 w-4 text-accent animate-pulse" />
               ) : (
-                <VolumeX className="h-4 w-4 text-faint" />
+                <VolumeX className="h-4 w-4 text-white/40" />
               )}
             </button>
             <LangSwitch />
             <button
-              onClick={() => setOpen(true)}
-              aria-label="Menü"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink"
+              type="button"
+              onClick={() => setOpen((prev) => !prev)}
+              aria-label="Menüyü aç/kapat"
+              aria-expanded={open}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-white hover:bg-white/5"
             >
-              <Menu className="h-5 w-5" />
+              {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </button>
           </div>
         </nav>
@@ -538,15 +537,19 @@ function Hero({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
           transition={{ duration: 1.1, ease: EASE }}
           className="mb-8 flex flex-wrap items-center gap-3 text-sm"
         >
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
-          </span>
-          <span className="text-muted">{t.hero.available}</span>
-          <span className="text-faint">/</span>
-          <span className="inline-flex items-center gap-1.5 text-muted">
-            <MapPin className="h-3.5 w-3.5 text-accent" /> {t.hero.location}
-          </span>
+          <div className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md font-mono text-xs text-white/70">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+            </span>
+            <span className="text-white/90 font-medium">AKTİF GÖREVDE</span>
+            <span className="text-white/30">|</span>
+            <span className="text-accent">ODTÜ BÖTE & HACETTEPE</span>
+            <span className="text-white/30 hidden sm:inline">|</span>
+            <span className="text-white/50 hidden sm:inline-flex items-center gap-1">
+              <MapPin className="h-3 w-3 text-accent" /> Ankara, TR
+            </span>
+          </div>
         </motion.div>
 
         <div className="relative">
@@ -601,13 +604,35 @@ function Hero({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
           transition={{ delay: 0.9, duration: 1.2, ease: EASE }}
           className="mt-12 flex flex-col gap-8 border-t border-line pt-8 lg:flex-row lg:items-end lg:justify-between"
         >
-          <div className="max-w-xl">
-            <p className="font-display text-xl font-semibold tracking-tight text-ink md:text-2xl">
-              {t.hero.role}
-            </p>
-            <p className="mt-3 leading-relaxed text-muted md:text-lg">
-              {t.hero.tagline}
-            </p>
+          <div className="max-w-2xl space-y-4">
+            <div>
+              <p className="font-display text-2xl font-bold tracking-tight text-white md:text-3xl">
+                {t.hero.role}
+              </p>
+              <p className="mt-2 leading-relaxed text-white/60 md:text-base font-mono">
+                {t.hero.tagline}
+              </p>
+            </div>
+
+            {/* Modern Hero Bento Stat Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
+              <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
+                <span className="text-xl font-bold font-mono text-accent block">231+</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Açık Kaynak Repo</span>
+              </div>
+              <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
+                <span className="text-xl font-bold font-mono text-emerald-400 block">266+</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Resmi Sertifika</span>
+              </div>
+              <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
+                <span className="text-xl font-bold font-mono text-neon-blue block">6 LAB</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Arat / Tulpar / Budak</span>
+              </div>
+              <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
+                <span className="text-xl font-bold font-mono text-amber-400 block">İHA-1</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">SHGM Pilot Lisansı</span>
+              </div>
+            </div>
           </div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-wrap items-center gap-4">
@@ -1806,6 +1831,20 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
     }
   }
 
+  function submitCommand(cmdText: string) {
+    const result = runCommand(cmdText);
+    if (result === "CLEAR") {
+      setLines([]);
+      setInput("");
+      setHistIdx(-1);
+      return;
+    }
+    setLines((prev) => [...prev, { tone: "cmd", text: cmdText }, ...result]);
+    if (cmdText.trim()) setHist((h) => [...h, cmdText]);
+    setHistIdx(-1);
+    setInput("");
+  }
+
   function submit() {
     const raw = input;
     const result = runCommand(raw);
@@ -1861,16 +1900,32 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
 
       <Reveal y={36} delay={0.05}>
         <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-[#09090c] shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)]">
-          {/* Başlık Çubuğu */}
-          <div className="flex items-center gap-3 border-b border-line bg-surface/80 px-4 py-3">
+          {/* Modern macOS / Warp Header */}
+          <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.03] px-5 py-3.5 backdrop-blur-md">
             <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-              <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-              <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+              <span className="h-3 w-3 rounded-full bg-[#ff5f57] border border-[#e0443e]/50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => submitCommand("clear")} title="clear" />
+              <span className="h-3 w-3 rounded-full bg-[#febc2e] border border-[#d89e24]/50" />
+              <span className="h-3 w-3 rounded-full bg-[#28c840] border border-[#1aab29]/50" />
+              <span className="ml-2 font-mono text-[11px] text-white/40 hidden sm:inline">bash — 80x24</span>
             </div>
-            <span className="mx-auto select-none font-mono text-xs text-faint">
-              {tt.user}@{tt.host}: ~ (x86_64)
-            </span>
+
+            <div className="flex items-center gap-2 font-mono text-xs text-white/50">
+              <TerminalIcon className="w-3.5 h-3.5 text-accent" />
+              <span>{tt.user}@{tt.host}: ~ (x86_64)</span>
+            </div>
+
+            {/* Quick Action Chips */}
+            <div className="hidden sm:flex items-center gap-1.5 font-mono text-[11px]">
+              {["cv", "certs", "doctrine", "matrix", "clear"].map((cmd) => (
+                <button
+                  key={cmd}
+                  onClick={() => submitCommand(cmd)}
+                  className="px-2 py-0.5 rounded bg-white/5 hover:bg-accent/20 border border-white/5 hover:border-accent/40 text-white/60 hover:text-accent transition-colors"
+                >
+                  {cmd}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Gövde */}
@@ -2376,19 +2431,23 @@ export default function Home() {
       {/* Vanguard AI Siber Asistan */}
       <VanguardAI />
 
-      {/* Radial Gradient Glow & Background Effects */}
+      {/* Deep-Tech Mesh & Aurora Lighting */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 bg-deep-mesh opacity-90"
+      />
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0 z-0"
         style={{
           background:
-            "radial-gradient(70% 55% at 50% -10%, rgba(214,255,63,0.08), transparent 70%)",
+            "radial-gradient(100% 70% at 50% -20%, rgba(214,255,63,0.09) 0%, rgba(0,240,255,0.04) 40%, transparent 80%)",
         }}
       />
-      <Meteors />
+      <Meteors count={14} />
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[60] opacity-[0.035]"
+        className="pointer-events-none fixed inset-0 z-[60] opacity-[0.025]"
         style={{ backgroundImage: NOISE }}
       />
 

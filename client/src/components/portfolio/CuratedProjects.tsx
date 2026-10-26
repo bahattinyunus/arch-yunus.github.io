@@ -182,7 +182,7 @@ export const CuratedProjects: React.FC<CuratedProjectsProps> = ({ lang, onOpenLa
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="group flex flex-col justify-between p-6 rounded-2xl border border-line bg-surface/30 hover:border-accent/40 hover:bg-surface/50 transition-all duration-300"
+              className="group flex flex-col justify-between p-7 rounded-2xl glass-surface transition-all duration-300 hover:-translate-y-1"
             >
               <div>
                 <div className="flex items-center justify-between gap-3 text-xs font-mono text-faint mb-3">
