@@ -3,10 +3,11 @@ import { ArrowUpRight, BookOpen, Search, GraduationCap, Plane, Award, ShieldChec
 import { useMemo, useState } from "react";
 import { profileData } from "@/lib/data";
 import { CertificationVault } from "@/components/cyber-ui/CertificationVault";
+import { FieldOperationsGallery } from "@/components/portfolio/FieldOperationsGallery";
 
 export function Intelligence() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState<"all" | "certs" | "education" | "articles">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "certs" | "education" | "field" | "articles">("all");
 
   const posts = useMemo(() => profileData.blog_posts.filter((post) => `${post.title} ${post.summary}`.toLowerCase().includes(searchTerm.toLowerCase())), [searchTerm]);
 
@@ -33,6 +34,7 @@ export function Intelligence() {
             { id: "all", label: "TÜMÜ" },
             { id: "certs", label: "266+ SERTİFİKA" },
             { id: "education", label: "EĞİTİM & PİLOTAJ" },
+            { id: "field", label: "SAHA GÖREVLERİ (44+ FOTO)" },
             { id: "articles", label: "DOKTRİNLER & YAZILAR" }
           ].map((tab) => (
             <button
@@ -101,6 +103,14 @@ export function Intelligence() {
       )}
 
       {/* Medium Technical Doctrine Articles */}
+      
+      {/* Field Operations & Real Missions Gallery */}
+      {(activeTab === "all" || activeTab === "field") && (
+        <section className="space-y-6">
+          <FieldOperationsGallery lang="tr" />
+        </section>
+      )}
+
       {(activeTab === "all" || activeTab === "articles") && (
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-2 border-emerald-400/60 px-4">

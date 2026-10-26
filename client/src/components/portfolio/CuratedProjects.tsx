@@ -105,6 +105,32 @@ export const CuratedProjects: React.FC<CuratedProjectsProps> = ({ lang, onOpenLa
       icon: Sparkles
     },
     {
+      id: "multimedia-forensics",
+      title: "DeepForensics // Multimedya Veri Güvenliği",
+      tag: "ai",
+      category: lang === "tr" ? "Yapay Zekâ & Güvenlik" : "AI & Forensics",
+      desc: lang === "tr"
+        ? "BTK Akademi 42 saatlik Trabzon atölyesinde geliştirilen; EXIF, ELA, PRNU analizi, GAN tabanlı Deepfake tespiti ve C2PA dijital içerik doğrulama paketi."
+        : "AI-driven multimedia forensics suite featuring EXIF, ELA, PRNU noise analysis, GAN deepfake detection and C2PA verifiable content standards.",
+      tech: ["PyTorch", "OpenCV", "PRNU", "Deepfake Detection", "C2PA"],
+      stars: 46,
+      repo: "https://github.com/bahattinyunus/BTK-Akademi-Trabzon-Multimedya-Veri-Guvenliginde-Yapay-Zeka-Kullanimi",
+      icon: Terminal
+    },
+    {
+      id: "siber-vatan-pentest",
+      title: "VatanRedOps // Siber Vatan Güvenlik Kütüphanesi",
+      tag: "embedded",
+      category: lang === "tr" ? "Siber Savunma & Pentest" : "Cyber Security",
+      desc: lang === "tr"
+        ? "Siber Vatan 2026 Beyaz Şapkalı Hacker kampında geliştirilen; ağ protokol analizi, web zafiyet tarama ve tersine mühendislik betikleri."
+        : "Automated penetration testing, network dissection, and reverse engineering scripts created during the Siber Vatan White Hat Hacker camp.",
+      tech: ["Python", "Wireshark", "BurpSuite", "Bash", "Reversing"],
+      stars: 58,
+      repo: "https://github.com/bahattinyunus/siber-vatan-calismalari",
+      icon: Code2
+    },
+    {
       id: "math2code",
       title: "Math2Code // Matematiksel Modelleme Rehberi",
       tag: "algorithm",
@@ -132,7 +158,7 @@ export const CuratedProjects: React.FC<CuratedProjectsProps> = ({ lang, onOpenLa
     if (selectedTag !== "all") {
       list = list.filter((p) => p.tag === selectedTag);
     }
-    return showAll ? list : list.slice(0, 4);
+    return showAll ? list : list.slice(0, 6);
   }, [selectedTag, showAll]);
 
   return (
