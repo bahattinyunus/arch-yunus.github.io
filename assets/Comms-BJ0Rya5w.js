@@ -1,4 +1,4 @@
-import{r as x,j as e}from"./vendor-motion-CtxlUIOB.js";import{p as a}from"./index-CRUfjPgY.js";import{j as m,U as h,af as p,Y as b,n as u,q as f,w as g,ag as j,d as w,Q as N}from"./vendor-icons-C9WQinVb.js";import"./vendor-react-Cgg2GOmP.js";const s="bahattinyunusct1@gmail.com",n="+90 551 668 86 24";function A(){const[l,i]=x.useState(!1),o=r=>{r.preventDefault();const t=new FormData(r.currentTarget),c=encodeURIComponent(String(t.get("subject")||"Yeni Proje / Mühendislik İletişimi")),d=encodeURIComponent(`Merhaba Bahattin Yunus,
+import{r as x,j as e}from"./vendor-motion-CtxlUIOB.js";import{p as a}from"./index-2Kqv_V43.js";import{j as m,U as h,af as p,Y as b,n as u,q as f,w as g,ag as j,d as w,Q as N}from"./vendor-icons-C9WQinVb.js";import"./vendor-react-Cgg2GOmP.js";const s="bahattinyunuscetin1@gmail.com",n="+90 551 668 86 24";function A(){const[l,i]=x.useState(!1),o=r=>{r.preventDefault();const t=new FormData(r.currentTarget),c=encodeURIComponent(String(t.get("subject")||"Yeni Proje / Mühendislik İletişimi")),d=encodeURIComponent(`Merhaba Bahattin Yunus,
 
 ${String(t.get("message")||"")}
 
