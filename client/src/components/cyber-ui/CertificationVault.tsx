@@ -2,7 +2,8 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Award, Search, Filter, ShieldCheck, CheckCircle2, Copy, Check, 
-  ExternalLink, Sparkles, Cpu, Terminal, Radio, Bookmark, Eye, Layers
+  ExternalLink, Sparkles, Cpu, Terminal, Radio, Bookmark, Eye, Layers,
+  Download, FileSpreadsheet, Share2, Tag
 } from "lucide-react";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
 import { ALL_CERTIFICATES, CertificateRecord } from "@/lib/certificatesData";
@@ -19,12 +20,26 @@ const ISSUER_BADGES: Record<string, { bg: string; text: string; border: string }
   "Siber Vatan (SSB)": { bg: "bg-neon-magenta/10", text: "text-neon-magenta", border: "border-neon-magenta/30" }
 };
 
+const POPULAR_TAGS = [
+  "Python",
+  "Yapay Zekâ",
+  "Siber Güvenlik",
+  "İHA",
+  "Arduino",
+  "HTML5",
+  "Bulut",
+  "Veri",
+  "Girişimcilik",
+  "KOBİ"
+];
+
 export const CertificationVault: React.FC = () => {
   const { playSound } = useCyberSound();
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [selectedIssuer, setSelectedIssuer] = useState<string>("ALL");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copiedAll, setCopiedAll] = useState(false);
   const [displayCount, setDisplayCount] = useState<number>(24);
 
   // Kategori tanımları
@@ -85,6 +100,42 @@ export const CertificationVault: React.FC = () => {
     setTimeout(() => setCopiedId(null), 2500);
   };
 
+  const copyAllFiltered = () => {
+    const text = filteredCerts
+      .map(
+        (c, i) =>
+          `${i + 1}. ${c.title} — ${c.issuer} (${c.date}) [ID: ${c.code || "ONAYLI"}]`
+      )
+      .join("\n");
+    navigator.clipboard.writeText(text);
+    setCopiedAll(true);
+    playSound("click");
+    setTimeout(() => setCopiedAll(false), 2500);
+  };
+
+  const downloadCSV = () => {
+    playSound("click");
+    const headers = ["No", "Sertifika Adı", "Veren Kurum", "Tarih", "Doğrulama Kodu / Credential ID", "Kategori"];
+    const rows = ALL_CERTIFICATES.map((c, i) => [
+      i + 1,
+      `"${c.title.replace(/"/g, '""')}"`,
+      `"${c.issuer.replace(/"/g, '""')}"`,
+      `"${c.date}"`,
+      `"${c.code || "—"}"`,
+      `"${c.category}"`
+    ]);
+
+    const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", "bahattinyunus_cetin_resmi_sertifikalar_266.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="space-y-8" id="certification-vault">
       {/* Üst Başlık & İstatistik Paneli */}
@@ -105,24 +156,44 @@ export const CertificationVault: React.FC = () => {
             </p>
           </div>
 
-          {/* İstatistik Metrikleri */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono">
-            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
-              <span className="text-2xl font-bold text-neon-blue block">266+</span>
-              <span className="text-[10px] text-white/50 uppercase">Sertifika</span>
-            </div>
-            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
-              <span className="text-2xl font-bold text-emerald-400 block">70+</span>
-              <span className="text-[10px] text-white/50 uppercase">Bilgeİş (ODTÜ)</span>
-            </div>
-            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
-              <span className="text-2xl font-bold text-amber-400 block">100+</span>
-              <span className="text-[10px] text-white/50 uppercase">BTK Akademi</span>
-            </div>
-            <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
-              <span className="text-2xl font-bold text-red-400 block">İHA-1</span>
-              <span className="text-[10px] text-white/50 uppercase">SHGM Pilot</span>
-            </div>
+          {/* Aksiyon Butonları & Metrikler */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <button
+              onClick={downloadCSV}
+              className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-neon-blue/15 hover:bg-neon-blue/25 border border-neon-blue/40 text-neon-blue font-mono text-xs rounded-xl transition-all shadow-[0_0_15px_rgba(0,243,255,0.15)]"
+              title="266+ Sertifikanın tamamını Excel/CSV olarak indir"
+            >
+              <FileSpreadsheet className="w-4 h-4" />
+              <span>CSV Olarak İndir ({ALL_CERTIFICATES.length})</span>
+            </button>
+            <button
+              onClick={copyAllFiltered}
+              className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-mono text-xs rounded-xl transition-all"
+              title="Filtrelenen sertifikaları metin olarak kopyala"
+            >
+              {copiedAll ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-white/60" />}
+              <span>{copiedAll ? "Panoya Kopyalandı!" : "Sicil Dökümü Kopyala"}</span>
+            </button>
+          </div>
+        </div>
+
+        {/* İstatistik Metrikleri */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 font-mono mt-6 pt-6 border-t border-white/10">
+          <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+            <span className="text-2xl font-bold text-neon-blue block">266+</span>
+            <span className="text-[10px] text-white/50 uppercase">Toplam Belge</span>
+          </div>
+          <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+            <span className="text-2xl font-bold text-emerald-400 block">70+</span>
+            <span className="text-[10px] text-white/50 uppercase">Bilgeİş (ODTÜ)</span>
+          </div>
+          <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+            <span className="text-2xl font-bold text-amber-400 block">100+</span>
+            <span className="text-[10px] text-white/50 uppercase">BTK Akademi</span>
+          </div>
+          <div className="p-3 bg-white/5 border border-white/10 rounded-xl text-center">
+            <span className="text-2xl font-bold text-red-400 block">İHA-1</span>
+            <span className="text-[10px] text-white/50 uppercase">SHGM Pilot</span>
           </div>
         </div>
       </div>
@@ -139,7 +210,7 @@ export const CertificationVault: React.FC = () => {
               setSearch(e.target.value);
               setDisplayCount(24);
             }}
-            placeholder="Sertifika adı, kurum veya kimlik numarası (Credential ID) ile ara..."
+            placeholder="Sertifika adı, kurum veya kimlik numarası (Credential ID) ile ara... (Örn: Python, Bilgeİş, SHGM)"
             className="w-full pl-11 pr-4 py-3.5 bg-black/70 border border-white/15 focus:border-neon-blue rounded-xl text-sm font-mono text-white placeholder:text-white/30 outline-none transition-all shadow-[0_0_20px_rgba(0,0,0,0.5)]"
           />
           {search && (
@@ -150,6 +221,26 @@ export const CertificationVault: React.FC = () => {
               Temizle
             </button>
           )}
+        </div>
+
+        {/* Hızlı Arama Etiketleri */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs font-mono">
+          <span className="text-white/40 text-[11px] shrink-0 flex items-center gap-1">
+            <Tag className="w-3 h-3 text-neon-blue" /> Popüler:
+          </span>
+          {POPULAR_TAGS.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => {
+                setSearch(tag);
+                setDisplayCount(24);
+                playSound("click");
+              }}
+              className="px-2.5 py-1 rounded bg-white/[0.04] hover:bg-neon-blue/15 border border-white/10 hover:border-neon-blue/30 text-white/60 hover:text-neon-blue text-[11px] whitespace-nowrap transition-all"
+            >
+              #{tag}
+            </button>
+          ))}
         </div>
 
         {/* Kategori Sekmeleri */}

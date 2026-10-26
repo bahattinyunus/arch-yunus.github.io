@@ -94,8 +94,8 @@ export const VanguardAI = () => {
 
         if (q.includes("eğitim") || q.includes("üniversite") || q.includes("okul") || q.includes("sertifika") || q.includes("lisans") || q.includes("btk") || q.includes("akademik")) {
             return {
-                text: "Akademik Eğitim:\n- Orta Doğu Teknik Ünv. (ODTÜ) (Bilgisayar ve Öğretim Teknolojileri Eğitimi - BÖTE | 2026 – 2032)\n- Hacettepe Üniversitesi (2026 – 2030)\n- Karadeniz Teknik Ünv. (Yazılım Mühendisliği | 2024 – 2026)\n- Recep Tayyip Erdoğan Üniversitesi (2024 – 2026)\n- T.C. Gençlik ve Spor Bakanlığı Gönüllü Gençlik Lideri (2024 – Devam)\n- KTÜ Elektronik ve Haberleşme Kulübü Yönetim Kurulu Üyesi (2024 – 2025)\n- Türkiye–Fransa Gençlik Değişimi (66.500+ başvuru arasından seçilen 20 gençten biri; Avrupa Parlamentosu & AİHM)\n\nAkreditasyonlar: SHGM İHA-1 Lisansı, Siber Vatan Beyaz Şapkalı Hacker, TEI Havacılık Motorları, TÜBİTAK Uzay, TUA Interstellar ve 270'ten fazla onaylı sertifika.",
-                action: { label: "270+ Sertifika & Eğitim Kasası", path: "/intelligence" }
+                text: "Akademik Eğitim:\n- Orta Doğu Teknik Ünv. (ODTÜ) (Bilgisayar ve Öğretim Teknolojileri Eğitimi - BÖTE | 2026 – 2032)\n- Hacettepe Üniversitesi (2026 – 2030)\n- Karadeniz Teknik Ünv. (Yazılım Mühendisliği | 2024 – 2026)\n- Recep Tayyip Erdoğan Üniversitesi (2024 – 2026)\n- T.C. Gençlik ve Spor Bakanlığı Gönüllü Gençlik Lideri (2024 – Devam)\n- KTÜ Elektronik ve Haberleşme Kulübü Yönetim Kurulu Üyesi (2024 – 2025)\n- Türkiye–Fransa Gençlik Değişimi (66.500+ başvuru arasından seçilen 20 gençten biri; Avrupa Parlamentosu & AİHM)\n\nAkreditasyonlar: SHGM İHA-1 Lisansı, Siber Vatan Beyaz Şapkalı Hacker, TEI Havacılık Motorları, TÜBİTAK Uzay, TUA Interstellar ve 266'dan fazla onaylı sertifika.",
+                action: { label: "266+ Sertifika & Eğitim Kasası", path: "/intelligence" }
             };
         }
 
@@ -122,7 +122,7 @@ export const VanguardAI = () => {
 
         // Generic intelligent fallback
         return {
-            text: `[Sistem Yanıtı] "${query}" sorgusu işlendi. 5 aktif girişim (Tulpar, Budak, Arkıl, MERL, Anka), ${profileData.featured_projects.length} operasyonel repo ve 120+ sertifika kaydı doğrulanmıştır. Detay için ilgili menüyü seçebilirsiniz.`,
+            text: `[Sistem Yanıtı] "${query}" sorgusu işlendi. 5 aktif girişim (Tulpar, Budak, Arkıl, MERL, Anka), ${profileData.featured_projects.length} operasyonel repo ve 266+ resmi akreditasyon kaydı doğrulanmıştır. Detay için ilgili menüyü seçebilirsiniz.`,
             action: { label: "Tüm Operasyonlar", path: "/operations" }
         };
     };

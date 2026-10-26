@@ -58,6 +58,7 @@ import { ProjectVisualMock } from "@/components/portfolio/ProjectMockups";
 import { CyberLabsModal, type CyberLabType } from "@/components/portfolio/CyberLabsModal";
 import { CuratedProjects } from "@/components/portfolio/CuratedProjects";
 import { CertificationVault } from "@/components/cyber-ui/CertificationVault";
+import { ALL_CERTIFICATES } from "@/lib/certificatesData";
 import { VanguardAI } from "@/components/cyber-ui/VanguardAI";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
 
@@ -651,6 +652,13 @@ function Hero({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
                 <Brain className="h-3.5 w-3.5 text-accent" />
                 <span>🧠 {lang === "tr" ? "Vanguard AI" : "Vanguard AI"}</span>
               </button>
+              <a
+                href="#sertifikalar"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all shadow-[0_0_15px_rgba(16,185,129,0.12)]"
+              >
+                <Award className="h-3.5 w-3.5 text-emerald-400" />
+                <span>📜 {lang === "tr" ? "266+ Lisans & Sertifika" : "266+ Cert Vault"}</span>
+              </a>
             </div>
           </div>
         </motion.div>
@@ -1033,7 +1041,7 @@ function ProjectCard({
             <span className="text-accent">({num})</span>
             <span className="h-px w-8 bg-line" />
             <span className="text-muted">{project.type}</span>
-            <span>Â·</span>
+            <span>·</span>
             <span>{project.year}</span>
             <span className="ml-auto rounded-full border border-line px-2.5 py-0.5 text-[10px]">
               {project.license}
@@ -1437,6 +1445,7 @@ const TERMINAL_CMDS = [
   "budak",
   "vanguard",
   "whoami",
+  "cv",
   "about",
   "skills",
   "projects",
@@ -1445,6 +1454,8 @@ const TERMINAL_CMDS = [
   "education",
   "pilot",
   "stats",
+  "matrix",
+  "specs",
   "contact",
   "social",
   "date",
@@ -1539,7 +1550,39 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
           out("  GitHub Takipçi: 2,060+ Followers"),
           out("  LinkedIn Bağlantı: 12,640+ Professionals"),
           out("  Ar-Ge Girişimleri: 6 Lab (Arat, Tulpar, Arkıl, MERL, Budak, Anka)"),
-          out("  Sertifikalar: 120+ Onaylı Ulusal ve Uluslararası Belge"),
+          out("  Sertifikalar: 266+ Onaylı Ulusal ve Uluslararası Belge (ODTÜ, BTK, SHGM, T3)"),
+          out("  Canlı Durum: Aktif Geliştirici & BÖTE Öğrencisi (ODTÜ & Hacettepe)"),
+        ];
+      case "cv":
+        return [
+          out("▸ BAHATTİN YUNUS ÇETİN — ÖZGEÇMİŞ DOSYASI", "accent"),
+          out("  Unvan: Developer | Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler"),
+          out("  E-posta: bahattinyunusct1@gmail.com | Tel: +90 551 668 86 24"),
+          out("  Eğitim:"),
+          out("    • ODTÜ — Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE / CEIT, 2026-2032)"),
+          out("    • Hacettepe Üniversitesi (2026-2030)"),
+          out("    • KTÜ — Yazılım Mühendisliği (2024-2026)"),
+          out("    • RTEÜ — Bilişim & Teknoloji (2024-2026)"),
+          out("  Lisanslar: SHGM İHA-1 Pilot Lisansı, Siber Vatan Beyaz Şapkalı Hacker, 266+ Akreditasyon"),
+          out("  İletişim: bahattinyunusct1@gmail.com / linkedin.com/in/bahattinyunus"),
+        ];
+      case "matrix":
+        return [
+          out("01000001 01010010 01000001 01010100 00100000 01001100 01000001 01000010 01010011", "accent"),
+          out("⚡ WAKE UP, OPERATOR... THE MATRIX HAS YOU. ⚡"),
+          out(">> DECRYPTING: Quantum telemetry handshake verified... [OK]"),
+          out(">> NEURAL LINK: Tulpar Aero UAV Autopilot synchronized [OK]"),
+          out(">> PRUNING MATRIX: Budak Edge-AI 80% sparsity confirmed [OK]"),
+          out(">> DOCTRINE: Sovereign Systems, Native Compute, Deep Engineering."),
+        ];
+      case "specs":
+        return [
+          out("▸ SİSTEM VE TEKNOLOJİ YIĞINI SPESİFİKASYONLARI:", "accent"),
+          out("  • Diller: Python 3.12, C++20, C, Rust, Go, TypeScript, CUDA"),
+          out("  • AI & ML: PyTorch, vLLM, Unsloth, HuggingFace, TFLite, Model Pruning (%80)"),
+          out("  • Robotik & Otonom: ROS2 Humble, PX4 Autopilot, Gazebo, Unreal Engine 5 Sim"),
+          out("  • Siber Güvenlik: Kriptografi, ISO 27001, SIEM, Sızma Testleri, Ağ Güvenliği"),
+          out("  • Donanım: RTOS, STM32, ESP32, Arduino, Raspberry Pi, Proteus"),
         ];
       case "help":
         return [
@@ -1550,7 +1593,7 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
         ];
       case "whoami":
         return [
-          out(`${IDENTITY.name} Â· @${IDENTITY.handle}`, "accent"),
+          out(`${IDENTITY.name} · @${IDENTITY.handle}`, "accent"),
           out(t.hero.role),
           out(`Location: ${IDENTITY.location}`),
           out(`METU CEIT (2026-2032) · Hacettepe Univ · KTU Software Eng`),
@@ -1584,13 +1627,48 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
           out("  5. Budak — 80% Edge-AI Model Pruning"),
           out("  6. Anka Silicon Dynamics — Embedded Hardware Co-Design"),
         ];
-      case "certs":
+      case "certs": {
+        const query = rest.join(" ").toLowerCase().trim();
+        if (query) {
+          const matched = ALL_CERTIFICATES.filter(
+            (c) =>
+              c.title.toLowerCase().includes(query) ||
+              c.issuer.toLowerCase().includes(query) ||
+              (c.code && c.code.toLowerCase().includes(query)) ||
+              c.category.toLowerCase().includes(query)
+          ).slice(0, 15);
+
+          if (matched.length === 0) {
+            return [
+              out("Kriterle eşleşen sertifika bulunamadı: " + query, "error"),
+              out("İpucu: 'certs bilge', 'certs btk', 'certs ai', 'certs cyber' deneyebilirsiniz.", "muted"),
+            ];
+          }
+
+          return [
+            out(`"${query}" için ${matched.length} kayıt listeleniyor:`, "accent"),
+            ...matched.map((c) =>
+              out(`  ✓ [${c.date}] ${c.title} · ${c.issuer} (ID: ${c.code || "ONAYLI"})`)
+            ),
+          ];
+        }
+
         return [
-          out(`${t.certificates.items.length} ${tt.labels.certCount}:`, "accent"),
-          ...t.certificates.items.map((c) =>
-            out(`  âœ“ [${c.code}] ${c.title} Â· ${c.issuer} (${c.date})`)
+          out("TOPLAM 266+ RESMİ SERTİFİKA & LİSANS SİCİLİ:", "accent"),
+          out("  • Bilgeİş (ODTÜ Destekli): 70+ Belge"),
+          out("  • BTK Akademi: 100+ Belge"),
+          out("  • Turkcell Geleceği Yazanlar: 20+ Belge"),
+          out("  • T3 Akademi & T3 Girişim: 15+ Belge"),
+          out("  • SHGM İHA-1 Ticari/Sportif Pilot Lisansı"),
+          out(""),
+          out("Son Eklenen Örnek Kayıtlar:"),
+          ...ALL_CERTIFICATES.slice(0, 6).map((c) =>
+            out(`  ✓ [${c.date}] ${c.title} · ${c.issuer}`)
           ),
+          out(""),
+          out("Arama yapmak için: 'certs <kelime>' (Örn: 'certs python', 'certs bilge', 'certs ai')", "muted"),
         ];
+      }
       case "contact":
         return [
           out(`email     ${IDENTITY.email}`),
@@ -1936,14 +2014,14 @@ function CommandPalette() {
       },
       {
         id: "github",
-        label: `GitHub Â· @${IDENTITY.githubUser}`,
+        label: `GitHub · @${IDENTITY.githubUser}`,
         hint: t.cmd.open,
         icon: Github,
         action: () => window.open(IDENTITY.github, "_blank", "noopener"),
       },
       {
         id: "linkedin",
-        label: "LinkedIn Â· Bahattin Yunus",
+        label: "LinkedIn · Bahattin Yunus",
         hint: t.cmd.open,
         icon: Linkedin,
         action: () => window.open(IDENTITY.linkedin, "_blank", "noopener"),

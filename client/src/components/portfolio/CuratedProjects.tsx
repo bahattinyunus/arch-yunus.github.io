@@ -79,6 +79,32 @@ export const CuratedProjects: React.FC<CuratedProjectsProps> = ({ lang, onOpenLa
       icon: Sparkles
     },
     {
+      id: "deepantenna",
+      title: "DeepAntenna // RF & Mikrodalga AI Tasarım",
+      tag: "ai",
+      category: lang === "tr" ? "RF Mühendisliği & AI" : "RF & Physics AI",
+      desc: lang === "tr"
+        ? "Yapay sinir ağları ile mikroşerit ve patch antenlerin S11 parametrelerini ve radyasyon paternlerini mikrosaniyeler içinde kestiren ters-tasarım optimizasyon mimarisi."
+        : "Inverse design neural network architecture predicting S11 parameters and radiation patterns of microstrip antennas in microseconds.",
+      tech: ["PyTorch", "SciPy", "CST Studio Sim", "Electromagnetics", "Python"],
+      stars: 38,
+      repo: "https://github.com/bahattinyunus/DeepAntenna",
+      icon: Radio
+    },
+    {
+      id: "arat-distill",
+      title: "Arat-Distill // Egemen LLM Sıkıştırma Hattı",
+      tag: "ai",
+      category: lang === "tr" ? "Büyük Dil Modelleri" : "LLM & Distillation",
+      desc: lang === "tr"
+        ? "70B parametreli temel modellerden 1.5B/3B uç birim modellerine alan odaklı bilgi aktarımı sağlayan knowledge distillation ve QLoRA ince ayar mimarisi."
+        : "Domain-specific knowledge distillation pipeline transferring reasoning capabilities from 70B teacher models down to 1.5B/3B edge checkpoints.",
+      tech: ["PyTorch", "vLLM", "Unsloth", "HuggingFace", "FlashAttention"],
+      stars: 52,
+      repo: "https://github.com/bahattinyunus/Arat-Labs",
+      icon: Sparkles
+    },
+    {
       id: "math2code",
       title: "Math2Code // Matematiksel Modelleme Rehberi",
       tag: "algorithm",
