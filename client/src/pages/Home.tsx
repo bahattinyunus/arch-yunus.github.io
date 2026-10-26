@@ -57,6 +57,7 @@ import { CONTENT, IDENTITY } from "@/lib/portfolioContent";
 import { ProjectVisualMock } from "@/components/portfolio/ProjectMockups";
 import { CyberLabsModal, type CyberLabType } from "@/components/portfolio/CyberLabsModal";
 import { CuratedProjects } from "@/components/portfolio/CuratedProjects";
+import { FieldOperationsGallery } from "@/components/portfolio/FieldOperationsGallery";
 import { CertificationVault } from "@/components/cyber-ui/CertificationVault";
 import { ALL_CERTIFICATES } from "@/lib/certificatesData";
 import { VanguardAI } from "@/components/cyber-ui/VanguardAI";
@@ -1330,6 +1331,8 @@ function Projects({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
         <BeeRouteSimulator />
       </div>
       <CuratedProjects lang={lang} onOpenLab={onOpenLab} />
+
+      <FieldOperationsGallery lang={lang} />
 
       <MoreRepos repos={repos} labels={p.more} />
     </section>

@@ -7,6 +7,7 @@ import { Link } from "wouter";
 import { ProjectModal } from "@/components/cyber-ui/ProjectModal";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
 import { MissionLogs } from "@/components/cyber-ui/MissionLogs";
+import { FieldOperationsGallery } from "@/components/portfolio/FieldOperationsGallery";
 
 export default function Operations() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -284,6 +285,10 @@ export default function Operations() {
             )}
 
             <MissionLogs />
+
+            <div className="mt-16">
+                <FieldOperationsGallery lang="tr" />
+            </div>
         </div>
     );
 }
