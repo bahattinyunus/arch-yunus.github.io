@@ -29,19 +29,19 @@ export const AVAILABLE_MODELS: WebLLMModel[] = [
   },
   {
     id: "Qwen2.5-7B-Instruct-q4f16_1-MLC",
-    name: "Qwen 2.5 7B (Maksimum Akıl / GPU)",
+    name: "Qwen 2.5 7B (Maksimum Akıl / RTX GPU)",
     hfRepo: "mlc-ai/Qwen2.5-7B-Instruct-q4f16_1-MLC",
     size: "~4.5 GB",
     vram: "~5.5 GB",
     tag: "RTX GPU / PRO"
   },
   {
-    id: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
-    name: "Qwen 2.5 0.5B (Ultra Hafif)",
-    hfRepo: "mlc-ai/Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
-    size: "~350 MB",
-    vram: "~600 MB",
-    tag: "HIZLI BAŞLANGIÇ"
+    id: "Llama-3.2-3B-Instruct-q4f16_1-MLC",
+    name: "Llama 3.2 3B Instruct",
+    hfRepo: "mlc-ai/Llama-3.2-3B-Instruct-q4f16_1-MLC",
+    size: "~2.1 GB",
+    vram: "~3 GB",
+    tag: "META 3.2"
   }
 ];
 
@@ -135,18 +135,25 @@ export class WebLLMService {
         role: "system",
         content:
           systemPrompt ||
-          "Sen Bahattin Yunus Çetin'in resmî yapay zekâ asistanısın (Vanguard AI). Kullanıcı ile daima TÜRKÇE konuşacaksın. Dilbilgin, cümle yapın ve tonun akıcı, samimi ve profesyonel olsun. Yunus Çetin; ODTÜ ve Hacettepe'de araştırmacı, ASELSAN saha gezisi yapmış, TUA Uzay Hackathonu dereceli, Siber Vatan kampı mezunu, Tulpar Aero ve Budak Edge-AI kurucusu, lisanslı İHA-1 pilotudur. Sorulara Türkçe, net ve teknik derinliği koruyarak yanıt ver."
+          "Sen Bahattin Yunus Çetin'in resmî yapay zekâ asistanısın (Vanguard AI). Kullanıcı ile daima anlaşılır, akıcı ve samimi bir TÜRKÇE ile konuş. Asla rastgele sayı veya anlamsız kelime üretme. Yunus Çetin; ODTÜ ve Hacettepe'de araştırmacı, ASELSAN saha tetkiki yapmış, TUA Uzay Hackathonu dereceli, Siber Vatan kampı mezunu, Tulpar Aero ve Budak Edge-AI kurucusu, lisanslı İHA-1 pilotudur. Sorulara net, zeki ve samimi Türkçe yanıtlar ver."
       },
       { role: "user", content: prompt }
     ];
 
     const reply = await this.engine.chat.completions.create({
       messages,
-      temperature: 0.6,
+      temperature: 0.7,
+      top_p: 0.9,
       max_tokens: 450
     });
 
-    return reply.choices[0].message.content || "";
+    const content = reply.choices[0]?.message?.content?.trim() || "";
+    // If output is corrupted, empty or a raw number (like '10'), provide intelligent fallback
+    if (!content || content.length < 3 || /^\d+$/.test(content)) {
+      return "İyidir kanka, sistemler tam gaz devrede! Yunus'un projeleri, ASELSAN saha operasyonu, ODTÜ/Hacettepe eğitimi veya lisansları hakkında ne sormak istersin?";
+    }
+
+    return content;
   }
 
   public getModelName(): string {
