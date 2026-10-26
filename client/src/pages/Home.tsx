@@ -60,6 +60,8 @@ import { CuratedProjects } from "@/components/portfolio/CuratedProjects";
 import { CertificationVault } from "@/components/cyber-ui/CertificationVault";
 import { ALL_CERTIFICATES } from "@/lib/certificatesData";
 import { VanguardAI } from "@/components/cyber-ui/VanguardAI";
+import { CyberFieldCanvas } from "@/components/cyber-ui/CyberFieldCanvas";
+import { BeeRouteSimulator } from "@/components/cyber-ui/BeeRouteSimulator";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
 
 const SECTION_IDS = [
@@ -1324,6 +1326,9 @@ function Projects({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
         ))}
       </div>
 
+      <div className="mt-16">
+        <BeeRouteSimulator />
+      </div>
       <CuratedProjects lang={lang} onOpenLab={onOpenLab} />
 
       <MoreRepos repos={repos} labels={p.more} />
@@ -2451,6 +2456,7 @@ export default function Home() {
             "radial-gradient(100% 70% at 50% -20%, rgba(214,255,63,0.09) 0%, rgba(0,240,255,0.04) 40%, transparent 80%)",
         }}
       />
+      <CyberFieldCanvas />
       <Meteors count={14} />
       <div
         aria-hidden
