@@ -1,5 +1,5 @@
 // WebLLM Loader via dynamic ESM CDN
-// Uses Apache-2.0 WebLLM (Qwen2.5-0.5B-Instruct-q4f16_1-MLC / SmolLM2-135M)
+// Connects to Hugging Face MLC repositories (e.g. mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC)
 // Runs 100% on the user's browser GPU via WebGPU, zero server costs, zero tokens paid.
 
 export interface WebLLMProgress {
@@ -7,12 +7,51 @@ export interface WebLLMProgress {
   text: string;
 }
 
+export interface WebLLMModel {
+  id: string;
+  name: string;
+  hfRepo: string;
+  size: string;
+  vram: string;
+  tag: string;
+  recommended?: boolean;
+}
+
+export const AVAILABLE_MODELS: WebLLMModel[] = [
+  {
+    id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
+    name: "Qwen 2.5 1.5B (Optimum Türkçe)",
+    hfRepo: "mlc-ai/Qwen2.5-1.5B-Instruct-q4f16_1-MLC",
+    size: "~980 MB",
+    vram: "~1.4 GB",
+    tag: "ÖNERİLEN OPTİMUM",
+    recommended: true
+  },
+  {
+    id: "Qwen2.5-7B-Instruct-q4f16_1-MLC",
+    name: "Qwen 2.5 7B (Maksimum Akıl / GPU)",
+    hfRepo: "mlc-ai/Qwen2.5-7B-Instruct-q4f16_1-MLC",
+    size: "~4.5 GB",
+    vram: "~5.5 GB",
+    tag: "RTX GPU / PRO"
+  },
+  {
+    id: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
+    name: "Qwen 2.5 0.5B (Ultra Hafif)",
+    hfRepo: "mlc-ai/Qwen2.5-0.5B-Instruct-q4f16_1-MLC",
+    size: "~350 MB",
+    vram: "~600 MB",
+    tag: "HIZLI BAŞLANGIÇ"
+  }
+];
+
 export class WebLLMService {
   private static instance: WebLLMService;
   private engine: any = null;
   private isInitializing: boolean = false;
   private isLoaded: boolean = false;
-  private modelId: string = "Qwen2.5-0.5B-Instruct-q4f16_1-MLC"; // Hafif ve ultra hızlı model
+  // Türkçe için en ideal, dengeli ve optimum model: Qwen2.5 1.5B
+  private modelId: string = "Qwen2.5-1.5B-Instruct-q4f16_1-MLC";
 
   private constructor() {}
 
@@ -21,6 +60,14 @@ export class WebLLMService {
       WebLLMService.instance = new WebLLMService();
     }
     return WebLLMService.instance;
+  }
+
+  public setModel(newModelId: string) {
+    if (this.modelId !== newModelId) {
+      this.modelId = newModelId;
+      this.isLoaded = false;
+      this.engine = null;
+    }
   }
 
   public async isWebGPUSupported(): Promise<boolean> {
@@ -41,19 +88,19 @@ export class WebLLMService {
 
     this.isInitializing = true;
     try {
-      onProgress?.({ progress: 0.1, text: "WebGPU hızlandırıcı denetleniyor..." });
-      
+      onProgress?.({ progress: 0.1, text: "WebGPU donanım hızlandırıcı denetleniyor..." });
+
       const hasGPU = await this.isWebGPUSupported();
       if (!hasGPU) {
         throw new Error("Tarayıcınızda WebGPU donanım hızlandırma etkin değil.");
       }
 
-      onProgress?.({ progress: 0.3, text: "WebLLM sinir ağı kütüphanesi yükleniyor..." });
-      
+      onProgress?.({ progress: 0.3, text: "WebLLM sinir ağı motoru bağlanıyor..." });
+
       // Dynamic import from CDN to avoid npm package build conflicts
       const webllm = await import(/* @vite-ignore */ "https://esm.run/@mlc-ai/web-llm");
 
-      onProgress?.({ progress: 0.5, text: `Açık kaynak model indiriliyor: ${this.modelId}...` });
+      onProgress?.({ progress: 0.5, text: `Hugging Face'ten model indiriliyor: ${this.modelId}...` });
 
       const initProgressCallback = (report: { progress: number; text: string }) => {
         onProgress?.({
@@ -73,7 +120,7 @@ export class WebLLMService {
       return true;
     } catch (err: any) {
       this.isInitializing = false;
-      console.warn("WebLLM yükleme uyarısı:", err.message);
+      console.warn("WebLLM yükleme hatası:", err.message);
       throw err;
     }
   }
@@ -88,7 +135,7 @@ export class WebLLMService {
         role: "system",
         content:
           systemPrompt ||
-          "Sen Bahattin Yunus Çetin'in resmi yapay zekâ asistanısın. Yunus Çetin; ODTÜ ve Hacettepe'de araştırmacı, ASELSAN, TUA ve Siber Vatan tecrübesine sahip, Tulpar Aero ve Budak Edge-AI kurucusudur. Sorulara Türkçe, profesyonel, teknik ve net yanıtlar ver."
+          "Sen Bahattin Yunus Çetin'in resmî yapay zekâ asistanısın (Vanguard AI). Kullanıcı ile daima TÜRKÇE konuşacaksın. Dilbilgin, cümle yapın ve tonun akıcı, samimi ve profesyonel olsun. Yunus Çetin; ODTÜ ve Hacettepe'de araştırmacı, ASELSAN saha gezisi yapmış, TUA Uzay Hackathonu dereceli, Siber Vatan kampı mezunu, Tulpar Aero ve Budak Edge-AI kurucusu, lisanslı İHA-1 pilotudur. Sorulara Türkçe, net ve teknik derinliği koruyarak yanıt ver."
       },
       { role: "user", content: prompt }
     ];
@@ -96,7 +143,7 @@ export class WebLLMService {
     const reply = await this.engine.chat.completions.create({
       messages,
       temperature: 0.6,
-      max_tokens: 350
+      max_tokens: 450
     });
 
     return reply.choices[0].message.content || "";

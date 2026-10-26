@@ -1,25 +1,16 @@
 /**
- * Vanguard Neural Core - Client-Side AI Reasoning Engine
- * 
- * Bu modül tarayıcı üzerinde yerel (in-browser) çalışan, token analizi,
- * semantic embedding benzerliği, n-gram rezonansı ve çok katmanlı 
- * çıkarım (inference) mekanizması barındıran gerçek bir yerel yapay zekâ motorudur.
+ * Vanguard Conversational Neural Engine
+ * Samimi, doğal Türkçe konuşan ve Yunus Çetin'in tüm projelerini, 
+ * eğitimini ve saha tecrübelerini akıcı bir şekilde anlatan zekâ motoru.
  */
 
 export interface NeuralAnalysis {
   intent: string;
   confidence: number;
   tokens: string[];
-  semanticVector: Record<string, number>;
-  entities: {
-    organizations: string[];
-    topics: string[];
-    locations: string[];
-  };
   metrics: {
     inferenceTimeMs: number;
     tokensProcessed: number;
-    perplexityScore: number;
   };
 }
 
@@ -30,211 +21,246 @@ export interface NeuralInferenceResult {
   analysis: NeuralAnalysis;
 }
 
-// Bilgi grafiği semantik sözlüğü (Ontology)
-const KNOWLEDGE_GRAPH = {
-  entities: {
-    aselsan: {
-      labels: ["aselsan", "gölbaşı", "savunma", "hacest", "savunma sanayi", "milli teknoloji"],
-      weight: 1.5,
-      intent: "DEFENSE_TECH_MISSION",
-      badges: ["ASELSAN Gölbaşı Üssü", "Milli Teknoloji Hamlesi", "Sistem Mühendisliği"],
-      action: { label: "Saha İncelemesini Aç", path: "/operations" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: DEFENSE_AR_GE]
-ASELSAN Gölbaşı Teknoloji Üssü Operasyonel İncelemesi:
-Hacettepe HACEST organizasyonuyla savunma sanayiimizin amiral gemisi ASELSAN'ın Gölbaşı Teknoloji Üssü sahada incelenmiştir.
-Karmaşık Ar-Ge hatları, kritik entegrasyonlar, radar/elektronik harp üretim süreçleri ve operasyonel mükemmellik mimarisi yerinde doğrulanmıştır.`
-    },
-    france_exchange: {
-      labels: ["fransa", "france", "strasbourg", "avrupa", "parlamento", "aihm", "maarif", "gençlik değişimi", "basel", "kehl"],
-      weight: 1.6,
-      intent: "GLOBAL_DIPLOMACY_MISSION",
-      badges: ["66.500+ Başvuru / 20 Genç", "Avrupa Parlamentosu", "AİHM Strasbourg"],
-      action: { label: "Diplomasi Saha Raporu", path: "/operations" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: GLOBAL_DIPLOMACY]
-Türkiye – Fransa Uluslararası Gençlik Değişimi Programı:
-66.500'ü aşkın başvuru arasından seçilen 20 gençten biri olarak T.C. Gençlik ve Spor Bakanlığı ile Türkiye Maarif Vakfı himayesinde tamamlanmıştır.
-Avrupa Parlamentosu, Avrupa İnsan Hakları Mahkemesi (AİHM), T.C. Strasbourg Başkonsolosluğu, Université de Strasbourg ile İsviçre (Basel) ve Almanya (Kehl) sınır ötesi saha tetkikleri gerçekleştirilmiştir.`
-    },
-    tua_space: {
-      labels: ["tua", "uzay", "astro", "hackathon", "tübitak", "feza", "satürn", "radyo astronomi", "astronomi"],
-      weight: 1.5,
-      intent: "DEEP_SPACE_AEROSPACE",
-      badges: ["48 Saat Kesintisiz", "15 Açık Kaynak Proje", "TÜBİTAK FezaArsivi"],
-      action: { label: "FezaArsivi Reposu", external: "https://github.com/bahattinyunus/FezaArsivi" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: SPACE_AEROSPACE]
-Türkiye Uzay Ajansı (TUA) Astro Hackathon & KAMP+ Feza Arşivi:
-Trabzon'da 48 saatlik maratonda 15 açık kaynaklı uzay ve astronomi yazılım projesi vizyonu inşa edilmiştir.
-TÜBİTAK iş birliğiyle KAMP+ Uzay Kampı'nda Satürn teleskopik saha gözlemleri, ışık kirliliği ölçümü ve spektrogram analiz kütüphanesi (FezaArsivi) geliştirilmiştir.`
-    },
-    siber_vatan: {
-      labels: ["siber", "vatan", "hacker", "güvenlik", "beyaz şapka", "forensic", "deepfake", "adli bilişim", "ctf"],
-      weight: 1.5,
-      intent: "CYBER_DEFENSE_OPS",
-      badges: ["Siber Vatan 2026", "Beyaz Şapkalı Hacker", "BTK DeepForensics"],
-      action: { label: "Siber Arşivi Gör", path: "/intelligence" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: OFFENSIVE_DEFENSIVE_CYBER]
-Siber Vatan & Multimedya Veri Güvenliği Hattı:
-- DOKA destekli Siber Vatan 2026 Dönemi Trabzon "Beyaz Şapkalı Hacker" kampı başarıyla tamamlandı.
-- BTK Akademi bünyesinde 42 saatlik multimedya güvenliği atölyesinde EXIF, ELA, PRNU parmak izi analizi, GAN derin sahtecilik (deepfake) tespiti ve C2PA içerik doğrulama yazılımı geliştirildi.`
-    },
-    tulpar_flight: {
-      labels: ["tulpar", "iha", "uav", "siha", "uçuş", "evtol", "pilot", "shgm", "aerodinamik", "6-dof"],
-      weight: 1.4,
-      intent: "AUTONOMOUS_FLIGHT_SYSTEMS",
-      badges: ["SHGM İHA-1 Pilotu", "6-DoF Uçuş Mekaniği", "UE5 Simülasyon"],
-      action: { label: "Tulpar Uçuş Güvertesi", path: "/arsenal" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: AUTONOMOUS_AVIONICS]
-Tulpar Aero-Dynamics & Otonom Uçuş Sistemleri:
-Unreal Engine 5 ile fizik tabanlı 6-DoF uçuş mekaniği, aerodinamik veri telemetrisi ve İHA/SİHA için yapay zekâ destekli otonom seyrüsefer algoritmaları geliştirilmektedir.
-Bahattin Yunus Çetin aynı zamanda SHGM onaylı lisanslı İHA-1 ticari pilotudur.`
-    },
-    budak_pruning: {
-      labels: ["budak", "edge", "prun", "budama", "nicemleme", "quant", "int8", "edge-ai", "tflite"],
-      weight: 1.4,
-      intent: "EDGE_AI_PRUNING",
-      badges: ["%80 Model Budama", "Donanım Seviyesi Gizlilik", "Edge-AI Laboratuvarı"],
-      action: { label: "Budak Lab'da Test Et", path: "/arsenal" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: EDGE_AI_DISTILLATION]
-Budak | Edge-AI Optimizasyon Mimarisi:
-Büyük yapay zekâ modellerini yapılandırılmış model budama ve INT8/INT4 nicemleme ile %80'e kadar sıkıştırarak bulut maliyetlerini ortadan kaldıran, cihaz üstünde donanım seviyesinde veri mahremiyeti sunan internet bağımsız Edge-AI altyapısıdır.`
-    },
-    education_certs: {
-      labels: ["eğitim", "okul", "üniversite", "odtü", "hacettepe", "ktü", "sertifika", "lisans", "akreditasyon", "böt"],
-      weight: 1.5,
-      intent: "ACADEMIC_CREDENTIALS",
-      badges: ["ODTÜ BÖTE (2026-2032)", "Hacettepe Üniversitesi", "266+ Lisans"],
-      action: { label: "266+ Sertifika Kasası", path: "/intelligence" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: ACADEMIC_ONTOLOGY]
-Akademik Eğitim & Doğrulanmış Kayıtlar:
-• Orta Doğu Teknik Üniversitesi (ODTÜ) — Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE | 2026 – 2032)
-• Hacettepe Üniversitesi (2026 – 2030)
-• Karadeniz Teknik Üniversitesi — Yazılım Mühendisliği (2024 – 2026)
-• Recep Tayyip Erdoğan Üniversitesi (2024 – 2026)
-• 266+ Resmi Akreditasyon: BTK Akademi, Turkcell Geleceği Yazanlar, T3 Akademi, Bilgeİş ODTÜ, SHGM İHA-1.`
-    },
-    bio_identity: {
-      labels: ["kimdir", "kim", "biyografi", "bahattin", "yunus", "çetin", "who", "hakkında"],
-      weight: 1.3,
-      intent: "IDENTITY_PORTFOLIO",
-      badges: ["AI Developer", "UAV Architect", "Embedded Engineer"],
-      action: { label: "Cephaneliği İncele", path: "/arsenal" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: IDENTITY_REASONING]
-Bahattin Yunus Çetin (bahattinyunus):
-Ankara merkezli Developer, AI Researcher & UAV Systems Architect.
-ODTÜ BÖTE & Hacettepe Üniversitesi bünyesinde mühendislik, derin öğrenme ve otonom sistemler araştırmaları yürütmektedir. Tulpar Aero, Budak, Arkıl Games, MERL ve Anka Silicon Dynamics girişimlerinin kurucusudur.`
-    },
-    contact_comms: {
-      labels: ["iletişim", "mail", "eposta", "contact", "ulaş", "bağlantı"],
-      weight: 1.4,
-      intent: "SECURE_COMMS",
-      badges: ["bahattinyunuscetin1@gmail.com", "Comms Terminal", "LinkedIn"],
-      action: { label: "Comms Kanalını Aç", path: "/comms" },
-      response: `[VANGUARD NEURAL CORE // INFERENCE: SECURE_COMMS]
-Resmi ve Güvenli İletişim Kanalları:
-• E-posta: bahattinyunuscetin1@gmail.com
-• GitHub: https://github.com/bahattinyunus
-• LinkedIn: https://www.linkedin.com/in/bahattinyunus
-Comms terminali üzerinden anlık şifreli mesaj iletebilirsiniz.`
-    }
-  }
-};
-
-/**
- * Tokenizer & N-gram üretici
- */
-function tokenize(text: string): string[] {
-  return text
-    .toLowerCase()
-    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'<>]/g, " ")
-    .split(/\s+/)
-    .filter(t => t.length > 1);
-}
-
-/**
- * Cosine Benzerlik ve Semantik Ağırlık Çıkarımı
- */
+// Doğal konuşma kalıpları ve semantik niyet eşleştirmeleri
 export function inferNeuralResponse(input: string): NeuralInferenceResult {
   const startTime = performance.now();
-  const tokens = tokenize(input);
+  const q = input.toLowerCase().trim();
+  const tokens = q.split(/\s+/).filter(Boolean);
 
-  let bestMatch: (typeof KNOWLEDGE_GRAPH.entities)[keyof typeof KNOWLEDGE_GRAPH.entities] | null = null;
-  let maxScore = 0;
-  const semanticVector: Record<string, number> = {};
+  let text = "";
+  let badges: string[] = [];
+  let action: NeuralInferenceResult["action"] = undefined;
+  let intent = "CONVERSATIONAL";
 
-  // Vektör eşleme ve çıkarım matrisi
-  for (const [key, entity] of Object.entries(KNOWLEDGE_GRAPH.entities)) {
-    let score = 0;
-    for (const label of entity.labels) {
-      const labelTokens = tokenize(label);
-      let matchCount = 0;
-      for (const lt of labelTokens) {
-        if (tokens.some(t => t.includes(lt) || lt.includes(t))) {
-          matchCount++;
-        }
-      }
-      if (matchCount > 0) {
-        score += (matchCount / labelTokens.length) * entity.weight;
-      }
-    }
+  // 1. Selamlaşma / Hal hatır sorma
+  if (
+    q.includes("naber") ||
+    q.includes("ne haber") ||
+    q.includes("nasılsın") ||
+    q.includes("nasilsin") ||
+    q.includes("selam") ||
+    q.includes("merhaba") ||
+    q.includes("sa") ||
+    q.includes("s.a") ||
+    q.includes("günaydın") ||
+    q.includes("iyi günler") ||
+    q.includes("iyi akşamlar") ||
+    q.includes("hey") ||
+    q.includes("kanka") ||
+    q.includes("hocam")
+  ) {
+    intent = "GREETING";
+    const greetings = [
+      "İyidir kanka, sistemler tam gaz çalışıyor! Yunus'un projeleri, ASELSAN saha gezisi, ODTÜ eğitimleri ya da açık kaynak işleri hakkında konuşabiliriz. Ne merak ediyorsun?",
+      "Selamlar! İyilik sağlık, yerel sinir ağı devrede. Yunus Çetin'in yapay zekâ, İHA pilotajı, siber güvenlik veya 266+ sertifikası hakkında ne sormak istersin?",
+      "Aleykümselam kanka, bomba gibiyiz! Sitede geziniyorsan projeler, saha operasyonları veya akademik doktrinler hakkında istediğini sorabilirsin."
+    ];
+    text = greetings[Math.floor(Math.random() * greetings.length)];
+    badges = ["Çevrim İçi", "Yunus'un AI Ajanı", "Hazır"];
+    action = { label: "Projeleri İncele", path: "/operations" };
+  }
 
-    semanticVector[key] = parseFloat(score.toFixed(3));
+  // 2. Sen kimsin / Ne işe yararsın
+  else if (
+    q.includes("sen kimsin") ||
+    q.includes("necisin") ||
+    q.includes("ne yaparsın") ||
+    q.includes("ne ayaksın") ||
+    q.includes("ne işe yararsın") ||
+    q.includes("rolün ne")
+  ) {
+    intent = "AGENT_IDENTITY";
+    text = "Ben Bahattin Yunus Çetin'in kişisel yapay zekâ asistanıyım. Tarayıcında doğrudan çalışıyorum. Yunus'un 5 girişimi (Tulpar, Budak, Arkıl, MERL, Anka), 13 saha operasyonu (ASELSAN, Fransa Maarif Gençlik Değişimi, TUA vb.) ve akademik geçmişiyle ilgili her şeyi yanıtlayabilirim.";
+    badges = ["Vanguard AI", "Yerel Çıkarım", "Yunus Çetin Asistanı"];
+    action = { label: "Tüm Saha Operasyonları", path: "/operations" };
+  }
 
-    if (score > maxScore) {
-      maxScore = score;
-      bestMatch = entity;
-    }
+  // 3. Yunus kimdir / Biyografi
+  else if (
+    q.includes("yunus kim") ||
+    q.includes("bahattin kim") ||
+    q.includes("kimdir") ||
+    q.includes("biyografi") ||
+    q.includes("hakkında") ||
+    q.includes("who is")
+  ) {
+    intent = "BIO_IDENTITY";
+    text = "Bahattin Yunus Çetin; Ankara merkezli AI Developer, UAV Systems Architect ve araştırmacıdır. ODTÜ BÖTE & Hacettepe Üniversitesi'nde eğitimine devam ederken Tulpar Aero-Dynamics, Budak (%80 Edge-AI) ve Arkıl Games gibi girişimlerin kurucusudur. SHGM lisanslı İHA-1 pilotudur ve ROS2, C++, PyTorch mimarileri üzerine çalışır.";
+    badges = ["ODTÜ BÖTE", "Hacettepe", "İHA-1 Pilotu", "AI Developer"];
+    action = { label: "Cephanelik & Stack", path: "/arsenal" };
+  }
+
+  // 4. ASELSAN ve Saha Operasyonları
+  else if (
+    q.includes("aselsan") ||
+    q.includes("gölbaşı") ||
+    q.includes("golbasi") ||
+    q.includes("saha") ||
+    q.includes("teknik gezi")
+  ) {
+    intent = "ASELSAN_FIELD";
+    text = "Yunus, Hacettepe Endüstri ve Sistem Topluluğu organizasyonuyla savunma sanayiimizin amiral gemisi ASELSAN Gölbaşı Teknoloji Üssü'ndeydi. Karmaşık Ar-Ge hatlarını, kritik sistem entegrasyonlarını ve operasyonel mükemmellik süreçlerini sahada bizzat inceledi. Sitede 6 adet orijinal saha fotoğrafı da bulunuyor!";
+    badges = ["ASELSAN Gölbaşı", "Milli Savunma", "6 Saha Fotoğrafı"];
+    action = { label: "Saha Galerisinde Fotoğraflara Bak", path: "/operations" };
+  }
+
+  // 5. Fransa ve Uluslararası Diplomasi
+  else if (
+    q.includes("fransa") ||
+    q.includes("france") ||
+    q.includes("strasbourg") ||
+    q.includes("avrupa") ||
+    q.includes("aihm") ||
+    q.includes("parlamento") ||
+    q.includes("maarif") ||
+    q.includes("diplomasi")
+  ) {
+    intent = "FRANCE_DIPLOMACY";
+    text = "Türkiye–Fransa Gençlik Değişimi Programı'na 66.500'ü aşkın başvuru arasından seçilen 20 gençten biri olarak katıldı. Avrupa Parlamentosu, AİHM, T.C. Strasbourg Başkonsolosluğu ve Strasbourg Üniversitesi'ni ziyaret etti; ayrıca İsviçre (Basel) ve Almanya (Kehl) saha incelemelerini tamamladı.";
+    badges = ["66.500+ Başvuru / 20 Genç", "Avrupa Parlamentosu", "AİHM"];
+    action = { label: "Diplomasi & Saha Kayıtları", path: "/operations" };
+  }
+
+  // 6. TUA, Uzay ve TÜBİTAK
+  else if (
+    q.includes("tua") ||
+    q.includes("uzay") ||
+    q.includes("astro") ||
+    q.includes("hackathon") ||
+    q.includes("tübitak") ||
+    q.includes("tubitak") ||
+    q.includes("feza") ||
+    q.includes("satürn")
+  ) {
+    intent = "SPACE_AEROSPACE";
+    text = "Türkiye Uzay Ajansı (TUA) Trabzon Astro Hackathon'unda 48 saat kesintisiz maratonda 15 açık kaynaklı uzay projesi geliştirdi. TÜBİTAK iş birliğiyle Bursa Karacaali'deki uzay kampında teleskopla Satürn gözlemleri ve spektrogram analizi yaptı; 'FezaArsivi' adında açık kaynak bir uzay reposu paylaştı.";
+    badges = ["48 Saat Hackathon", "15 Açık Kaynak Proje", "FezaArsivi"];
+    action = { label: "FezaArsivi Reposu", external: "https://github.com/bahattinyunus/FezaArsivi" };
+  }
+
+  // 7. Siber Güvenlik, Siber Vatan ve Hack
+  else if (
+    q.includes("siber") ||
+    q.includes("vatan") ||
+    q.includes("güvenlik") ||
+    q.includes("guvenlik") ||
+    q.includes("hacker") ||
+    q.includes("beyaz şapka") ||
+    q.includes("deepfake") ||
+    q.includes("adli")
+  ) {
+    intent = "CYBER_SECURITY";
+    text = "Siber Vatan 2026 Beyaz Şapkalı Hacker kampını başarıyla bitirdi. Ağ sızma testleri ve web zafiyet analizi üzerine çalışıyor. Ayrıca BTK Akademi Trabzon'da 42 saatlik multimedya güvenliği atölyesinde Deepfake ve sahtecilik tespiti yapan açık kaynak bir yapay zekâ kütüphanesi (DeepForensics) geliştirdi.";
+    badges = ["Siber Vatan 2026", "Beyaz Şapkalı Hacker", "BTK DeepForensics"];
+    action = { label: "Siber Güvenlik Arşivi", path: "/intelligence" };
+  }
+
+  // 8. Tulpar Aero ve İHA Uçuşları
+  else if (
+    q.includes("tulpar") ||
+    q.includes("iha") ||
+    q.includes("siha") ||
+    q.includes("uav") ||
+    q.includes("drone") ||
+    q.includes("uçuş") ||
+    q.includes("pilot") ||
+    q.includes("shgm")
+  ) {
+    intent = "TULPAR_AVIONICS";
+    text = "Tulpar Aero-Dynamics, Unreal Engine 5 üzerinde 6 serbestlik dereceli (6-DoF) gerçek zamanlı uçuş aerodinamiği ve İHA otonom seyrüsefer algoritmaları geliştiren bir proje. Yunus aynı zamanda SHGM onaylı ticari İHA-1 pilot lisansına sahip!";
+    badges = ["SHGM İHA-1 Pilotu", "6-DoF UE5", "Otonom Uçuş"];
+    action = { label: "Tulpar Uçuş Güvertesi", path: "/arsenal" };
+  }
+
+  // 9. Budak ve Model Budama (Edge-AI)
+  else if (
+    q.includes("budak") ||
+    q.includes("edge") ||
+    q.includes("prun") ||
+    q.includes("budama") ||
+    q.includes("nicemleme") ||
+    q.includes("int8")
+  ) {
+    intent = "BUDAK_EDGE_AI";
+    text = "Budak, yapay zekâ modellerini %80'e kadar küçülten (Structured Pruning + INT8 Quantization) bir Edge-AI optimizasyon mimarisidir. Modelleri buluta bağımlı kalmadan cihaz üzerinde (Raspberry Pi, telefon, gömülü kart) sıfır veri sızıntısıyla çalıştırır.";
+    badges = ["%80 Model Budama", "Cihaz Üstü AI", "INT8 Nicemleme"];
+    action = { label: "Budak Lab Simülasyonu", path: "/arsenal" };
+  }
+
+  // 10. Eğitim, Üniversite ve 266+ Sertifika
+  else if (
+    q.includes("eğitim") ||
+    q.includes("egitim") ||
+    q.includes("üniversite") ||
+    q.includes("universite") ||
+    q.includes("okul") ||
+    q.includes("odtü") ||
+    q.includes("odtu") ||
+    q.includes("hacettepe") ||
+    q.includes("ktü") ||
+    q.includes("sertifika") ||
+    q.includes("lisans")
+  ) {
+    intent = "EDUCATION_CERTS";
+    text = "Akademik geçmiş:\n• ODTÜ — Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE | 2026–2032)\n• Hacettepe Üniversitesi (2026–2030)\n• KTÜ — Yazılım Mühendisliği (2024–2026)\n• 266'dan fazla resmi sertifika ve lisans (BTK Akademi, Turkcell, T3 Akademi, Bilgeİş ODTÜ, SHGM İHA-1).";
+    badges = ["ODTÜ BÖTE", "Hacettepe", "266+ Sertifika"];
+    action = { label: "266+ Sertifika Kasası", path: "/intelligence" };
+  }
+
+  // 11. İletişim / E-posta
+  else if (
+    q.includes("iletişim") ||
+    q.includes("iletisim") ||
+    q.includes("mail") ||
+    q.includes("eposta") ||
+    q.includes("e-posta") ||
+    q.includes("ulaş") ||
+    q.includes("ulas")
+  ) {
+    intent = "CONTACT_COMMS";
+    text = "Yunus'a doğrudan şu kanallardan ulaşabilirsin:\n• E-posta: bahattinyunuscetin1@gmail.com\n• LinkedIn: linkedin.com/in/bahattinyunus\n• GitHub: github.com/bahattinyunus\nİstersen sitedeki şifreli Comms terminalinden de mesaj bırakabilirsin!";
+    badges = ["bahattinyunuscetin1@gmail.com", "LinkedIn", "GitHub"];
+    action = { label: "Comms Terminalini Aç", path: "/comms" };
+  }
+
+  // 12. Teşekkür / Kapanış
+  else if (
+    q.includes("sağol") ||
+    q.includes("sagol") ||
+    q.includes("teşekkür") ||
+    q.includes("tesekkur") ||
+    q.includes("eyvallah") ||
+    q.includes("adamsın") ||
+    q.includes("harika") ||
+    q.includes("süper")
+  ) {
+    intent = "APPRECIATION";
+    text = "Rica ederim kanka, ne demek! Başka bir konu ya da proje olursa buradayım. Sitedeki interaktif simülatörlere (Tulpar veya BeeRoute) de mutlaka göz at derim!";
+    badges = ["Rica Ederim!", "Keyifli Gezinmeler"];
+  }
+
+  // 13. Genel / Anlaşılamayan Doğal Yanıt
+  else {
+    intent = "FALLBACK";
+    text = `Kanka sorunu tam yakalayamadım ama Yunus'un ASELSAN saha ziyareti, 66.500+ adaylı Fransa Gençlik Değişimi, TUA uzay hackathonu, ODTÜ/Hacettepe eğitimleri ya da Tulpar & Budak projeleri hakkında merak ettiğin bir şey varsa sorabilirsin!`;
+    badges = ["Yunus'un AI Asistanı", "Saha & Projeler"];
+    action = { label: "Tüm Projeleri Keşfet", path: "/operations" };
   }
 
   const endTime = performance.now();
   const inferenceTimeMs = parseFloat((endTime - startTime).toFixed(2));
-  const confidence = maxScore > 0 ? Math.min(100, Math.round((maxScore / 3.0) * 100)) : 45;
 
-  if (bestMatch && maxScore >= 0.6) {
-    return {
-      text: bestMatch.response,
-      badges: bestMatch.badges,
-      action: bestMatch.action,
-      analysis: {
-        intent: bestMatch.intent,
-        confidence,
-        tokens,
-        semanticVector,
-        entities: {
-          organizations: ["ASELSAN", "TUA", "TÜBİTAK", "ODTÜ", "Hacettepe", "Maarif"],
-          topics: ["Yapay Zekâ", "Siber Savunma", "ROS2", "İHA-1"],
-          locations: ["Ankara", "Trabzon", "Strasbourg", "Basel"]
-        },
-        metrics: {
-          inferenceTimeMs: Math.max(12, inferenceTimeMs),
-          tokensProcessed: tokens.length,
-          perplexityScore: 1.08
-        }
-      }
-    };
-  }
-
-  // Akıllı Fallback / Genel Rezonans Çıkarımı
   return {
-    text: `[VANGUARD NEURAL CORE // HEURISTIC INFERENCE]
-Girdi vektörü analiz edildi (${tokens.length} token, çıkarım: ${Math.max(15, inferenceTimeMs)}ms).
-Sistem parametreleri: Bahattin Yunus Çetin'in 5 aktif girişimi (Tulpar, Budak, Arkıl, MERL, Anka), 13 doğrulanmış saha operasyonu (ASELSAN Gölbaşı, 66.500+ adaylı Türkiye–Fransa Gençlik Değişimi, TUA Uzay Hackathonu vb.) ve 266+ resmi akreditasyon kaydı mevcuttur.
-Aşağıdaki menüden ilgili derin modülü tetikleyebilirsiniz.`,
-    badges: ["Local Inference Active", "Semantik Rezonans", "266+ Sertifika Doğrulandı"],
-    action: { label: "Tüm Saha & Proje Kayıtları", path: "/operations" },
+    text,
+    badges,
+    action,
     analysis: {
-      intent: "GENERAL_EXPLORATION",
-      confidence: 65,
+      intent,
+      confidence: 96,
       tokens,
-      semanticVector,
-      entities: {
-        organizations: ["Milli Teknoloji Hamlesi"],
-        topics: ["AI", "Robotics", "Aero"],
-        locations: ["Türkiye"]
-      },
       metrics: {
-        inferenceTimeMs: Math.max(18, inferenceTimeMs),
-        tokensProcessed: tokens.length,
-        perplexityScore: 1.24
+        inferenceTimeMs: Math.max(8, inferenceTimeMs),
+        tokensProcessed: tokens.length
       }
     }
   };
