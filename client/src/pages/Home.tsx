@@ -685,7 +685,7 @@ function Marquee() {
               <span className="font-display text-base uppercase tracking-wider text-muted">
                 {item}
               </span>
-              <span className="text-accent text-xs">âœ¦</span>
+              <span className="text-accent text-xs">✦</span>
             </span>
           ))}
         </div>
@@ -698,7 +698,7 @@ function Marquee() {
               <span className="font-display text-base uppercase tracking-wider text-muted">
                 {item}
               </span>
-              <span className="text-accent text-xs">âœ¦</span>
+              <span className="text-accent text-xs">✦</span>
             </span>
           ))}
         </div>
@@ -760,6 +760,75 @@ function About() {
           </Reveal>
         </div>
       </div>
+
+      {/* Felsefi Pusula & Mühendislik Doktrini Kartları */}
+      <Reveal delay={0.15}>
+        <div className="mt-16 pt-12 border-t border-line">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-accent mb-2">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>EPİSTEMOLOJİK PUSULA // PHILOSOPHICAL COMPASS</span>
+              </div>
+              <h3 className="font-display text-2xl md:text-3xl font-bold tracking-tight text-ink">
+                Mühendisliğin Ontolojik ve Felsefi İlkeleri
+              </h3>
+            </div>
+            <a
+              href="/doctrine"
+              className="inline-flex items-center gap-2 text-xs font-mono text-accent hover:underline"
+            >
+              Tam Doktrin Manifestosu (/doctrine) <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="p-6 rounded-2xl border border-line bg-surface/40 hover:border-accent/40 transition-all flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-mono text-faint uppercase block mb-2">01 // TERMODİNAMİK</span>
+                <h4 className="font-display text-lg font-bold text-ink">Entropiye Karşı Düzen</h4>
+                <p className="mt-2 text-xs text-muted leading-relaxed">
+                  Evrenin kaçınılmaz dağılma eğilimine karşı, deterministik C++ bellek yönetimiyle yerel bir düzen vahası kurmak.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-accent mt-4">“Kod, kaosa çekilen sınırdır.”</span>
+            </div>
+
+            <div className="p-6 rounded-2xl border border-line bg-surface/40 hover:border-accent/40 transition-all flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-mono text-faint uppercase block mb-2">02 // VIA NEGATIVA</span>
+                <h4 className="font-display text-lg font-bold text-ink">Eksiltme ile Zekâ</h4>
+                <p className="mt-2 text-xs text-muted leading-relaxed">
+                  Budak Doktrini: Mermerden heykeli çıkarmak gibi; %80 model budama bir tasarruf değil, gürültüden arınmadır.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-accent mt-4">“Zekâ, vazgeçebildiklerinizdedir.”</span>
+            </div>
+
+            <div className="p-6 rounded-2xl border border-line bg-surface/40 hover:border-accent/40 transition-all flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-mono text-faint uppercase block mb-2">03 // DUALİTE</span>
+                <h4 className="font-display text-lg font-bold text-ink">Determinizm & Sezgi</h4>
+                <p className="mt-2 text-xs text-muted leading-relaxed">
+                  RTOS mikrodenetleyicisinin katı mantığı ile PyTorch olasılıksal latent uzayının hibrit sentezi.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-accent mt-4">“0-1 zemin, olasılık kubbedir.”</span>
+            </div>
+
+            <div className="p-6 rounded-2xl border border-line bg-surface/40 hover:border-accent/40 transition-all flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-mono text-faint uppercase block mb-2">04 // ONTOLOJİ</span>
+                <h4 className="font-display text-lg font-bold text-ink">Teknolojik Egemenlik</h4>
+                <p className="mt-2 text-xs text-muted leading-relaxed">
+                  Başkasının çipinde ve bulutunda koşan zihin özgür değildir. Yerli RISC-V çipi ve bağımsız model mimarisi.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-accent mt-4">“Kendi çekirdeğini yazan kazanır.”</span>
+            </div>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
@@ -1446,6 +1515,10 @@ const TERMINAL_CMDS = [
   "vanguard",
   "whoami",
   "cv",
+  "doctrine",
+  "philosophy",
+  "entropy",
+  "zen",
   "about",
   "skills",
   "projects",
@@ -1574,6 +1647,30 @@ function InteractiveTerminal({ onOpenLab }: { onOpenLab?: (type: CyberLabType) =
           out(">> NEURAL LINK: Tulpar Aero UAV Autopilot synchronized [OK]"),
           out(">> PRUNING MATRIX: Budak Edge-AI 80% sparsity confirmed [OK]"),
           out(">> DOCTRINE: Sovereign Systems, Native Compute, Deep Engineering."),
+        ];
+      case "doctrine":
+      case "philosophy":
+        return [
+          out("▸ MÜHENDİSLİK VE SİBERNETİK DOKTRİNİ (5 AKSİS):", "accent"),
+          out("  I.   Bilişimsel Termodinamik: Evrenin kaçınılmaz entropisine karşı yerel düzen inşası."),
+          out("  II.  Via Negativa (Budak): Zekâ eklediklerinizde değil, elediğiniz gürültüdedir (%80 Budama)."),
+          out("  III. Determinizm & Sezgi: C++ kesinliğinden PyTorch olasılıksal zekâsına köprü."),
+          out("  IV.  Ontolojik Bağımsızlık: Başkasının çipinde koşan zihin, başkasının simülasyonunda aktördür."),
+          out("  V.   Mythos & Logos: Kadim Türk kozmolojisi (Tulpar/Arkıl) ile sibernetik geleceğin sentezi."),
+          out("  Detaylı manifesto için web menüsünden '/doctrine' sayfasına göz atabilirsiniz.", "muted"),
+        ];
+      case "entropy":
+        return [
+          out("▸ BİLİŞİMSEL TERMODİNAMİK VE ENTROPİ DOKTRİNİ:", "accent"),
+          out("  'Her sistem çürümeye meyleder; saf kod yazmak, evrenin kaçınılmaz"),
+          out("   kaosuna karşı deterministik bir sınır çekme eylemidir.'"),
+          out("  — Bahattin Yunus Çetin (ODTÜ BÖTE & Hacettepe)"),
+        ];
+      case "zen":
+        return [
+          out("▸ VIA NEGATIVA // EKSİLTME SANATI:", "accent"),
+          out("  'Mermer heykeltıraşının fazlalığı kırması gibi; hakiki mühendislik"),
+          out("   özellik eklemekle değil, vazgeçilebilecek her şeyi ayıklamakla tamamlanır.'"),
         ];
       case "specs":
         return [
