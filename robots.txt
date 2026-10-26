@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Sitemaps
 Sitemap: https://bahattinyunus.github.io/sitemap.xml
