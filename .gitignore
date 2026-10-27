@@ -104,3 +104,4 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+linkedin/

@@ -82,7 +82,9 @@ export const VanguardAI = () => {
         { label: "🌌 TUA & Uzay Hackathonu", query: "TUA Uzay Hackathonu ve Feza Arşivi nedir?" },
         { label: "🛸 Tulpar Aero & İHA-1", query: "Tulpar Aero-Dynamics ve İHA çalışmaları nedir?" },
         { label: "⚡ Budak %80 Edge-AI", query: "Budak Edge-AI model budama ve INT8 optimizasyonu nedir?" },
-        { label: "📜 266+ Sertifika & ODTÜ", query: "Eğitim geçmişi ve sertifikaları nelerdir?" }
+        { label: "📜 266+ Sertifika & ODTÜ", query: "Eğitim geçmişi ve sertifikaları nelerdir?" },
+        { label: "💻 GitHub & Açık Kaynak", query: "GitHub açık kaynak projelerin ve repoların nelerdir?" },
+        { label: "🎮 BeeRoute Simülatörü", query: "BeeRoute otonom drone rota simülatörü nedir?" }
     ];
 
     useEffect(() => {
@@ -155,50 +157,92 @@ export const VanguardAI = () => {
         const service = WebLLMService.getInstance();
 
         if (llmMode && service.isReady()) {
+            const startTime = performance.now();
+            // Multi-turn history formatting (last 6 messages)
+            const history = messages.slice(-6).map(m => ({
+                role: m.sender === 'user' ? ('user' as const) : ('assistant' as const),
+                content: m.text
+            }));
+
+            // Create streaming placeholder message
+            setMessages(prev => [
+                ...prev,
+                {
+                    sender: 'vanguard',
+                    text: '...',
+                    badges: ["WebGPU Live Stream", service.getModelName()],
+                    isWebLLM: true
+                }
+            ]);
+
             try {
-                const startTime = performance.now();
-                const response = await service.generate(query);
+                let streamedContent = "";
+                const response = await service.generateStream(query, history, (fullText) => {
+                    streamedContent = fullText;
+                    setMessages(prev => {
+                        const copy = [...prev];
+                        const lastIdx = copy.length - 1;
+                        if (lastIdx >= 0 && copy[lastIdx].sender === 'vanguard') {
+                            copy[lastIdx] = {
+                                ...copy[lastIdx],
+                                text: fullText
+                            };
+                        }
+                        return copy;
+                    });
+                });
+
                 const endTime = performance.now();
                 const elapsed = parseFloat(((endTime - startTime) / 1000).toFixed(2));
+                const finalTokens = Math.max(1, Math.round(response.length / 3.5));
+                const speed = parseFloat((finalTokens / Math.max(0.1, elapsed)).toFixed(1));
 
                 playSound('transmit');
-                setMessages(prev => [
-                    ...prev,
-                    {
-                        sender: 'vanguard',
-                        text: response,
-                        badges: ["WebGPU Generative Inference", `Süre: ${elapsed}s`, service.getModelName()],
-                        isWebLLM: true,
-                        analysis: {
-                            intent: "GENERATIVE_WEBGPU",
-                            confidence: 98,
-                            tokens: query.split(" "),
-                            metrics: {
-                                inferenceTimeMs: elapsed * 1000,
-                                tokensProcessed: response.length / 4,
-                                perplexityScore: 1.05
+                setMessages(prev => {
+                    const copy = [...prev];
+                    const lastIdx = copy.length - 1;
+                    if (lastIdx >= 0 && copy[lastIdx].sender === 'vanguard') {
+                        copy[lastIdx] = {
+                            sender: 'vanguard',
+                            text: response || streamedContent,
+                            badges: ["WebGPU Accelerated", `Süre: ${elapsed}s`, `${speed} tok/s`, service.getModelName()],
+                            isWebLLM: true,
+                            analysis: {
+                                intent: "GENERATIVE_WEBGPU",
+                                confidence: 99,
+                                tokens: query.split(" "),
+                                metrics: {
+                                    inferenceTimeMs: elapsed * 1000,
+                                    tokensProcessed: finalTokens,
+                                    perplexityScore: 1.02
+                                }
                             }
-                        }
+                        };
                     }
-                ]);
+                    return copy;
+                });
             } catch (err: any) {
-                // Fallback to local neural inference
+                console.warn("WebLLM error, falling back:", err);
                 const result = inferNeuralResponse(query);
-                setMessages(prev => [
-                    ...prev,
-                    {
-                        sender: 'vanguard',
-                        text: result.text,
-                        action: result.action,
-                        badges: result.badges,
-                        analysis: result.analysis
+                setMessages(prev => {
+                    const copy = [...prev];
+                    const lastIdx = copy.length - 1;
+                    if (lastIdx >= 0 && copy[lastIdx].sender === 'vanguard') {
+                        copy[lastIdx] = {
+                            sender: 'vanguard',
+                            text: result.text,
+                            action: result.action,
+                            badges: [...result.badges, "Fallback Active"],
+                            analysis: result.analysis
+                        };
                     }
-                ]);
+                    return copy;
+                });
             } finally {
                 setIsTyping(false);
             }
         } else {
-            // Standart In-Browser Neural Engine (15ms ultra hızlı)
+            // Standart In-Browser Semantic Neural Engine (15ms ultra hızlı)
             setTimeout(() => {
                 playSound('transmit');
                 const result = inferNeuralResponse(query);
@@ -213,7 +257,7 @@ export const VanguardAI = () => {
                     }
                 ]);
                 setIsTyping(false);
-            }, 300);
+            }, 250);
         }
     };
 

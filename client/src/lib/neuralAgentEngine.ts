@@ -223,7 +223,54 @@ export function inferNeuralResponse(input: string): NeuralInferenceResult {
     action = { label: "Comms Terminalini Aç", path: "/comms" };
   }
 
-  // 12. Teşekkür / Kapanış
+  // 12. GitHub & Açık Kaynak Projeler
+  else if (
+    q.includes("github") ||
+    q.includes("repo") ||
+    q.includes("kod") ||
+    q.includes("kaynak") ||
+    q.includes("açık kaynak")
+  ) {
+    intent = "GITHUB_REPOS";
+    text = "Yunus'un GitHub profilinde 30'dan fazla açık kaynaklı repo ve proje bulunuyor. Öne çıkanlar:\n• FezaArsivi (TUA & Uzay projeleri)\n• DeepForensics (BTK Deepfake ve adli bilişim)\n• Tulpar & Budak Edge-AI kod tabanları.\nTüm açık kaynak kodları inceleyebilir veya katkı sağlayabilirsin!";
+    badges = ["github.com/bahattinyunus", "30+ Repo", "Open Source"];
+    action = { label: "GitHub Profilini Ziyaret Et", external: "https://github.com/bahattinyunus" };
+  }
+
+  // 13. Teknoloji Yığını & Yetenekler
+  else if (
+    q.includes("yetenek") ||
+    q.includes("teknoloji") ||
+    q.includes("stack") ||
+    q.includes("dil") ||
+    q.includes("kullandığı") ||
+    q.includes("framework") ||
+    q.includes("python") ||
+    q.includes("c++") ||
+    q.includes("ros")
+  ) {
+    intent = "TECH_STACK";
+    text = "Yunus Çetin'in ana teknoloji cephaneliği:\n• AI / ML: PyTorch, TensorFlow, Hugging Face, TensorRT, ONNX\n• Robotik & Otonom: ROS2 Humble, Gazebo, PX4, MAVLink, OpenCV, C++\n• Gömülü & Edge: Jetson Nano, Raspberry Pi, INT8 Quantization\n• Web & Modern Stack: React 19, TypeScript, TailwindCSS, WebGPU, Node.js";
+    badges = ["PyTorch & ROS2", "C++ & Python", "Edge-AI & WebGPU"];
+    action = { label: "Teknoloji Cephaneliğini Gör", path: "/arsenal" };
+  }
+
+  // 14. İnteraktif Simülatörler (Tulpar / BeeRoute)
+  else if (
+    q.includes("simülatör") ||
+    q.includes("simulator") ||
+    q.includes("beeroute") ||
+    q.includes("arı") ||
+    q.includes("rota") ||
+    q.includes("uçuş güvertesi")
+  ) {
+    intent = "SIMULATOR_TOOLS";
+    text = "Sitede 2 adet interaktif siber simülatör bulunuyor:\n1. BeeRoute: 2.5D kentsel otonom kurye drone rota planlama algoritması.\n2. Tulpar Uçuş Güvertesi: 6-DoF aerodinamik telemetri paneli.\nİkisi de tamamen tarayıcı içinde gerçek zamanlı fizik motoruyla çalışıyor!";
+    badges = ["BeeRoute Simulator", "Tulpar 6-DoF", "Gerçek Zamanlı Fizik"];
+    action = { label: "Cephanelik ve Simülatörler", path: "/arsenal" };
+  }
+
+  // 15. Teşekkür / Kapanış
   else if (
     q.includes("sağol") ||
     q.includes("sagol") ||
@@ -239,7 +286,21 @@ export function inferNeuralResponse(input: string): NeuralInferenceResult {
     badges = ["Rica Ederim!", "Keyifli Gezinmeler"];
   }
 
-  // 13. Genel / Anlaşılamayan Doğal Yanıt
+  // 16. Sohbet / Espri / Genel Sorular
+  else if (
+    q.includes("nerelisin") ||
+    q.includes("nerede") ||
+    q.includes("yaş") ||
+    q.includes("şaka") ||
+    q.includes("fıkra") ||
+    q.includes("ele geçirecek mi")
+  ) {
+    intent = "CASUAL_CHAT";
+    text = "Yunus Ankara merkezli çalışıyor; ODTÜ ve Hacettepe koridorlarında kod yazıp laboratuvarlarda İHA uçuruyor. Ben de onun dijital ikizi olarak tarayıcında nöbetteyim! Yapay zekâ dünyayı ele geçirmeyecek ama işini çok kolaylaştıracak, garanti ederim 😄";
+    badges = ["Ankara", "ODTÜ & Hacettepe", "AI Assistant"];
+  }
+
+  // 17. Genel / Anlaşılamayan Doğal Yanıt
   else {
     intent = "FALLBACK";
     text = `Kanka sorunu tam yakalayamadım ama Yunus'un ASELSAN saha ziyareti, 66.500+ adaylı Fransa Gençlik Değişimi, TUA uzay hackathonu, ODTÜ/Hacettepe eğitimleri ya da Tulpar & Budak projeleri hakkında merak ettiğin bir şey varsa sorabilirsin!`;

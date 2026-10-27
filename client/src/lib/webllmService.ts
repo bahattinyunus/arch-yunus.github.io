@@ -125,7 +125,25 @@ export class WebLLMService {
     }
   }
 
-  public async generate(prompt: string, systemPrompt?: string): Promise<string> {
+  private getDefaultSystemPrompt(): string {
+    return (
+      "Sen Bahattin Yunus Çetin'in resmi yapay zekâ asistanısın (Vanguard AI). " +
+      "Kullanıcı ile daima doğal, akıcı, zeki ve samimi bir TÜRKÇE ile konuş. " +
+      "Asla tek haneli sayı veya anlamsız rastgele kelimeler üretme. " +
+      "Bahattin Yunus Çetin; ODTÜ ve Hacettepe'de araştırmacı, ASELSAN Gölbaşı Üssü saha operasyonu incelemiş, " +
+      "Türkiye-Fransa Gençlik Değişimi'ne (66.500 aday arasından seçilen 20 kişiden biri) katılmış, " +
+      "TUA Uzay Hackathonu dereceli, Siber Vatan Beyaz Şapkalı Hacker kampı mezunudur. " +
+      "Tulpar Aero-Dynamics ve Budak Edge-AI kurucusu, lisanslı SHGM İHA-1 pilotudur. " +
+      "Sorulara Türkçe, bilgilendirici, samimi ve teknik derinliği koruyarak yanıt ver."
+    );
+  }
+
+  public async generateStream(
+    prompt: string,
+    history: { role: "system" | "user" | "assistant"; content: string }[] = [],
+    onChunk?: (currentFullText: string, chunk: string) => void,
+    systemPrompt?: string
+  ): Promise<string> {
     if (!this.engine || !this.isLoaded) {
       throw new Error("Model henüz yüklenmedi.");
     }
@@ -133,10 +151,57 @@ export class WebLLMService {
     const messages = [
       {
         role: "system",
-        content:
-          systemPrompt ||
-          "Sen Bahattin Yunus Çetin'in resmî yapay zekâ asistanısın (Vanguard AI). Kullanıcı ile daima anlaşılır, akıcı ve samimi bir TÜRKÇE ile konuş. Asla rastgele sayı veya anlamsız kelime üretme. Yunus Çetin; ODTÜ ve Hacettepe'de araştırmacı, ASELSAN saha tetkiki yapmış, TUA Uzay Hackathonu dereceli, Siber Vatan kampı mezunu, Tulpar Aero ve Budak Edge-AI kurucusu, lisanslı İHA-1 pilotudur. Sorulara net, zeki ve samimi Türkçe yanıtlar ver."
+        content: systemPrompt || this.getDefaultSystemPrompt()
       },
+      ...history.slice(-6),
+      { role: "user", content: prompt }
+    ];
+
+    try {
+      const chunks = await this.engine.chat.completions.create({
+        messages,
+        temperature: 0.7,
+        top_p: 0.9,
+        stream: true,
+        max_tokens: 500
+      });
+
+      let fullReply = "";
+      for await (const chunk of chunks) {
+        const delta = chunk.choices[0]?.delta?.content || "";
+        if (delta) {
+          fullReply += delta;
+          onChunk?.(fullReply, delta);
+        }
+      }
+
+      const trimmed = fullReply.trim();
+      if (!trimmed || trimmed.length < 3 || /^\d+$/.test(trimmed)) {
+        return "İyidir kanka, sistemler tam gaz devrede! Yunus'un projeleri, ASELSAN saha operasyonu, ODTÜ/Hacettepe eğitimi veya lisansları hakkında ne sormak istersin?";
+      }
+
+      return trimmed;
+    } catch (e: any) {
+      console.warn("WebLLM stream hatası, fallback yapılıyor:", e);
+      return await this.generate(prompt, history, systemPrompt);
+    }
+  }
+
+  public async generate(
+    prompt: string,
+    history: { role: "system" | "user" | "assistant"; content: string }[] = [],
+    systemPrompt?: string
+  ): Promise<string> {
+    if (!this.engine || !this.isLoaded) {
+      throw new Error("Model henüz yüklenmedi.");
+    }
+
+    const messages = [
+      {
+        role: "system",
+        content: systemPrompt || this.getDefaultSystemPrompt()
+      },
+      ...history.slice(-6),
       { role: "user", content: prompt }
     ];
 
@@ -148,7 +213,6 @@ export class WebLLMService {
     });
 
     const content = reply.choices[0]?.message?.content?.trim() || "";
-    // If output is corrupted, empty or a raw number (like '10'), provide intelligent fallback
     if (!content || content.length < 3 || /^\d+$/.test(content)) {
       return "İyidir kanka, sistemler tam gaz devrede! Yunus'un projeleri, ASELSAN saha operasyonu, ODTÜ/Hacettepe eğitimi veya lisansları hakkında ne sormak istersin?";
     }
