@@ -131,6 +131,58 @@ export const CuratedProjects: React.FC<CuratedProjectsProps> = ({ lang, onOpenLa
       icon: Code2
     },
     {
+      id: "datathon-pipeline",
+      title: "Datathon Tahminleme Hattı // Multi-Model Ensemble",
+      tag: "ai",
+      category: lang === "tr" ? "Veri Bilimi & Makine Öğrenmesi" : "Data Science & AI",
+      desc: lang === "tr"
+        ? "Attention-LSTM, Prophet ve Random Forest modellerini 100+ öznitelik mühendisliğiyle birleştiren çok modüllü tahminleyici sistem. Türkiye Girişimcilik Vakfı Datathon 2026 & BTK Datathon 2025 projesi."
+        : "Multi-modular forecasting pipeline combining Attention-LSTM, Prophet and Random Forest with 100+ engineered features for Datathon 2026.",
+      tech: ["Python", "Attention-LSTM", "Prophet", "Random Forest", "Feature Engineering"],
+      stars: 44,
+      repo: "https://github.com/bahattinyunus",
+      icon: Terminal
+    },
+    {
+      id: "insansiz-sualti",
+      title: "İnsansız Sualtı Araçları Rehberi // Jetson Orin & ROS 2",
+      tag: "aviation",
+      category: lang === "tr" ? "Otonom Sualtı & Robotik" : "Autonomous Underwater",
+      desc: lang === "tr"
+        ? "TEKNOFEST İnsansız Sualtı Sistemleri için NVIDIA Jetson Orin tabanlı Edge AI, ROS 2 düğüm mimarisi ve EKF füzyonlu otonom navigasyon teknik rehberi."
+        : "Comprehensive technical guide for TEKNOFEST AUV competitions featuring NVIDIA Jetson Orin Edge AI, ROS 2 and EKF sensor fusion navigation.",
+      tech: ["ROS 2", "Jetson Orin", "EKF", "C++", "Python", "Sensör Füzyonu"],
+      stars: 65,
+      repo: "https://github.com/bahattinyunus",
+      icon: Orbit
+    },
+    {
+      id: "android-crypto",
+      title: "Android Crypto Tracker // Jetpack Compose & MVVM",
+      tag: "embedded",
+      category: lang === "tr" ? "Mobil Mimarisi" : "Mobile Architecture",
+      desc: lang === "tr"
+        ? "GDG Trabzon bünyesinde geliştirilen; Jetpack Compose, Kotlin Coroutines, Retrofit ve Material 3 ile anlık kripto para takip ve portföy mimarisi."
+        : "Real-time cryptocurrency tracking app engineered with Jetpack Compose, MVVM clean architecture, Kotlin Coroutines, and Retrofit.",
+      tech: ["Kotlin", "Jetpack Compose", "MVVM", "Retrofit", "Coroutines"],
+      stars: 39,
+      repo: "https://github.com/bahattinyunus",
+      icon: Code2
+    },
+    {
+      id: "poseidoneye",
+      title: "PoseidonEye & Denizaltı Akademisi // Kestirimci Bakım & IoT",
+      tag: "ai",
+      category: lang === "tr" ? "IoT & Kestirimci Bakım" : "Predictive Maintenance",
+      desc: lang === "tr"
+        ? "Gemi makine daireleri için Isolation Forest tabanlı anomali tespiti ve kestirimci bakım mimarisi; MQTT telemetri, IoT sensör katmanı ve Streamlit paneli."
+        : "Isolation Forest based anomaly detection and predictive maintenance system for marine engine rooms featuring MQTT IoT telemetry.",
+      tech: ["Python", "Isolation Forest", "MQTT", "Streamlit", "IoT"],
+      stars: 42,
+      repo: "https://github.com/bahattinyunus",
+      icon: Cpu
+    },
+    {
       id: "math2code",
       title: "Math2Code // Matematiksel Modelleme Rehberi",
       tag: "algorithm",

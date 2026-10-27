@@ -85,9 +85,23 @@ export function inferNeuralResponse(input: string): NeuralInferenceResult {
     q.includes("who is")
   ) {
     intent = "BIO_IDENTITY";
-    text = "Bahattin Yunus Çetin; Ankara merkezli AI Developer, UAV Systems Architect ve araştırmacıdır. ODTÜ BÖTE & Hacettepe Üniversitesi'nde eğitimine devam ederken Tulpar Aero-Dynamics, Budak (%80 Edge-AI) ve Arkıl Games gibi girişimlerin kurucusudur. SHGM lisanslı İHA-1 pilotudur ve ROS2, C++, PyTorch mimarileri üzerine çalışır.";
-    badges = ["ODTÜ BÖTE", "Hacettepe", "İHA-1 Pilotu", "AI Developer"];
-    action = { label: "Cephanelik & Stack", path: "/arsenal" };
+    text = "Bahattin Yunus Çetin; ODTÜ Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE / CEIT) ve Hacettepe Üniversitesi öğrencisi; T.C. Gençlik ve Spor Bakanlığı Gönüllü Gençlik Lideri ve KTÜ EHK Yönetim Kurulu Üyesidir. Yapay zekâ, siber güvenlik (Siber Vatan Beyaz Şapkalı Hacker) ve gömülü sistemler üzerine çalışan lisanslı bir SHGM İHA-1 pilotudur. 266'dan fazla onaylı sertifika ve lisansa sahiptir.";
+    badges = ["ODTÜ BÖTE", "Hacettepe", "GSB Gençlik Lideri", "İHA-1 Pilotu", "266+ Sertifika"];
+    action = { label: "Resmi CV'yi İndir (PDF)", external: "/cv3.pdf" };
+  }
+
+  // 3.1 CV / Özgeçmiş İndirme
+  else if (
+    q.includes("cv") ||
+    q.includes("özgeçmiş") ||
+    q.includes("ozgecmis") ||
+    q.includes("resume") ||
+    (q.includes("indir") && (q.includes("belge") || q.includes("dosya") || q.includes("pdf")))
+  ) {
+    intent = "CV_DOWNLOAD";
+    text = "Yunus Çetin'in güncel, resmi ve doğrulanmış özgeçmişini (PDF) doğrudan buradan indirebilir ve tüm akademik/teknik geçmişini inceleyebilirsin.";
+    badges = ["Resmi CV", "Doğrulanmış Özgeçmiş", "PDF"];
+    action = { label: "Resmi CV'yi İndir (PDF)", external: "/cv3.pdf" };
   }
 
   // 4. ASELSAN ve Saha Operasyonları

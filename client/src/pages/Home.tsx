@@ -620,25 +620,25 @@ function Hero({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
             {/* Modern Hero Bento Stat Strip */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
               <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
-                <span className="text-xl font-bold font-mono text-accent block">231+</span>
-                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Açık Kaynak Repo</span>
+                <span className="text-xl font-bold font-mono text-accent block">20 / 66.500+</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">{lang === "tr" ? "Fransa Değişimi" : "Youth Exchange"}</span>
               </div>
               <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
                 <span className="text-xl font-bold font-mono text-emerald-400 block">266+</span>
-                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Resmi Sertifika</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">{lang === "tr" ? "Resmi Sertifika" : "Certificates"}</span>
               </div>
               <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
-                <span className="text-xl font-bold font-mono text-neon-blue block">6 LAB</span>
-                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">Arat / Tulpar / Budak</span>
+                <span className="text-xl font-bold font-mono text-neon-blue block">13 Saha Görevi</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">{lang === "tr" ? "ASELSAN & TUA & Siber" : "Field Operations"}</span>
               </div>
               <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md">
-                <span className="text-xl font-bold font-mono text-amber-400 block">İHA-1</span>
-                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">SHGM Pilot Lisansı</span>
+                <span className="text-xl font-bold font-mono text-amber-400 block">SHGM İHA-1</span>
+                <span className="text-[10px] font-mono text-white/40 uppercase tracking-wider">{lang === "tr" ? "Pilot Lisansı" : "UAV Pilot License"}</span>
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#projeler"
                 className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-canvas transition hover:opacity-90"
@@ -647,8 +647,17 @@ function Hero({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
                 <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
               </a>
               <a
+                href="/cv3.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full border border-emerald-500/50 bg-emerald-500/10 px-5 py-3.5 text-sm font-medium text-emerald-300 transition hover:bg-emerald-500/20 hover:border-emerald-400 shadow-[0_0_18px_rgba(16,185,129,0.18)]"
+              >
+                <Award className="h-4 w-4 text-emerald-400 transition-transform group-hover:scale-110" />
+                <span>{lang === "tr" ? "Resmi CV (PDF)" : "Official CV (PDF)"}</span>
+              </a>
+              <a
                 href="#iletisim"
-                className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3.5 text-sm font-medium text-ink transition hover:bg-surface"
+                className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-3.5 text-sm font-medium text-ink transition hover:bg-surface"
               >
                 {t.hero.ctaContact}
               </a>

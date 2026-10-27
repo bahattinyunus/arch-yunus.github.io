@@ -76,6 +76,7 @@ export const VanguardAI = () => {
     const [, setLocation] = useLocation();
 
     const quickPrompts = [
+        { label: "📄 Resmi CV (PDF)", query: "Yunus Çetin'in güncel CV ve özgeçmiş dosyasını indirebilir miyim?" },
         { label: "📍 ASELSAN Gölbaşı Üssü", query: "ASELSAN Gölbaşı saha operasyonu incelemesi nedir?" },
         { label: "🇪🇺 Türkiye–Fransa Değişimi", query: "Türkiye Fransa Gençlik Değişimi programı ve Strasbourg detayları?" },
         { label: "🛡️ Siber Vatan Kampı", query: "Siber Vatan Beyaz Şapkalı Hacker Kampı ve siber güvenlik çalışmaları?" },

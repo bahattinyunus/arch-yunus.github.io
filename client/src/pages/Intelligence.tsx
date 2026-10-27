@@ -28,8 +28,17 @@ export function Intelligence() {
           </p>
         </div>
 
-        {/* Tab Controls */}
-        <div className="flex flex-wrap gap-2">
+        {/* Tab Controls & CV Download */}
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href="/cv3.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-mono rounded-lg border border-emerald-500/50 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20 transition-all shadow-[0_0_12px_rgba(16,185,129,0.2)] font-semibold"
+          >
+            <Award className="w-3.5 h-3.5 text-emerald-400" />
+            <span>RESMİ CV'Yİ İNDİR (PDF)</span>
+          </a>
           {[
             { id: "all", label: "TÜMÜ" },
             { id: "certs", label: "266+ SERTİFİKA" },

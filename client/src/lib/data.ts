@@ -6,10 +6,10 @@ export const profileData = {
     fullName: "Bahattin Yunus Çetin",
     username: "bahattinyunus",
     location: "Ankara, Türkiye",
-    title: "AI Developer · UAV Systems Architect · Embedded Systems",
+    title: "Developer · Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler",
     email: "bahattinyunuscetin1@gmail.com",
-    bio: `ODTÜ Bilgisayar ve Öğretim Teknolojileri Eğitimi (BÖTE / CEIT) ve Hacettepe Üniversitesi öğrencisi; Otonom Sistemler (ROS2), Büyük Dil Modelleri (LLM), Model Budama (%80 Edge-AI), Siber Güvenlik ve Gömülü Sistemler üzerine yoğunlaşan bir geliştirici ve teknoloji üreticisiyim. Python (PyTorch) ve C++17/20 hibrit teknoloji yığını üzerinde uzmanlaşırken; donanım entegrasyonu, aviyonik mimari ve saha operasyonlarını bizzat yürütüyorum. Arat Labs, Tulpar Aero-Dynamics, Arkıl Games, MERL, Budak ve Anka Silicon Dynamics ile savunma, yapay zeka ve otonom araç sektörlerine yönelik bağımsız çözümler üretiyorum.`,
-    tagline: "ODTÜ BÖTE & Hacettepe | Developer | Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler | Founder @ Arat Labs, Tulpar Aero, Arkıl, MERL, Budak & Anka",
+    bio: `Yazılım geliştirme, yapay zekâ, siber güvenlik ve gömülü sistemler alanlarında kendini sürekli geliştiren, veri yarışmaları ve hackathonlara aktif katılan bir geliştiriciyim. Python, JavaScript, C/C++ ve Go ile hem yazılım hem donanım odaklı projeler geliştiriyor; insansız hava ve sualtı araçları, havacılık-uzay ve girişimcilik alanlarında eğitim ve kamplara katılıyorum. Öğrendiklerimi açık kaynak olarak GitHub'da düzenli şekilde belgeleyip paylaşıyorum.`,
+    tagline: "ODTÜ BÖTE & Hacettepe | GSB Gençlik Lideri | Developer · Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler | 266+ Akreditasyon",
     avatar_url: "/images/ai-avatar.jpg",
     github_url: "https://github.com/bahattinyunus",
     linkedin_url: "https://www.linkedin.com/in/bahattinyunus",
@@ -309,46 +309,46 @@ export const profileData = {
   ],
   timeline: [
     {
-      year: "Nisan 2026 - Günümüz",
-      title: "Kurucu & Baş Teknoloji Mimarı",
-      company: "Tulpar Aero-Dynamics",
-      description: "UE5 ile fizik tabanlı uçuş mekaniği ve aerodinamik telemetri simülatörleri. İHA/SİHA ve eVTOL için yapay zeka destekli otonom uçuş algoritmaları.",
-      icon: "Plane"
+      year: "Ekim 2024 – Günümüz",
+      title: "Gönüllü Gençlik Lideri",
+      company: "T.C. Gençlik ve Spor Bakanlığı",
+      description: "Gençlik merkezleri ve teknoloji atölyelerinde dijital okuryazarlık, yazılım ve mühendislik vizyonu eğitimleri yürütücülüğü.",
+      icon: "Award"
     },
     {
-      year: "Nisan 2026 - Günümüz",
-      title: "Kurucu & Yaratıcı Direktör",
-      company: "Arkıl Games",
-      description: "Türk mitolojisi tabanlı oyun evreni tasarımı ve yerel motiflerle evrensel oyun mekanikleri geliştirme liderliği.",
-      icon: "Gamepad2"
+      year: "Eylül 2024 – Temmuz 2025",
+      title: "Yönetim Kurulu Üyesi",
+      company: "KTÜ Elektronik ve Haberleşme Kulübü",
+      description: "Robotik, gömülü sistemler ve yazılım yarışmaları koordinasyonu; teknik etkinlik ve atölye organizasyon liderliği.",
+      icon: "Terminal"
     },
     {
-      year: "Ocak 2026 - Günümüz",
-      title: "Baş Araştırmacı & Kurucu",
-      company: "Meta-Engineering Research Lab (MERL)",
-      description: "İnsan müdahalesiz otonom kod fabrikaları, deterministikten stokastik mühendislik modellerine geçiş mimarisi.",
-      icon: "BrainCircuit"
+      year: "2026",
+      title: "Uluslararası Saha Temsilcisi (20 / 66.500+ Seçilme)",
+      company: "T.C. GSB & Türkiye Maarif Vakfı (Fransa Gençlik Değişimi)",
+      description: "Avrupa Parlamentosu, AİHM, T.C. Strasbourg Başkonsolosluğu, Basel ve Kehl diplomatik ve kurumsal saha incelemeleri.",
+      icon: "Globe"
     },
     {
-      year: "Ocak 2026 - Günümüz",
-      title: "Kurucu & Baş Araştırma Mühendisi",
-      company: "Budak | Edge-AI Optimization",
-      description: "Model budama ve nicemleme ile AI modellerini %80 optimize eden, donanım seviyesinde veri gizliliği koruyan internet bağımsız Edge-AI ekosistemi.",
-      icon: "Zap"
+      year: "2026",
+      title: "Beyaz Şapkalı Hacker Kampı",
+      company: "Türkiye Siber Vatan Programı & DOKA",
+      description: "6 saatlik CTF sınavında dereceyle kazanılan 5 günlük yoğun siber güvenlik kampı; zafiyet analizi, pentest ve ağ savunması.",
+      icon: "Shield"
     },
     {
-      year: "Aralık 2025 - Günümüz",
-      title: "Kurucu & Baş Sistem Mimarı",
-      company: "Anka Silicon Dynamics",
-      description: "Knowledge Distillation ile donanım bağımsız zeka ekosistemi. Unsloth, vLLM, QLoRA ve milli NPU/FPGA simülasyonları.",
+      year: "2026",
+      title: "6. Dönem Havacılık Motorları Okulu (16 Hafta)",
+      company: "TEI - TUSAŞ Motor Sanayii A.Ş.",
+      description: "Gaz türbinli havacılık motorları, termodinamik, ileri imalat teknikleri ve milli aviyonik kontrol sistemleri eğitimi.",
       icon: "Cpu"
     },
     {
-      year: "2025 - Halen",
-      title: "Siber Vatan Programı & Beyaz Şapkalı Hacker",
-      company: "T.C. Savunma Sanayii Başkanlığı / Siber Vatan",
-      description: "Siber güvenlik ve yapay zeka alanında ileri düzey yetenek geliştirme programı. Beyaz şapkalı hacker eğitimi, CTF ve siber savunma tatbikatları.",
-      icon: "Shield"
+      year: "2025 – 2026",
+      title: "Astro Hackathon & Interstellar Problem Solver",
+      company: "Türkiye Uzay Ajansı (TUA) & TÜBİTAK",
+      description: "48 saatlik maratonda 15 açık kaynak uzay projesi; Bursa Karacaali uzay kampında teleskopik spektrogram ve FezaArsivi geliştirimi.",
+      icon: "Orbit"
     }
   ],
   ai_tools: [
