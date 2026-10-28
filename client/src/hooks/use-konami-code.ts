@@ -1,5 +1,4 @@
 
-// @ts-nocheck
 import { useEffect, useState } from "react";
 
 const KONAMI_CODE = [

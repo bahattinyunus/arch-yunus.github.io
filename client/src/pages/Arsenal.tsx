@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { profileData } from "@/lib/data";
 import { motion, AnimatePresence } from "framer-motion";
 import { Cpu, Terminal, Shield, Layers, Zap, Network, Server, Lock, Activity, CheckCircle2, ChevronRight, Plane } from "lucide-react";

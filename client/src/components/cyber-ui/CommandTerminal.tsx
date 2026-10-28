@@ -1,16 +1,15 @@
-// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Command } from "cmdk";
 import { useLocation } from "wouter";
-import { Shield, Cpu, Terminal, Target, Radio, Search, ExternalLink, Activity, Lock, Unlock, User, BookOpen, Volume2, Sparkles, HelpCircle } from "lucide-react";
+import { Shield, Cpu, Terminal, Target, Radio, Search, ExternalLink, Activity, Lock, Unlock, User, BookOpen, Volume2, Sparkles, HelpCircle, Plane, Zap, Award, Layers } from "lucide-react";
 import { profileData } from "@/lib/data";
 import { useVault } from "@/contexts/VaultContext";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
 
-export const CommandTerminal = () => {
+export const CommandTerminal: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [inputValue, setInputValue] = useState("");
-    const [terminalOutput, setTerminalOutput] = useState<string | null>(null);
+    const [terminalOutput, setTerminalOutput] = useState<{ text: string; action?: { label: string; onClick: () => void } } | null>(null);
     const [, setLocation] = useLocation();
     const { isSecureMode, toggleSecureMode } = useVault();
     const { playSound, toggleAmbient } = useCyberSound();
@@ -19,7 +18,7 @@ export const CommandTerminal = () => {
         const down = (e: KeyboardEvent) => {
             if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || (e.key === "`" && !['input', 'textarea'].includes((e.target as HTMLElement)?.tagName?.toLowerCase())) || (e.key === "~")) {
                 e.preventDefault();
-                setOpen((open) => !open);
+                setOpen((prev) => !prev);
             }
         };
         document.addEventListener("keydown", down);
@@ -37,26 +36,65 @@ export const CommandTerminal = () => {
         if (normalized === "locks" || normalized === "secure") {
             toggleSecureMode();
             playSound('access');
-            setTerminalOutput(isSecureMode ? "SECURE_MODE: DEACTIVATED" : "SECURE_MODE: ACTIVATED // HIGH_CLEARANCE");
+            setTerminalOutput({
+                text: isSecureMode ? "SECURE_MODE: DEACTIVATED // STANDARD_CLEARANCE" : "SECURE_MODE: ACTIVATED // HIGH_CLEARANCE_VAULT_OPENED"
+            });
         } else if (normalized === "whoami") {
             playSound('access');
-            setTerminalOutput(`UID: BAHATTIN_YUNUS_CETIN // DEVELOPER · AI & EMBEDDED ARCHITECT // METU CEIT & HACETTEPE`);
+            setTerminalOutput({
+                text: "UID: BAHATTIN_YUNUS_CETIN // DEVELOPER · AI & UAV ARCHITECT // METU & HACETTEPE",
+                action: { label: "Hakkımda Git", onClick: () => runCommand(() => setLocation("/#hakkimda")) }
+            });
         } else if (normalized === "cv" || normalized === "resume") {
             playSound('transmit');
             window.open("/cv3.pdf", "_blank");
-            setTerminalOutput("RESMI_CV_ACILDI: /cv3.pdf (Doğrulanmış Özgeçmiş)");
-        } else if (normalized === "help") {
+            setTerminalOutput({
+                text: "RESMİ_CV_AÇILDI: /cv3.pdf (Doğrulanmış Özgeçmiş)",
+                action: { label: "CV İndir (PDF)", onClick: () => window.open("/cv3.pdf", "_blank") }
+            });
+        } else if (normalized === "help" || normalized === "?") {
             playSound('type');
-            setTerminalOutput("COMMANDS: whoami, cv, locks, audio, clear, projects, doctrine, exit");
-        } else if (normalized === "audio" || normalized === "synth") {
+            setTerminalOutput({
+                text: "KOMUTLAR: whoami, cv, locks, audio, tulpar, budak, beeroute, certs, stats, ping, clear, exit"
+            });
+        } else if (normalized === "audio" || normalized === "synth" || normalized === "sound") {
             toggleAmbient();
             playSound('transmit');
-            setTerminalOutput("SYNTH_AUDIO_STATE_TOGGLED");
+            setTerminalOutput({
+                text: "CYBER_SYNTH_AUDIO_DURUMU_DEĞİŞTİRİLDİ"
+            });
+        } else if (normalized === "tulpar" || normalized === "flight" || normalized === "uav") {
+            playSound('click');
+            runCommand(() => setLocation("/arsenal"));
+        } else if (normalized === "budak" || normalized === "pruning" || normalized === "edge") {
+            playSound('click');
+            runCommand(() => setLocation("/arsenal"));
+        } else if (normalized === "beeroute" || normalized === "abc") {
+            playSound('click');
+            runCommand(() => setLocation("/#projeler"));
+        } else if (normalized === "certs" || normalized === "vault") {
+            playSound('click');
+            runCommand(() => setLocation("/intelligence"));
+        } else if (normalized === "stats") {
+            playSound('type');
+            setTerminalOutput({
+                text: `METRİKLER: 231+ Repos | 1500+ Stars | 2063+ GitHub Followers | 12.6K+ LinkedIn | 266+ Sertifika`
+            });
+        } else if (normalized === "ping") {
+            playSound('ping');
+            setTerminalOutput({
+                text: `PONG // LATENCY: 14.2ms // EDGE_NODES: ANKARA (ODTÜ), STRASBOURG (FRANCE), TEI (ESKİŞEHİR)`
+            });
         } else if (normalized === "clear") {
             setInputValue("");
             setTerminalOutput(null);
         } else if (normalized === "exit" || normalized === "quit") {
             setOpen(false);
+        } else {
+            playSound('alert');
+            setTerminalOutput({
+                text: `Bilinmeyen komut: '${normalized}'. 'help' yazarak geçerli komutları görebilirsiniz.`
+            });
         }
     };
 
@@ -67,7 +105,7 @@ export const CommandTerminal = () => {
                 setOpen(v);
                 if (!v) setTerminalOutput(null);
             }}
-            label="Global Command Menu"
+            label="Global Tactical Terminal"
             className="fixed top-[15%] left-1/2 -translate-x-1/2 w-[92vw] max-w-[660px] bg-black/95 border border-neon-blue/60 shadow-[0_0_60px_rgba(0,243,255,0.25)] rounded-lg overflow-hidden backdrop-blur-2xl z-[100] cyber-clip-both"
         >
             <div className="flex items-center border-b border-white/10 px-4 py-3 bg-white/5">
@@ -84,7 +122,7 @@ export const CommandTerminal = () => {
                             handleSystemCommand(inputValue);
                         }
                     }}
-                    placeholder="Type command (whoami, locks, help, audio) or search..."
+                    placeholder="Komut girin (whoami, cv, locks, audio, tulpar, budak, help)..."
                     className="flex-1 bg-transparent text-white font-mono outline-none placeholder:text-white/30 text-sm md:text-base"
                 />
                 <div className="flex items-center gap-1.5 text-xs font-mono text-white/40">
@@ -93,24 +131,34 @@ export const CommandTerminal = () => {
             </div>
 
             {terminalOutput && (
-                <div className="p-3 bg-neon-blue/10 border-b border-neon-blue/30 font-mono text-xs text-neon-blue flex items-center justify-between">
-                    <span>{`> ${terminalOutput}`}</span>
-                    <button onClick={() => setTerminalOutput(null)} className="text-white/40 hover:text-white text-[10px]">CLEAR</button>
+                <div className="p-3 bg-neon-blue/10 border-b border-neon-blue/30 font-mono text-xs text-neon-blue flex items-center justify-between gap-2">
+                    <span className="break-all">{`> ${terminalOutput.text}`}</span>
+                    <div className="flex items-center gap-2 shrink-0">
+                        {terminalOutput.action && (
+                            <button
+                                onClick={terminalOutput.action.onClick}
+                                className="px-2 py-0.5 bg-neon-blue/20 hover:bg-neon-blue/30 text-neon-blue border border-neon-blue/40 rounded text-[10px] font-bold transition-colors"
+                            >
+                                {terminalOutput.action.label}
+                            </button>
+                        )}
+                        <button onClick={() => setTerminalOutput(null)} className="text-white/40 hover:text-white text-[10px]">TEMİZLE</button>
+                    </div>
                 </div>
             )}
 
             <Command.List className="max-h-[380px] overflow-y-auto p-2 scrollbar-hide">
                 <Command.Empty className="py-6 text-center text-white/50 font-mono text-xs">
-                    No matching protocols found. Press Enter to execute as raw command.
+                    Eşleşen komut bulunamadı. Enter'a basarak ham sistem komutu koşturabilirsiniz.
                 </Command.Empty>
 
-                <Command.Group heading="SYSTEM CONTROLS" className="text-xs font-mono text-neon-blue/70 mb-2 px-2 mt-2">
+                <Command.Group heading="SİSTEM & GÜVENLİK KONTROLLERİ" className="text-xs font-mono text-neon-blue/70 mb-2 px-2 mt-2">
                     <Command.Item
                         onSelect={() => runCommand(() => toggleSecureMode())}
                         className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-neon-blue/20 rounded cursor-pointer group transition-colors data-[selected=true]:bg-neon-blue/20"
                     >
                         {isSecureMode ? <Unlock className="w-4 h-4 text-yellow-500" /> : <Lock className="w-4 h-4 text-neon-blue" />}
-                        <span className="font-bold text-xs font-mono">{isSecureMode ? 'DEACTIVATE_SECURE_MODE' : 'INITIALIZE_SECURE_MODE'}</span>
+                        <span className="font-bold text-xs font-mono">{isSecureMode ? 'GÜVENLİK_KASASINI_KAPAT' : 'GÜVENLİK_KASASINI_AÇ (SECURE_MODE)'}</span>
                         <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">locks</kbd>
                     </Command.Item>
                     <Command.Item
@@ -131,29 +179,56 @@ export const CommandTerminal = () => {
                         className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-neon-blue/20 rounded cursor-pointer group transition-colors data-[selected=true]:bg-neon-blue/20"
                     >
                         <Volume2 className="w-4 h-4 text-neon-red" />
-                        <span className="font-bold text-xs font-mono">TOGGLE_CYBER_SYNTH_DRONE</span>
+                        <span className="font-bold text-xs font-mono">CYBER_SYNTH_AUDIO_AÇ_KAPA</span>
                         <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">audio</kbd>
                     </Command.Item>
                 </Command.Group>
 
-                <Command.Group heading="VERIFIED RESUME & INTEL" className="text-xs font-mono text-emerald-400 mb-2 px-2 mt-3">
+                <Command.Group heading="İNTERAKTİF SİMÜLATÖRLER & LABLAR" className="text-xs font-mono text-yellow-400 mb-2 px-2 mt-3">
+                    <Command.Item
+                        onSelect={() => runCommand(() => setLocation("/arsenal"))}
+                        className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-yellow-500/20 rounded cursor-pointer group transition-colors data-[selected=true]:bg-yellow-500/20"
+                    >
+                        <Plane className="w-4 h-4 text-neon-blue" />
+                        <span className="font-bold text-xs font-mono">TULPAR UAV FLIGHT DECK (TELEMETRİ)</span>
+                        <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">tulpar</kbd>
+                    </Command.Item>
+                    <Command.Item
+                        onSelect={() => runCommand(() => setLocation("/arsenal"))}
+                        className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-yellow-500/20 rounded cursor-pointer group transition-colors data-[selected=true]:bg-yellow-500/20"
+                    >
+                        <Zap className="w-4 h-4 text-yellow-400" />
+                        <span className="font-bold text-xs font-mono">BUDAK %80 MODEL BUDAMA LABORATUVARI</span>
+                        <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">budak</kbd>
+                    </Command.Item>
+                    <Command.Item
+                        onSelect={() => runCommand(() => setLocation("/intelligence"))}
+                        className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-yellow-500/20 rounded cursor-pointer group transition-colors data-[selected=true]:bg-yellow-500/20"
+                    >
+                        <Award className="w-4 h-4 text-purple-400" />
+                        <span className="font-bold text-xs font-mono">266+ DİJİTAL SERTİFİKA KASASI</span>
+                        <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">certs</kbd>
+                    </Command.Item>
+                </Command.Group>
+
+                <Command.Group heading="DOĞRULANMIŞ ÖZGEÇMİŞ & RAPORLAR" className="text-xs font-mono text-emerald-400 mb-2 px-2 mt-3">
                     <Command.Item
                         onSelect={() => runCommand(() => window.open("/cv3.pdf", "_blank"))}
                         className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-emerald-500/20 rounded cursor-pointer group transition-colors data-[selected=true]:bg-emerald-500/20"
                     >
                         <ExternalLink className="w-4 h-4 text-emerald-400" />
-                        <span className="font-bold text-xs font-mono text-emerald-400">DOWNLOAD_OFFICIAL_CV (PDF)</span>
+                        <span className="font-bold text-xs font-mono text-emerald-400">RESMİ CV'Yİ İNDİR (PDF)</span>
                         <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">cv</kbd>
                     </Command.Item>
                 </Command.Group>
 
-                <Command.Group heading="NAVIGATION HUBS" className="text-[10px] font-mono text-white/30 mb-2 px-2 mt-3 uppercase tracking-widest">
+                <Command.Group heading="NAVİGASYON MERKEZLERİ" className="text-[10px] font-mono text-white/30 mb-2 px-2 mt-3 uppercase tracking-widest">
                     <Command.Item
                         onSelect={() => runCommand(() => setLocation("/"))}
                         className="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 rounded cursor-pointer transition-colors data-[selected=true]:bg-white/5"
                     >
                         <Shield className="w-4 h-4 text-white/40" />
-                        <span className="font-mono text-xs">MISSION_CONTROL (HOME)</span>
+                        <span className="font-mono text-xs">ANASAYFA (MISSION_CONTROL)</span>
                     </Command.Item>
                     <Command.Item
                         onSelect={() => runCommand(() => setLocation("/arsenal"))}
@@ -167,33 +242,33 @@ export const CommandTerminal = () => {
                         className="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 rounded cursor-pointer transition-colors data-[selected=true]:bg-white/5"
                     >
                         <Target className="w-4 h-4 text-white/40" />
-                        <span className="font-mono text-xs">OPERATIONS (PROJECT LOGS)</span>
+                        <span className="font-mono text-xs">OPERASYONLAR (PROJE LOGLARI)</span>
                     </Command.Item>
                     <Command.Item
                         onSelect={() => runCommand(() => setLocation("/intelligence"))}
                         className="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 rounded cursor-pointer transition-colors data-[selected=true]:bg-white/5"
                     >
                         <Terminal className="w-4 h-4 text-white/40" />
-                        <span className="font-mono text-xs">INTELLIGENCE (KNOWLEDGE BASE)</span>
+                        <span className="font-mono text-xs">INTELLIGENCE (AKREDİTASYON & SAHA)</span>
                     </Command.Item>
                     <Command.Item
                         onSelect={() => runCommand(() => setLocation("/doctrine"))}
                         className="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 rounded cursor-pointer transition-colors data-[selected=true]:bg-white/5"
                     >
                         <BookOpen className="w-4 h-4 text-white/40" />
-                        <span className="font-mono text-xs">DOCTRINE (MANIFESTO)</span>
+                        <span className="font-mono text-xs">DOKTRİN (FELSEFİ MANİFESTO)</span>
                     </Command.Item>
                     <Command.Item
                         onSelect={() => runCommand(() => setLocation("/comms"))}
                         className="flex items-center gap-3 px-3 py-2 text-white/80 hover:bg-white/5 rounded cursor-pointer transition-colors data-[selected=true]:bg-white/5"
                     >
                         <Radio className="w-4 h-4 text-white/40" />
-                        <span className="font-mono text-xs">COMMS (UPLINK CHANNELS)</span>
+                        <span className="font-mono text-xs">İLETİŞİM (COMMS KANALLARI)</span>
                     </Command.Item>
                 </Command.Group>
 
-                <Command.Group heading="FLAGSHIP OPERATIONS" className="text-[10px] font-mono text-white/30 mb-2 px-2 mt-3 uppercase tracking-widest">
-                    {profileData.featured_projects.slice(0, 5).map(project => (
+                <Command.Group heading="AMİRAL GEMİSİ PROJELER" className="text-[10px] font-mono text-white/30 mb-2 px-2 mt-3 uppercase tracking-widest">
+                    {profileData.featured_projects.slice(0, 6).map((project) => (
                         <Command.Item
                             key={project.name}
                             onSelect={() => runCommand(() => setLocation(`/operations/${encodeURIComponent(project.name.toLowerCase())}`))}
@@ -209,8 +284,8 @@ export const CommandTerminal = () => {
 
             <div className="border-t border-white/10 p-3 bg-black/50 text-[10px] font-mono text-white/40 flex justify-between px-4 items-center">
                 <div className="flex items-center gap-4">
-                    <span className="flex items-center gap-1"><Activity className="w-3 h-3 text-neon-green" /> NODE_STABLE</span>
-                    <span>STRATO_OS v4.5</span>
+                    <span className="flex items-center gap-1"><Activity className="w-3 h-3 text-neon-green" /> PROTOKOL_STABİL</span>
+                    <span>METAL_YAKA v5.0</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <kbd className="bg-white/5 px-1.5 py-0.5 rounded text-white/60">↑↓</kbd>

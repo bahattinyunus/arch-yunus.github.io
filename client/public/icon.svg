@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05070c"/>
+      <stop offset="100%" stop-color="#0a0f1d"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f3ff"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#d6ff3f"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Base background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg)" stroke="#00f3ff" stroke-width="6" stroke-opacity="0.3"/>
+  
+  <!-- Hexagon cyber grid -->
+  <polygon points="256,48 436,152 436,360 256,464 76,360 76,152" fill="none" stroke="url(#neon)" stroke-width="4" stroke-dasharray="16,8" opacity="0.6"/>
+  
+  <!-- Inner cyber reticle ring -->
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#00f3ff" stroke-width="2" stroke-opacity="0.25"/>
+  <circle cx="256" cy="256" r="120" fill="none" stroke="#d6ff3f" stroke-width="1.5" stroke-dasharray="8,6" stroke-opacity="0.35"/>
+  
+  <!-- Tactical HUD corner brackets -->
+  <path d="M 110,140 L 110,110 L 140,110" fill="none" stroke="#00f3ff" stroke-width="4"/>
+  <path d="M 402,140 L 402,110 L 372,110" fill="none" stroke="#00f3ff" stroke-width="4"/>
+  <path d="M 110,372 L 110,402 L 140,402" fill="none" stroke="#00f3ff" stroke-width="4"/>
+  <path d="M 402,372 L 402,402 L 372,402" fill="none" stroke="#00f3ff" stroke-width="4"/>
+  
+  <!-- Crosshairs -->
+  <line x1="256" y1="64" x2="256" y2="104" stroke="#00f3ff" stroke-width="3"/>
+  <line x1="256" y1="408" x2="256" y2="448" stroke="#00f3ff" stroke-width="3"/>
+  <line x1="64" y1="256" x2="104" y2="256" stroke="#00f3ff" stroke-width="3"/>
+  <line x1="408" y1="256" x2="448" y2="256" stroke="#00f3ff" stroke-width="3"/>
+
+  <!-- Center Monogram: YÇ -->
+  <g filter="url(#glow)">
+    <!-- Y -->
+    <path d="M 160,180 L 220,260 L 220,332 M 280,180 L 220,260" fill="none" stroke="url(#neon)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Ç -->
+    <path d="M 364,212 C 344,188 316,180 288,188 C 252,200 240,240 240,264 C 240,288 252,328 288,340 C 316,348 344,340 364,316" fill="none" stroke="url(#neon)" stroke-width="18" stroke-linecap="round"/>
+    <path d="M 302,348 L 302,372" fill="none" stroke="url(#neon)" stroke-width="12" stroke-linecap="round"/>
+  </g>
+
+  <!-- Tagline text -->
+  <text x="256" y="440" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="600" fill="#00f3ff" letter-spacing="4" text-anchor="middle" opacity="0.85">METAL YAKA // v5.0</text>
+</svg>

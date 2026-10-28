@@ -1,4 +1,3 @@
-// @ts-nocheck
 export interface CertificateRecord {
   id: string;
   date: string;

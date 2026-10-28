@@ -1,0 +1,51 @@
+{
+  "name": "Bahattin Yunus Çetin // Metal Yaka v5.0",
+  "short_name": "Yunus Çetin",
+  "description": "Developer · Yapay Zekâ · Siber Güvenlik · Gömülü Sistemler · Otonom İHA Telemetrisi ve Ar-Ge Portföyü",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#08080a",
+  "theme_color": "#00f3ff",
+  "lang": "tr",
+  "categories": ["education", "portfolio", "technology"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tulpar UAV Flight Deck",
+      "short_name": "Flight Deck",
+      "description": "Otonom İHA Telemetri & Yapay Ufuk Simülatörü",
+      "url": "/arsenal",
+      "icons": [{ "src": "/icon.svg", "sizes": "512x512" }]
+    },
+    {
+      "name": "Budak Edge-AI Lab",
+      "short_name": "Edge-AI Lab",
+      "description": "%80 Model Budama & Donanım Üstü Gizlilik Laboratuvarı",
+      "url": "/arsenal",
+      "icons": [{ "src": "/icon.svg", "sizes": "512x512" }]
+    },
+    {
+      "name": "Akreditasyon Kasası (266+)",
+      "short_name": "Sertifikalar",
+      "description": "Doğrulanmış Lisans, Sertifika ve Akreditasyon Arama",
+      "url": "/intelligence",
+      "icons": [{ "src": "/icon.svg", "sizes": "512x512" }]
+    },
+    {
+      "name": "Saha Operasyonları",
+      "short_name": "Operasyonlar",
+      "description": "ASELSAN, TUA, TEI, TÜBİTAK ve Açık Kaynak Projeler",
+      "url": "/operations",
+      "icons": [{ "src": "/icon.svg", "sizes": "512x512" }]
+    }
+  ]
+}

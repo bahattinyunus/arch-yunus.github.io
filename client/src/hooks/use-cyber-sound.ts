@@ -1,5 +1,4 @@
 
-// @ts-nocheck
 import { useCallback, useEffect, useRef, useState } from "react";
 
 // Using native AudioContext for generated sounds to avoid external asset dependencies
