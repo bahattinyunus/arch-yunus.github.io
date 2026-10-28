@@ -75,6 +75,27 @@ export function inferNeuralResponse(input: string): NeuralInferenceResult {
     action = { label: "Tüm Saha Operasyonları", path: "/operations" };
   }
 
+  // 2. Felsefe, Doktrin ve Sibernetik Ontoloji
+  else if (
+    q.includes("felsefe") ||
+    q.includes("doktrin") ||
+    q.includes("ontoloji") ||
+    q.includes("epistemoloji") ||
+    q.includes("heidegger") ||
+    q.includes("via negativa") ||
+    q.includes("hilomorfizm") ||
+    q.includes("diyalektik") ||
+    q.includes("entropi") ||
+    q.includes("manifesto") ||
+    q.includes("anlam") ||
+    q.includes("felsefi")
+  ) {
+    intent = "PHILOSOPHY_DOCTRINE";
+    text = "Bahattin Yunus Çetin'in mühendislik felsefesi 8 temel ontolojik sütuna ve sibernetik diyalektiğe dayanır:\n\n1. Bilişimsel Termodinamik & Negentropi: Kod yazmak, evrenin kaçınılmaz entropisine karşı yerel bir düzen vahası kurma direnişidir.\n2. Via Negativa (Budak Doktrini): Zekâ milyarlarca parametre yığmakta değil; Michelangelo'nun heykeli yontması gibi %80 gereksiz gürültüyü budayabilmektedir.\n3. Determinizm ↔ Stokastisizm: RTOS mikrosaniye determinizmi mabedin temeli, PyTorch olasılıksal latent uzayı ise rüzgârda esneyen kubbesidir.\n4. Silikon Egemenliği: Başkasının bulutunda koşan zihin yalnızca bir figürandır. Kendi çipini (Çelik MCU RISC-V) ve telemetrisini yazan bağımsızdır.\n5. Hilomorfik Silikon: Donanım bedendir, tensör ağırlıkları ruh. Bedensiz zihin bir yanılsamadır.\n6. Heidegger'in Gestell'i: Teknolojiyi bir tüketim tuzağından kurtarıp özgürleştirici bir 'Poiesis' (yaratım sanatı) kılmak.\n\nSitedeki /doctrine sayfasında 8 sütunu ve interaktif diyalektik matrisini inceleyebilirsin!";
+    badges = ["8 Temel Doktrin", "Teknoloji Felsefesi", "Sibernetik Ontoloji"];
+    action = { label: "Doktrin Manifestosunu İncele", path: "/doctrine" };
+  }
+
   // 3. Yunus kimdir / Biyografi
   else if (
     q.includes("yunus kim") ||

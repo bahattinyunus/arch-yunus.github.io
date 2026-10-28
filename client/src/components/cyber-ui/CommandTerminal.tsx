@@ -55,7 +55,13 @@ export const CommandTerminal: React.FC = () => {
         } else if (normalized === "help" || normalized === "?") {
             playSound('type');
             setTerminalOutput({
-                text: "KOMUTLAR: whoami, cv, locks, audio, tulpar, budak, beeroute, certs, stats, ping, clear, exit"
+                text: "KOMUTLAR: whoami, cv, doctrine, tulpar, budak, beeroute, certs, matrix, locks, audio, stats, ping, clear, exit"
+            });
+        } else if (normalized === "doctrine" || normalized === "felsefe" || normalized === "philosophy") {
+            playSound('type');
+            setTerminalOutput({
+                text: "DOKTRİN: Kod yazmaktan önce varoluşu, özgürlüğü ve anlamı kavramak. 8 Ontolojik Sütun & Sibernetik Diyalektik.",
+                action: { label: "Manifestoya Git (/doctrine)", onClick: () => runCommand(() => setLocation("/doctrine")) }
             });
         } else if (normalized === "audio" || normalized === "synth" || normalized === "sound") {
             toggleAmbient();

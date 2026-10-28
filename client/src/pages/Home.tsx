@@ -834,13 +834,13 @@ function About() {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="p-6 rounded-2xl border border-line bg-surface/40 hover:border-accent/40 transition-all flex flex-col justify-between">
               <div>
                 <span className="text-[10px] font-mono text-faint uppercase block mb-2">01 // TERMODİNAMİK</span>
                 <h4 className="font-display text-lg font-bold text-ink">Entropiye Karşı Düzen</h4>
                 <p className="mt-2 text-xs text-muted leading-relaxed">
-                  Evrenin kaçınılmaz dağılma eğilimine karşı, deterministik C++ bellek yönetimiyle yerel bir düzen vahası kurmak.
+                  Evrenin kaçınılmaz dağılma eğilimine karşı, deterministik C++ bellek yönetimiyle yerel bir düzen ve negentropi vahası kurmak.
                 </p>
               </div>
               <span className="text-[10px] font-mono text-accent mt-4">“Kod, kaosa çekilen sınırdır.”</span>
@@ -862,7 +862,7 @@ function About() {
                 <span className="text-[10px] font-mono text-faint uppercase block mb-2">03 // DUALİTE</span>
                 <h4 className="font-display text-lg font-bold text-ink">Determinizm & Sezgi</h4>
                 <p className="mt-2 text-xs text-muted leading-relaxed">
-                  RTOS mikrodenetleyicisinin katı mantığı ile PyTorch olasılıksal latent uzayının hibrit sentezi.
+                  RTOS mikrodenetleyicisinin mikrosaniyelik katı mantığı ile PyTorch olasılıksal latent uzayının hibrit sentezi.
                 </p>
               </div>
               <span className="text-[10px] font-mono text-accent mt-4">“0-1 zemin, olasılık kubbedir.”</span>
@@ -873,10 +873,32 @@ function About() {
                 <span className="text-[10px] font-mono text-faint uppercase block mb-2">04 // ONTOLOJİ</span>
                 <h4 className="font-display text-lg font-bold text-ink">Teknolojik Egemenlik</h4>
                 <p className="mt-2 text-xs text-muted leading-relaxed">
-                  Başkasının çipinde ve bulutunda koşan zihin özgür değildir. Yerli RISC-V çipi ve bağımsız model mimarisi.
+                  Başkasının çipinde ve bulutunda koşan zihin özgür değildir. Yerli RISC-V çipi ve bağımsız telemetri mimarisi.
                 </p>
               </div>
               <span className="text-[10px] font-mono text-accent mt-4">“Kendi çekirdeğini yazan kazanır.”</span>
+            </div>
+
+            <div className="p-6 rounded-2xl border border-line bg-surface/40 hover:border-accent/40 transition-all flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-mono text-faint uppercase block mb-2">05 // HİLOMORFİZM</span>
+                <h4 className="font-display text-lg font-bold text-ink">Hilomorfik Silikon</h4>
+                <p className="mt-2 text-xs text-muted leading-relaxed">
+                  Donanım bedendir, tensör ağırlıkları ruh. Bedensiz bir zihin sanrı görür; hakiki zeka gömülü donanımın fiziksel kısıtlarıyla bedenleştiğinde doğar.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-accent mt-4">“Donanım direnciyle zihnin nikahı.”</span>
+            </div>
+
+            <div className="p-6 rounded-2xl border border-line bg-surface/40 hover:border-accent/40 transition-all flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-mono text-faint uppercase block mb-2">06 // SİBERNETİK POIESIS</span>
+                <h4 className="font-display text-lg font-bold text-ink">Heidegger'in Gestell'i</h4>
+                <p className="mt-2 text-xs text-muted leading-relaxed">
+                  Teknolojinin insanı bir tüketim hammaddesi kılmasına (Gestell) karşı; açık kaynak, yerel WebGPU ve şiirsel bir yaratım (Poiesis) kalkanı.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-accent mt-4">“Tüketim nesnesi değil, yaratım öznesi.”</span>
             </div>
           </div>
         </div>
