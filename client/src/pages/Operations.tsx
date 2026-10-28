@@ -73,6 +73,16 @@ export default function Operations() {
 
                     {/* Quick Stats Pill */}
                     <div className="flex items-center gap-3 font-mono text-xs">
+                        <a
+                            href="/cv3.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500/20 rounded flex items-center gap-2 transition-all shadow-[0_0_12px_rgba(16,185,129,0.15)] group"
+                            title="Resmi Özgeçmişi Görüntüle / İndir"
+                        >
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
+                            <span className="font-bold">RESMİ CV (PDF)</span>
+                        </a>
                         <div className="px-3 py-1.5 bg-white/5 border border-white/10 rounded flex items-center gap-2">
                             <Layers className="w-3.5 h-3.5 text-neon-blue" />
                             <span className="text-white/60">DEPLOYED:</span>

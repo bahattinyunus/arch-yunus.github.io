@@ -53,7 +53,7 @@ const philosophicalPillars = [
     border: "border-neon-green/30",
     bg: "bg-neon-green/5",
     thesis: "Başkasının donanımında ve bulutunda koşan zihin, başkasının simülasyonunda yalnızca bir figürandır.",
-    text: "Teknoloji tüketimi bir bağımlılık biçimidir. Eğer bir millet kendi mikrodenetleyicisini (Çelik MCU RISC-V), kendi telemetri protokolünü (Trabzon Protocol) ve kendi dil modelini (Arat LLM) bizzat çekirdekten kurmuyorsa; egemenliği pamuk ipliğine bağlıdır. Arat Labs ve Anka Silicon Dynamics ile hedefim; ithal kütüphaneleri birleştiren bir uygulayıcı olmak değil, temeli sıfırdan döken bir kurucu olmaktır."
+    text: "Teknoloji tüketimi bir bağımlılık biçimidir. Eğer bir millet kendi mikrodenetleyicisini (Çelik MCU RISC-V), kendi telemetri protokolünü (Trabzon Protocol) ve kendi dil modelini (Arat LLM) bizzat çekirdekten kurmuyorsa; egemenliği pamuk ipliğine bağlıdır. Açık kaynak Ar-Ge ekosistemim ve otonom sistemler vizyonum ile hedefim; ithal kütüphaneleri yüzeyselce birleştiren bir tüketici olmak değil, temel algoritmaları, model optimizasyon protokollerini ve gömülü donanım katmanlarını sıfırdan inşa eden yetkin bir mühendis olmaktır."
   },
   {
     id: "mythos-logos",

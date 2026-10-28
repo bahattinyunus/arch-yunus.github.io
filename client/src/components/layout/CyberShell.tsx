@@ -202,7 +202,7 @@ export const CyberShell: React.FC<CyberShellProps> = ({ children }) => {
                         <Power className="w-3 h-3" />
                         <span>CMD+K TO INITIATE TERMINAL</span>
                     </div>
-                    <span>COORDINATES: 41.0082° N, 28.9784° E</span>
+                    <span>COORDINATES: 39.8914° N, 32.7847° E [ANKARA // METU]</span>
                 </div>
             </footer>
         </div>

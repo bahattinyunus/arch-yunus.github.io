@@ -80,7 +80,16 @@ export default function Arsenal() {
                 </div>
 
                 {/* Filter Tabs */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                    <a
+                        href="/cv3.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-1.5 text-xs font-mono border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 rounded flex items-center gap-1.5 transition-all shadow-[0_0_10px_rgba(16,185,129,0.15)]"
+                    >
+                        <Shield className="w-3.5 h-3.5" />
+                        <span>RESMİ CV (PDF)</span>
+                    </a>
                     {[
                         { id: 'all', label: 'ALL_DOMAINS' },
                         { id: 'tulpar', label: 'TULPAR_UAV_FLIGHT_DECK' },

@@ -40,10 +40,14 @@ export const CommandTerminal = () => {
             setTerminalOutput(isSecureMode ? "SECURE_MODE: DEACTIVATED" : "SECURE_MODE: ACTIVATED // HIGH_CLEARANCE");
         } else if (normalized === "whoami") {
             playSound('access');
-            setTerminalOutput(`UID: BAHATTIN_YUNUS_CETIN // FOUNDER @ ANKA_SILICON // IT_ARCHITECT`);
+            setTerminalOutput(`UID: BAHATTIN_YUNUS_CETIN // DEVELOPER · AI & EMBEDDED ARCHITECT // METU CEIT & HACETTEPE`);
+        } else if (normalized === "cv" || normalized === "resume") {
+            playSound('transmit');
+            window.open("/cv3.pdf", "_blank");
+            setTerminalOutput("RESMI_CV_ACILDI: /cv3.pdf (Doğrulanmış Özgeçmiş)");
         } else if (normalized === "help") {
             playSound('type');
-            setTerminalOutput("COMMANDS: whoami, locks, audio, clear, projects, doctrine, exit");
+            setTerminalOutput("COMMANDS: whoami, cv, locks, audio, clear, projects, doctrine, exit");
         } else if (normalized === "audio" || normalized === "synth") {
             toggleAmbient();
             playSound('transmit');
@@ -129,6 +133,17 @@ export const CommandTerminal = () => {
                         <Volume2 className="w-4 h-4 text-neon-red" />
                         <span className="font-bold text-xs font-mono">TOGGLE_CYBER_SYNTH_DRONE</span>
                         <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">audio</kbd>
+                    </Command.Item>
+                </Command.Group>
+
+                <Command.Group heading="VERIFIED RESUME & INTEL" className="text-xs font-mono text-emerald-400 mb-2 px-2 mt-3">
+                    <Command.Item
+                        onSelect={() => runCommand(() => window.open("/cv3.pdf", "_blank"))}
+                        className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-emerald-500/20 rounded cursor-pointer group transition-colors data-[selected=true]:bg-emerald-500/20"
+                    >
+                        <ExternalLink className="w-4 h-4 text-emerald-400" />
+                        <span className="font-bold text-xs font-mono text-emerald-400">DOWNLOAD_OFFICIAL_CV (PDF)</span>
+                        <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">cv</kbd>
                     </Command.Item>
                 </Command.Group>
 

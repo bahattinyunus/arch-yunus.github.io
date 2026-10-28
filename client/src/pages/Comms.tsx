@@ -1,4 +1,4 @@
-import { CheckCircle2, Github, Linkedin, Mail, MapPin, Phone, Send, Sparkles, MessageSquare, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Github, Linkedin, Mail, MapPin, Phone, Send, Sparkles, MessageSquare, ShieldCheck, Award } from "lucide-react";
 import { useState } from "react";
 import { profileData } from "@/lib/data";
 
@@ -97,6 +97,21 @@ export default function Comms() {
               <div>
                 <strong className="block text-sm text-white font-sans group-hover:text-accent transition-colors">GitHub</strong>
                 <small className="text-xs text-white/50">231+ Açık Kaynak Repo</small>
+              </div>
+            </a>
+
+            <a 
+              href="/cv3.pdf" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="flex items-center gap-3.5 p-4 rounded-xl border border-emerald-500/40 bg-emerald-500/[0.04] hover:border-emerald-400 hover:bg-emerald-500/10 transition-all group shadow-[0_0_15px_rgba(16,185,129,0.12)]"
+            >
+              <span className="p-2.5 rounded-lg bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 group-hover:scale-110 transition-transform">
+                <Award size={18} />
+              </span>
+              <div>
+                <strong className="block text-sm text-white font-sans group-hover:text-emerald-400 transition-colors">Resmi CV (PDF)</strong>
+                <small className="text-xs text-white/50">Güncel & Doğrulanmış Özgeçmiş</small>
               </div>
             </a>
           </div>

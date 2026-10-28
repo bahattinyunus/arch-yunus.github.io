@@ -153,6 +153,102 @@ export const VanguardAI = () => {
         const userMsg: Message = { sender: 'user', text: query };
         setMessages(prev => [...prev, userMsg]);
         setInputValue("");
+
+        const trimmedQuery = query.trim();
+        // Cyber Command Line Interface (/cv, /operations, /certs, /arsenal, /comms, /help)
+        if (trimmedQuery.startsWith("/")) {
+            const cmd = trimmedQuery.toLowerCase();
+            if (cmd === "/cv" || cmd === "/resume") {
+                setTimeout(() => {
+                    playSound('transmit');
+                    setMessages(prev => [
+                        ...prev,
+                        {
+                            sender: 'vanguard',
+                            text: "Bahattin Yunus Çetin'in resmi ve doğrulanmış güncel özgeçmiş dosyası hazır.",
+                            badges: ["Resmi CV", "PDF Doğrulandı"],
+                            action: { label: "Özgeçmişi İndir (PDF)", external: "/cv3.pdf" }
+                        }
+                    ]);
+                }, 150);
+                return;
+            }
+            if (cmd === "/operations" || cmd === "/missions") {
+                setTimeout(() => {
+                    playSound('transmit');
+                    setMessages(prev => [
+                        ...prev,
+                        {
+                            sender: 'vanguard',
+                            text: "ASELSAN Gölbaşı, 66.500+ adaylı Türkiye-Fransa Gençlik Değişimi, TUA ve Siber Vatan dâhil 13 doğrulanmış saha operasyonu.",
+                            badges: ["13 Saha Görevi", "44+ Orijinal Fotoğraf"],
+                            action: { label: "Saha Operasyonlarını Aç", path: "/operations" }
+                        }
+                    ]);
+                }, 150);
+                return;
+            }
+            if (cmd === "/certs" || cmd === "/sertifikalar") {
+                setTimeout(() => {
+                    playSound('transmit');
+                    setMessages(prev => [
+                        ...prev,
+                        {
+                            sender: 'vanguard',
+                            text: "266'dan fazla BTK Akademi, ODTÜ Bilgeİş, Turkcell, T3 Vakfı ve SHGM akreditasyonu doğrulanmıştır.",
+                            badges: ["266+ Sertifika", "Akreditasyon Kasası"],
+                            action: { label: "Sertifika Kasasını Aç", path: "/intelligence" }
+                        }
+                    ]);
+                }, 150);
+                return;
+            }
+            if (cmd === "/arsenal" || cmd === "/stack") {
+                setTimeout(() => {
+                    playSound('transmit');
+                    setMessages(prev => [
+                        ...prev,
+                        {
+                            sender: 'vanguard',
+                            text: "PyTorch, ROS 2, C++20, Edge-AI, BeeRoute ve Tulpar 6-DoF aerodinamik telemetri uçuş güvertesi.",
+                            badges: ["Cephanelik & Stack", "2 İnteraktif Simülatör"],
+                            action: { label: "Cephaneliğe Git", path: "/arsenal" }
+                        }
+                    ]);
+                }, 150);
+                return;
+            }
+            if (cmd === "/comms" || cmd === "/contact") {
+                setTimeout(() => {
+                    playSound('transmit');
+                    setMessages(prev => [
+                        ...prev,
+                        {
+                            sender: 'vanguard',
+                            text: "Yunus'a doğrudan e-posta (bahattinyunuscetin1@gmail.com) veya telefon (+90 551 668 86 24) ile ulaşabilirsiniz.",
+                            badges: ["Doğrudan İletişim", "Şifreli Comms"],
+                            action: { label: "Comms Terminalini Aç", path: "/comms" }
+                        }
+                    ]);
+                }, 150);
+                return;
+            }
+            if (cmd === "/help") {
+                setTimeout(() => {
+                    playSound('transmit');
+                    setMessages(prev => [
+                        ...prev,
+                        {
+                            sender: 'vanguard',
+                            text: "Taktik Komut Rehberi:\n• /cv - Resmi PDF özgeçmişi indir\n• /operations - 13 saha operasyonu & 44+ fotoğraf\n• /certs - 266+ sertifika ve lisans kasası\n• /arsenal - Teknoloji stack'i ve simülatörler\n• /comms - İletişim kanalları ve mesaj formu",
+                            badges: ["Taktik Komutlar", "Yardım"]
+                        }
+                    ]);
+                }, 150);
+                return;
+            }
+        }
+
         setIsTyping(true);
 
         const service = WebLLMService.getInstance();
@@ -533,7 +629,7 @@ export const VanguardAI = () => {
                                 type="text"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
-                                placeholder={llmMode ? "Qwen2.5 LLM'e serbest soru sor..." : "Local AI'a soru sor (ASELSAN, ODTÜ, TUA...)"}
+                                placeholder={llmMode ? "Qwen2.5 LLM'e serbest soru sor... (veya /help)" : "Yapay zekâya soru sor... (veya /help, /cv)"}
                                 className="flex-1 bg-black/80 border border-white/20 rounded-lg px-3 py-2 text-xs font-mono text-white placeholder:text-white/35 focus:outline-none focus:border-neon-blue transition-all"
                             />
                             <button

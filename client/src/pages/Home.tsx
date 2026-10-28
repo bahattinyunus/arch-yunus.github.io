@@ -2155,10 +2155,17 @@ function CommandPalette() {
       },
       {
         id: "intelligence",
-        label: "120+ Sertifika, Eğitim & İstihbarat",
+        label: "266+ Onaylı Sertifika, Eğitim & Akreditasyon",
         hint: "Sayfayı Aç",
         icon: Award,
         action: () => (window.location.href = "/intelligence"),
+      },
+      {
+        id: "cv",
+        label: "Resmi Özgeçmiş (Doğrulanmış CV - PDF)",
+        hint: "PDF İndir",
+        icon: Award,
+        action: () => window.open("/cv3.pdf", "_blank", "noopener"),
       },
       {
         id: "doctrine",
