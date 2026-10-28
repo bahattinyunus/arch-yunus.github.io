@@ -63,6 +63,8 @@ import { ALL_CERTIFICATES } from "@/lib/certificatesData";
 import { VanguardAI } from "@/components/cyber-ui/VanguardAI";
 import { CyberFieldCanvas } from "@/components/cyber-ui/CyberFieldCanvas";
 import { BeeRouteSimulator } from "@/components/cyber-ui/BeeRouteSimulator";
+import { CyberGlobe } from "@/components/cyber-ui/CyberGlobe";
+import { MatrixOverlay } from "@/components/cyber-ui/MatrixOverlay";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
 
 const SECTION_IDS = [
@@ -366,6 +368,19 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
               </span>
             </button>
 
+            <button
+              type="button"
+              onClick={() => {
+                playSound("boot");
+                window.dispatchEvent(new CustomEvent("toggle-matrix"));
+              }}
+              title="Matrix Cyber Stream Modunu Aç"
+              aria-label="Matrix Modu"
+              className="inline-flex items-center gap-1.5 rounded-full border border-neon-blue/50 bg-neon-blue/10 px-3 py-1.5 text-xs font-mono text-neon-blue hover:bg-neon-blue/20 transition-all shadow-[0_0_15px_rgba(0,243,255,0.2)]"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-neon-blue animate-spin" style={{ animationDuration: "8s" }} />
+              <span className="hidden 2xl:inline text-[10px] font-bold">MATRIX MODU</span>
+            </button>
             <LangSwitch />
 
             <a
@@ -2443,6 +2458,13 @@ export default function Home() {
     return saved === "en" || saved === "tr" ? saved : "tr";
   });
   const [activeLab, setActiveLab] = useState<CyberLabType>(null);
+  const [isMatrixOpen, setIsMatrixOpen] = useState(false);
+
+  useEffect(() => {
+    const handleToggle = () => setIsMatrixOpen((prev) => !prev);
+    window.addEventListener("toggle-matrix", handleToggle);
+    return () => window.removeEventListener("toggle-matrix", handleToggle);
+  }, []);
 
   useEffect(() => {
     window.localStorage.setItem("lang", lang);
@@ -2458,6 +2480,7 @@ export default function Home() {
 
       {/* İnteraktif Siber Simülatör Modalı */}
       <CyberLabsModal type={activeLab} onClose={() => setActiveLab(null)} lang={lang} />
+      <MatrixOverlay isOpen={isMatrixOpen} onClose={() => setIsMatrixOpen(false)} />
 
       {/* Vanguard AI Siber Asistan */}
       <VanguardAI />

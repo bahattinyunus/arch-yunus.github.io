@@ -1,14 +1,22 @@
-
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, ShieldAlert, Shield, Lock, Unlock, Trophy } from 'lucide-react';
+import { Shield, Lock, Unlock, Trophy, Sparkles, ChevronUp, ChevronDown, CheckCircle2 } from 'lucide-react';
 import { useCyberSound } from '@/hooks/use-cyber-sound';
 
-interface ClearanceContextType {
+export interface ClearanceContextType {
     clearance: number;
-    incrementClearance: (amount: number) => void;
+    incrementClearance: (amount?: number) => void;
     checkAccess: (required: number) => boolean;
+    rankTitle: string;
 }
+
+const RANKS = [
+    { level: 1, title: "SİVİL GÖZLEMCİ", subtitle: "Public Guest · Temel Erişim" },
+    { level: 2, title: "SAHA ANALİSTİ", subtitle: "Field Analyst · Ar-Ge Logları Açık" },
+    { level: 3, title: "AVİYONİK PİLOTU", subtitle: "UAV Operator · Telemetri Yetkili" },
+    { level: 4, title: "SİSTEM MİMARI", subtitle: "Kernel Architect · Çekirdek Güvenlik" },
+    { level: 5, title: "METAL YAKA EFENDİSİ", subtitle: "Deep-Tech Overlord · Tam Yetki (Root)" }
+];
 
 const ClearanceContext = createContext<ClearanceContextType | undefined>(undefined);
 
@@ -18,38 +26,57 @@ export const ClearanceProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
     useEffect(() => {
         const saved = localStorage.getItem('security_clearance');
-        if (saved) setClearance(parseInt(saved));
+        if (saved) {
+            const parsed = parseInt(saved, 10);
+            if (!isNaN(parsed) && parsed >= 1 && parsed <= 5) {
+                setClearance(parsed);
+            }
+        }
     }, []);
 
-    const incrementClearance = (amount: number) => {
-        setClearance(prev => {
+    const incrementClearance = (amount: number = 1) => {
+        setClearance((prev) => {
             const next = Math.min(prev + amount, 5);
             if (next > prev) {
                 localStorage.setItem('security_clearance', next.toString());
-                // Trigger notification or sound
+                playSound('access');
             }
             return next;
         });
     };
 
     const checkAccess = (required: number) => clearance >= required;
+    const currentRank = RANKS[Math.min(clearance - 1, RANKS.length - 1)];
 
     return (
-        <ClearanceContext.Provider value={{ clearance, incrementClearance, checkAccess }}>
+        <ClearanceContext.Provider value={{ clearance, incrementClearance, checkAccess, rankTitle: currentRank.title }}>
             {children}
-            <ClearanceHUD level={clearance} />
+            <ClearanceHUD level={clearance} rank={currentRank} onLevelUp={() => incrementClearance(1)} />
         </ClearanceContext.Provider>
     );
 };
 
 export const useClearance = () => {
     const context = useContext(ClearanceContext);
-    if (!context) throw new Error('useClearance must be used within ClearanceProvider');
+    if (!context) {
+        return {
+            clearance: 1,
+            incrementClearance: () => {},
+            checkAccess: () => true,
+            rankTitle: "SİVİL GÖZLEMCİ"
+        };
+    }
     return context;
 };
 
-const ClearanceHUD = ({ level }: { level: number }) => {
+const ClearanceHUD: React.FC<{
+    level: number;
+    rank: { level: number; title: string; subtitle: string };
+    onLevelUp: () => void;
+}> = ({ level, rank, onLevelUp }) => {
     const [showPromo, setShowPromo] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const { playSound } = useCyberSound();
 
     useEffect(() => {
         if (level > 1) {
@@ -60,72 +87,130 @@ const ClearanceHUD = ({ level }: { level: number }) => {
     }, [level]);
 
     return (
-        <div className="fixed bottom-8 left-8 z-[90]">
+        <div className="fixed bottom-6 left-6 z-[80] font-mono text-xs select-none">
+            {/* Level-Up Celebration Banner */}
             <AnimatePresence>
                 {showPromo && (
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        className="mb-4 p-4 bg-neon-blue/10 border border-neon-blue/40 backdrop-blur-md cyber-clip-tl flex items-center gap-4"
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                        className="mb-3 p-3.5 bg-black/90 border border-neon-blue/60 backdrop-blur-xl rounded-xl shadow-[0_0_30px_rgba(0,243,255,0.3)] flex items-center gap-3 text-white"
                     >
-                        <Trophy className="w-6 h-6 text-neon-blue animate-bounce" />
+                        <div className="p-2 rounded-lg bg-neon-blue/20 text-neon-blue border border-neon-blue/40 animate-pulse">
+                            <Trophy className="w-5 h-5" />
+                        </div>
                         <div>
-                            <div className="text-[10px] font-mono text-neon-blue uppercase">Clearance_Updated</div>
-                            <div className="text-sm font-bold text-white uppercase tracking-widest">Level {level} Access Granted</div>
+                            <div className="text-[10px] text-neon-blue uppercase tracking-widest font-bold">
+                                YETKİ SEVİYESİ YÜKSELDİ // CLEARANCE_PROMOTED
+                            </div>
+                            <div className="text-sm font-bold text-white uppercase tracking-wider">
+                                LEVEL {level}: {rank.title}
+                            </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            <div className="p-4 bg-black/60 border border-white/5 backdrop-blur-sm rounded-lg flex items-center gap-4 group">
+            {/* Persistent Tactical Clearance Badge */}
+            <div 
+                onClick={() => {
+                    setIsExpanded(!isExpanded);
+                    playSound('click');
+                }}
+                className="cursor-pointer p-2.5 sm:p-3 bg-black/85 border border-white/15 hover:border-neon-blue/50 backdrop-blur-xl rounded-xl shadow-lg flex items-center gap-3 group transition-all"
+            >
                 <div className="relative">
-                    <Shield className={`w-8 h-8 ${level >= 3 ? 'text-neon-blue' : 'text-white/20'}`} />
-                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white">{level}</span>
+                    <Shield className={`w-6 h-6 transition-colors ${level >= 4 ? 'text-neon-blue' : level >= 2 ? 'text-emerald-400' : 'text-white/40'}`} />
+                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-white">
+                        {level}
+                    </span>
                 </div>
-                <div className="hidden lg:block space-y-1">
-                    <div className="flex justify-between text-[8px] font-mono text-white/40">
-                        <span>CLEARANCE_STATUS</span>
-                        <span>{level}/5</span>
+
+                <div className="hidden sm:block space-y-1">
+                    <div className="flex items-center justify-between text-[9px] text-white/50 gap-4">
+                        <span className="font-bold text-white group-hover:text-neon-blue transition-colors">
+                            {rank.title}
+                        </span>
+                        <span className="text-neon-blue">{level}/5</span>
                     </div>
-                    <div className="w-32 h-1 bg-white/5 relative overflow-hidden">
+
+                    <div className="w-28 h-1 bg-white/10 rounded-full overflow-hidden">
                         <motion.div
-                            className="absolute inset-y-0 left-0 bg-neon-blue"
+                            className="h-full bg-gradient-to-r from-neon-blue to-emerald-400"
                             animate={{ width: `${(level / 5) * 100}%` }}
+                            transition={{ duration: 0.8 }}
                         />
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
 
-export const SecureLock = ({ level, children }: { level: number, children: React.ReactNode }) => {
-    const { clearance } = useClearance();
-    const isLocked = clearance < level;
-
-    if (isLocked) {
-        return (
-            <div className="relative group grayscale cursor-not-allowed opacity-50">
-                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
-                    <Lock className="w-8 h-8 text-neon-blue/80 mb-2" />
-                    <span className="text-[10px] font-mono text-neon-blue tracking-[0.2em]">LEVEL_{level}_REQUIRED</span>
+                <div className="text-white/30 group-hover:text-white transition-colors">
+                    {isExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
                 </div>
-                {children}
             </div>
-        );
-    }
 
-    return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="relative"
-        >
-            <div className="absolute -top-2 -right-2 bg-neon-blue/20 p-1 rounded-full z-10">
-                <Unlock className="w-3 h-3 text-neon-blue" />
-            </div>
-            {children}
-        </motion.div>
+            {/* Expanded Clearance Dossier Drawer */}
+            <AnimatePresence>
+                {isExpanded && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        className="mt-2 p-4 w-72 sm:w-80 bg-black/95 border border-neon-blue/40 rounded-xl backdrop-blur-2xl shadow-[0_0_40px_rgba(0,243,255,0.2)] text-white space-y-3"
+                    >
+                        <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                            <span className="text-[10px] text-neon-blue font-bold uppercase tracking-wider">
+                                Taktik Yetki Matrisi
+                            </span>
+                            <span className="text-[10px] text-white/40">LEVEL {level}</span>
+                        </div>
+
+                        <div className="space-y-1.5 text-[11px]">
+                            {RANKS.map((r) => {
+                                const isUnlocked = level >= r.level;
+                                return (
+                                    <div
+                                        key={r.level}
+                                        className={`p-2 rounded border flex items-center justify-between transition-colors ${
+                                            isUnlocked
+                                                ? "border-neon-blue/30 bg-neon-blue/10 text-white"
+                                                : "border-white/5 bg-white/[0.02] text-white/40"
+                                        }`}
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            {isUnlocked ? (
+                                                <CheckCircle2 className="w-3.5 h-3.5 text-neon-blue" />
+                                            ) : (
+                                                <Lock className="w-3.5 h-3.5 text-white/30" />
+                                            )}
+                                            <div>
+                                                <div className="font-bold text-[10px]">{r.title}</div>
+                                                <div className="text-[9px] text-white/50">{r.subtitle}</div>
+                                            </div>
+                                        </div>
+                                        <span className="text-[9px] font-mono text-neon-blue">LVL {r.level}</span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-white/50">
+                            <span>Görevleri tamamla, seviye atla</span>
+                            {level < 5 && (
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onLevelUp();
+                                    }}
+                                    className="px-2 py-0.5 rounded bg-neon-blue/20 hover:bg-neon-blue/30 text-neon-blue border border-neon-blue/40 font-bold"
+                                >
+                                    +1 YETKİ TESTİ
+                                </button>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 };

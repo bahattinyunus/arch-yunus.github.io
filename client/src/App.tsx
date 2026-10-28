@@ -8,6 +8,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "@/pages/Home";
 import { CyberShell } from "./components/layout/CyberShell";
 import { VaultProvider } from "./contexts/VaultContext";
+import { ClearanceProvider } from "./components/cyber-ui/SecurityClearance";
 
 const Arsenal = lazy(() => import("@/pages/Arsenal"));
 const Operations = lazy(() => import("@/pages/Operations"));
@@ -93,10 +94,12 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
         <VaultProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
+          <ClearanceProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Router />
+            </TooltipProvider>
+          </ClearanceProvider>
         </VaultProvider>
       </ThemeProvider>
     </ErrorBoundary>

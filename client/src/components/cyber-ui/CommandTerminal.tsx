@@ -80,6 +80,10 @@ export const CommandTerminal: React.FC = () => {
             setTerminalOutput({
                 text: `METRİKLER: 231+ Repos | 1500+ Stars | 2063+ GitHub Followers | 12.6K+ LinkedIn | 266+ Sertifika`
             });
+        } else if (normalized === "matrix" || normalized === "show" || normalized === "showcase") {
+            playSound('boot');
+            setOpen(false);
+            window.dispatchEvent(new CustomEvent("toggle-matrix"));
         } else if (normalized === "ping") {
             playSound('ping');
             setTerminalOutput({
