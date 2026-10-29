@@ -93,6 +93,10 @@ flowchart TD
 - **Desteklenen Komutlar:**
   - `whoami`: Operatör kimlik kartı ve akademik matris.
   - `cv` / `resume`: Doğrulanmış resmi CV dosyasını (PDF) anında açar.
+  - `doctrine`: 8 Ontolojik Sütun ve Sibernetik Manifestoya gider.
+  - `thinkers` / `filozoflar`: Gilbert Simondon'dan Heidegger'e 8 teknoloji filozofunu listeler.
+  - `socrates`: 4 yüksek riskli otonomi ve yapay zeka ikilemini Sokratik laboratuvarda test eder.
+  - `poiesis`: Heidegger'in Poiesis aksiyomunu ve siber direniş tanımını ekrana basar.
   - `tulpar`: Tulpar Flight Deck simülatörüne doğrudan atlar.
   - `budak`: Budak %80 model budama laboratuvarına gider.
   - `certs` / `vault`: 266+ sertifika kasasını açar.
@@ -100,6 +104,26 @@ flowchart TD
   - `locks`: Yüksek güvenlikli kasayı (Secure Mode) aktifleştirir.
   - `stats`: 231+ repo, 1500+ yıldız ve GitHub/LinkedIn istatistiklerini listeler.
   - `ping`: Uç birim düğüm gecikme sürelerini test eder.
+
+---
+
+## 🏛️ Teknoloji Felsefesi & Sibernetik Doktrin (`/doctrine`)
+
+Bahattin Yunus Çetin'in mühendislik yaklaşımı, salt kod yazmanın ötesinde derin bir **Teknoloji Felsefesi** ve **Sibernetik Ontoloji** temeline oturur:
+
+1. **8 Temel Ontolojik Sütun (Octagram):**
+   - **I. Bilişimsel Termodinamik & Negentropi:** Kaosa karşı deterministik kod ile yerel düzen inşası (*Schrödinger, Wiener*).
+   - **II. Via Negativa (Eksiltme ile Zekâ):** Budak Doktrini; %80 budama ile gürültüden arınma (*Plotinus, Simondon*).
+   - **III. Determinizm ↔ Stokastisizm:** RTOS mabet temeli, PyTorch latent uzayı esneyen kubbesidir (*Spinoza, Turing*).
+   - **IV. Silikon Egemenliği:** Kendi çipini (Çelik MCU) ve telemetrisini yazmayan, başkasının simülasyonunda kiracıdır (*İbn Haldun*).
+   - **V. Mythos & Logos:** Kadim mitolojik arketipler ile modern aerodinamik fiziğin sentezi (Arkıl & Tulpar).
+   - **VI. Hilomorfik Silikon:** Donanım bedendir, tensör ağırlıkları ruh. Bedensiz zihin sanrıdır (*Aristoteles, Simondon*).
+   - **VII. Heidegger'in Gestell'i & Poiesis:** Tüketim köleliğine karşı açık kaynak ve yerel WebGPU ile şiirsel yaratım.
+   - **VIII. Epistemolojik Şeffaflık:** Açıklanamayan kara kutu zeka bilim değil, modern puttur (*Karl Popper, Flusser*).
+
+2. **Düşünürler Panteonu:** Gilbert Simondon, Martin Heidegger, Bernard Stiegler, Norbert Wiener, Vilém Flusser, Günther Anders, Donna Haraway, Alan Turing.
+3. **Sokratik Tekno-Etik İkilemler Laboratuvarı:** Otonom vuruş yetkisi, Hiper-ölçekleme vs. Via Negativa, Veri feodalizmi ve Kara kutu putperestliği üzerine etkileşimli diyalektik analizi.
+4. **Sibernetik Glosserium:** Negentropi, Gestell, Poiesis, Hilomorfizm, Pharmakon, Bireyleşme, Via Negativa ve Metal Yaka kavramlarının etimolojik ve mühendislik tanımları.
 
 ---
 

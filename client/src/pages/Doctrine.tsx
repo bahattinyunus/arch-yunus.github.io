@@ -3,11 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowUpRight, BrainCircuit, Compass, GraduationCap, ShieldCheck, 
   Flame, Sparkles, Binary, Feather, Orbit, Terminal, Cpu, Zap, Eye, BookOpen, Quote,
-  Scale, Layers, Lightbulb, CheckCircle2, ChevronRight
+  Scale, Layers, Lightbulb, CheckCircle2, ChevronRight, ShieldAlert, Network,
+  Bookmark, HelpCircle, GitBranch, Atom
 } from "lucide-react";
 import { Link } from "wouter";
 import { profileData } from "@/lib/data";
 import { useCyberSound } from "@/hooks/use-cyber-sound";
+import { 
+  PHILOSOPHER_THINKERS, 
+  SOCRATIC_DILEMMAS, 
+  CYBER_GLOSSARY, 
+  PhilosopherThinker,
+  SocraticDilemma,
+  CyberGlossaryTerm
+} from "@/lib/philosophyData";
 
 export interface PhilosophicalPillar {
   id: string;
@@ -234,10 +243,15 @@ export const PHILOSOPHICAL_APHORISMS = [
 export default function Doctrine() {
   const { playSound } = useCyberSound();
   const [activeDialectic, setActiveDialectic] = useState<string>("determinism-stochastic");
+  const [activeThinkerId, setActiveThinkerId] = useState<string>("simondon");
+  const [activeDilemmaId, setActiveDilemmaId] = useState<string>("autonomous-killswitch");
+
   const selectedDebate = DIALECTIC_DEBATES.find(d => d.id === activeDialectic) || DIALECTIC_DEBATES[0];
+  const selectedThinker = PHILOSOPHER_THINKERS.find(t => t.id === activeThinkerId) || PHILOSOPHER_THINKERS[0];
+  const selectedDilemma = SOCRATIC_DILEMMAS.find(d => d.id === activeDilemmaId) || SOCRATIC_DILEMMAS[0];
 
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-24 pb-24">
       {/* Üst Başlık & Epistemolojik Giriş */}
       <header className="border-b border-white/10 pb-12 space-y-8">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-xs font-mono">
@@ -251,14 +265,14 @@ export default function Doctrine() {
               Kod yazmaktan önce, <span className="text-accent">varoluşu</span>, <span className="text-neon-blue">özgürlüğü</span> ve <span className="text-emerald-400">anlamı</span> kavramak.
             </h1>
             <p className="mt-6 text-base md:text-lg leading-relaxed text-white/70 font-mono">
-              Yazılım sadece makine komutları değildir; insanın fiziksel gerçeklik üzerindeki ontolojik irade projeksiyonudur. Gömülü donanım, yapay zekâ felsefesi ve egemen otonom sistemler üzerine kurduğum 8 temel aksis.
+              Yazılım sadece makine komutları değildir; insanın fiziksel gerçeklik üzerindeki ontolojik irade projeksiyonudur. Gömülü donanım, yapay zekâ ontolojisi, Heidegger'den Simondon'a uzanan teknoloji felsefesi ve egemen otonom sistemler üzerine kurduğum epistemolojik mimari.
             </p>
           </div>
 
           <div className="relative overflow-hidden rounded-2xl border border-accent/30 bg-accent/[0.04] p-6 md:p-8 backdrop-blur-md">
             <Quote className="w-8 h-8 text-accent/40 mb-3" />
             <p className="text-xl md:text-2xl font-medium leading-snug text-white font-[family-name:var(--font-display)]">
-              “İyi teknoloji, insanın yerine düşünmez; insanın daha derin düşünebilmesi için ona ontolojik bir negentropi alanı açar.”
+              “İyi teknoloji insanın yerine düşünmez; insanın daha derin düşünebilmesi için ona ontolojik bir negentropi alanı açar.”
             </p>
             <div className="mt-5 flex items-center justify-between text-xs font-mono text-accent">
               <span className="font-bold">Bahattin Yunus Çetin</span>
@@ -355,7 +369,233 @@ export default function Doctrine() {
         </AnimatePresence>
       </section>
 
-      {/* 8 Temel Doktrinel Sütun */}
+      {/* YENİ MODÜL 1: ONTOLOJİK KONSTELASYON & TEKNOLOJİ FELSEFECİLERİ PANTEONU */}
+      <section className="space-y-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-5">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
+              <Network className="w-3.5 h-3.5" />
+              <span>ONTOLOJİK KONSTELASYON // PANTHEON OF THINKERS</span>
+            </div>
+            <h2 className="text-2xl md:text-4xl font-bold font-[family-name:var(--font-display)] text-white">
+              Teknoloji Felsefesi & Mühendislik Yankıları
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-white/40">
+            SİBERNETİK VE VAROLUŞSAL REFERANSLAR (8 FİLOZOF)
+          </span>
+        </div>
+
+        {/* Thinkers Selector Bar */}
+        <div className="flex flex-wrap gap-2">
+          {PHILOSOPHER_THINKERS.map((thinker) => {
+            const isSelected = activeThinkerId === thinker.id;
+            return (
+              <button
+                key={thinker.id}
+                onClick={() => {
+                  setActiveThinkerId(thinker.id);
+                  playSound('click');
+                }}
+                className={`px-3.5 py-2 rounded-xl text-xs font-mono border transition-all flex items-center gap-2 ${
+                  isSelected
+                    ? `${thinker.borderColor} bg-white/10 ${thinker.color} font-bold shadow-lg shadow-white/5`
+                    : "border-white/10 text-white/50 hover:text-white hover:border-white/20 bg-white/[0.02]"
+                }`}
+              >
+                <span>{thinker.name}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Selected Thinker Detailed Dossier Card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedThinker.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.3 }}
+            className={`p-7 md:p-10 rounded-3xl border ${selectedThinker.borderColor} bg-black/70 backdrop-blur-xl space-y-8 relative overflow-hidden`}
+          >
+            {/* Top metadata */}
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-white/10 pb-6">
+              <div>
+                <div className="flex items-center gap-3">
+                  <h3 className={`text-3xl md:text-4xl font-bold ${selectedThinker.color} font-[family-name:var(--font-display)]`}>
+                    {selectedThinker.name}
+                  </h3>
+                  <span className="text-xs font-mono text-white/40 px-2.5 py-1 rounded bg-white/5 border border-white/10">
+                    {selectedThinker.era}
+                  </span>
+                </div>
+                <p className="mt-1 text-sm text-white/60 font-mono">
+                  {selectedThinker.school} · <span className="text-white/80 italic">{selectedThinker.magnumOpus}</span>
+                </p>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {selectedThinker.tags.map(tag => (
+                  <span key={tag} className="text-[11px] font-mono px-2.5 py-1 rounded bg-white/5 text-white/70 border border-white/10">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Quote */}
+            <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 text-base md:text-lg text-white font-mono italic leading-relaxed">
+              {selectedThinker.quote}
+            </div>
+
+            {/* Core Concept & Cybernetic Interpretation */}
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2">
+                <span className="text-xs font-mono uppercase tracking-wider text-white/40 block">
+                  TEMEL FELSEFİ KAVRAM
+                </span>
+                <h4 className="text-base font-bold text-white font-[family-name:var(--font-display)]">
+                  {selectedThinker.coreConcept}
+                </h4>
+                <p className="text-sm text-white/70 font-sans leading-relaxed pt-2">
+                  {selectedThinker.cyberneticInterpretation}
+                </p>
+              </div>
+
+              <div className={`p-6 rounded-2xl border ${selectedThinker.borderColor} ${selectedThinker.bgGlow} space-y-2`}>
+                <span className={`text-xs font-mono uppercase tracking-wider ${selectedThinker.color} font-bold flex items-center gap-1.5`}>
+                  <Sparkles className="w-3.5 h-3.5" /> B.Y. ÇETİN MÜHENDİSLİK TEZAHÜRÜ
+                </span>
+                <h4 className="text-base font-bold text-white font-[family-name:var(--font-display)]">
+                  Teorinin Kod ve Donanımdaki Karşılığı
+                </h4>
+                <p className="text-sm text-white/90 font-sans leading-relaxed pt-2 font-medium">
+                  {selectedThinker.bycManifestation}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </section>
+
+      {/* YENİ MODÜL 2: SOKRATİK TURING SİMÜLATÖRÜ & TEKNO-ETİK ÇIKMAZLAR */}
+      <section className="space-y-8 p-7 md:p-10 rounded-3xl border border-rose-500/30 bg-black/75 backdrop-blur-xl shadow-[0_0_50px_rgba(244,63,94,0.08)]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-5">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-rose-400 mb-2">
+              <HelpCircle className="w-3.5 h-3.5" />
+              <span>SOKRATİK SİBERNETİK SİMÜLATÖRÜ // TEKNO-ETİK ÇIKMAZLAR</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-display)] text-white">
+              Yapay Zekâ ve Otonomide Ontolojik İkilemler
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-white/40">
+            ETİK, GÜVENLİK VE VAROLUŞ TESTİ
+          </span>
+        </div>
+
+        {/* Dilemma Selector Tabs */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {SOCRATIC_DILEMMAS.map((dilemma) => {
+            const isSelected = activeDilemmaId === dilemma.id;
+            return (
+              <button
+                key={dilemma.id}
+                onClick={() => {
+                  setActiveDilemmaId(dilemma.id);
+                  playSound('access');
+                }}
+                className={`p-4 rounded-xl text-left border transition-all ${
+                  isSelected
+                    ? "border-rose-400 bg-rose-500/15 text-white shadow-[0_0_20px_rgba(244,63,94,0.2)]"
+                    : "border-white/10 text-white/60 hover:text-white hover:border-white/20 bg-white/[0.02]"
+                }`}
+              >
+                <span className="text-[10px] font-mono text-rose-400 block mb-1">
+                  {dilemma.category}
+                </span>
+                <h4 className="text-sm font-bold font-[family-name:var(--font-display)] line-clamp-1">
+                  {dilemma.title}
+                </h4>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Dilemma Inspection Card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedDilemma.id}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.25 }}
+            className="space-y-6"
+          >
+            {/* The Question */}
+            <div className="p-6 rounded-2xl bg-white/[0.04] border border-rose-400/30">
+              <span className="text-xs font-mono text-rose-400 font-bold block mb-1">
+                SOKRATİK VAROLUŞSAL SORU:
+              </span>
+              <p className="text-lg md:text-xl text-white font-serif font-medium leading-relaxed">
+                “{selectedDilemma.question}”
+              </p>
+            </div>
+
+            {/* Pragmatic vs Philosophical */}
+            <div className="grid gap-6 md:grid-cols-2">
+              {/* Pragmatic */}
+              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+                <span className="text-xs font-mono text-white/40 uppercase block">
+                  01 // {selectedDilemma.thePragmaticView.title}
+                </span>
+                <p className="text-sm text-white/70 leading-relaxed font-sans">
+                  {selectedDilemma.thePragmaticView.description}
+                </p>
+                <div className="pt-2 border-t border-white/10 text-xs font-mono text-amber-400/80">
+                  <strong className="text-amber-400">Risk & Kör Nokta:</strong> {selectedDilemma.thePragmaticView.risk}
+                </div>
+              </div>
+
+              {/* Philosophical */}
+              <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+                <span className="text-xs font-mono text-white/40 uppercase block">
+                  02 // Felsefi Eleştiri ({selectedDilemma.thePhilosophicalCritique.thinker})
+                </span>
+                <div className="text-xs font-mono text-rose-400">
+                  Kavram: {selectedDilemma.thePhilosophicalCritique.concept}
+                </div>
+                <p className="text-sm text-white/70 leading-relaxed font-sans">
+                  {selectedDilemma.thePhilosophicalCritique.critique}
+                </p>
+              </div>
+            </div>
+
+            {/* B.Y. Çetin Sentezi */}
+            <div className="p-6 md:p-8 rounded-2xl bg-gradient-to-r from-rose-500/10 via-neon-blue/10 to-transparent border border-neon-blue/40 shadow-xl space-y-4">
+              <div className="flex items-center gap-2 text-xs font-mono text-neon-blue font-bold">
+                <Sparkles className="w-4 h-4" />
+                <span>B.Y. ÇETİN SENTEZİ & DOKTRİNEL HÜKÜM</span>
+              </div>
+              <blockquote className="text-base md:text-lg text-white font-mono italic leading-relaxed">
+                {selectedDilemma.theBycSynthesis.axiom}
+              </blockquote>
+              <p className="text-sm text-white/80 font-sans leading-relaxed">
+                {selectedDilemma.theBycSynthesis.argumentation}
+              </p>
+              <div className="p-3.5 rounded-xl bg-black/60 border border-white/10 text-xs font-mono text-emerald-400 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span><strong>Mühendislik Aksiyonu:</strong> {selectedDilemma.theBycSynthesis.engineeringAction}</span>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </section>
+
+      {/* 8 Temel Doktrinel Sütun (Octagram) */}
       <section className="space-y-8">
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div>
@@ -426,6 +666,56 @@ export default function Doctrine() {
               </motion.div>
             );
           })}
+        </div>
+      </section>
+
+      {/* YENİ MODÜL 3: SİBERNETİK VE TEKNOLOJİ FELSEFESİ SÖZLÜĞÜ */}
+      <section className="space-y-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">
+              <Bookmark className="w-3.5 h-3.5" />
+              <span>GLOSSARIUM // KAVRAMLAR VE ETİMOLOJİ SÖZLÜĞÜ</span>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold font-[family-name:var(--font-display)] text-white">
+              Sibernetik ve Teknoloji Ontolojisi Sözlüğü
+            </h2>
+          </div>
+          <span className="text-xs font-mono text-white/40">
+            8 KİLİT EPİSTEMOLOJİK KAVRAM
+          </span>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {CYBER_GLOSSARY.map((item, idx) => (
+            <motion.div
+              key={item.term}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: idx * 0.04 }}
+              className="p-5 rounded-2xl bg-white/[0.025] border border-white/10 hover:border-emerald-400/40 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <span className="text-[10px] font-mono text-emerald-400 block mb-1">
+                  {item.origin}
+                </span>
+                <h4 className="text-lg font-bold text-white font-[family-name:var(--font-display)]">
+                  {item.term}
+                </h4>
+                <div className="text-[11px] font-mono text-white/40 italic mb-3">
+                  {item.greekOrGerman}
+                </div>
+                <p className="text-xs text-white/70 leading-relaxed font-sans">
+                  {item.definition}
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/5 text-[11px] font-mono text-white/50">
+                <span className="text-accent font-bold">Mühendislik:</span> {item.engineeringParallel}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 

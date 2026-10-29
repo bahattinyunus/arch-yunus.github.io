@@ -901,6 +901,24 @@ function About() {
               <span className="text-[10px] font-mono text-accent mt-4">“Tüketim nesnesi değil, yaratım öznesi.”</span>
             </div>
           </div>
+
+          {/* Sokratik ve Panteon Çağrısı */}
+          <div className="mt-6 p-6 rounded-2xl border border-neon-blue/30 bg-gradient-to-r from-neon-blue/[0.08] via-purple-500/[0.04] to-transparent flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <span className="text-xs font-mono text-neon-blue font-bold flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" /> TEKNOLOJİ FELSEFESİ PANTEONU & SOKRATİK SİMÜLATÖR
+              </span>
+              <p className="text-sm text-ink/80 font-sans">
+                Gilbert Simondon'un bireyleşmesinden Heidegger'in Gestell'ine, Norbert Wiener'in negentropisinden yapay zekâ tekno-etik ikilemlerine kadar uzanan interaktif laboratuvar.
+              </p>
+            </div>
+            <a
+              href="/doctrine"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-neon-blue text-black font-mono text-xs font-bold hover:bg-neon-blue/80 transition-all shrink-0 shadow-[0_0_20px_rgba(0,243,255,0.3)]"
+            >
+              Felsefe Doktrinini Aç <ArrowUpRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </Reveal>
     </section>

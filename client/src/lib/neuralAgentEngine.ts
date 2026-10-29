@@ -75,7 +75,48 @@ export function inferNeuralResponse(input: string): NeuralInferenceResult {
     action = { label: "Tüm Saha Operasyonları", path: "/operations" };
   }
 
-  // 2. Felsefe, Doktrin ve Sibernetik Ontoloji
+  // 2. Felsefe, Doktrin, Filozoflar ve Sibernetik Ontoloji
+  else if (
+    q.includes("simondon") ||
+    q.includes("bireyleşme") ||
+    q.includes("individuation")
+  ) {
+    intent = "PHILOSOPHY_SIMONDON";
+    text = "Gilbert Simondon'a göre teknik nesne pasif bir alet değildir; insanın dünyayla kurduğu trans-bireysel varoluş bağıdır. Saf yazılım veya saf donanım ayrımı yanlıştır; zeka ancak iki kutbun birleştiği 'alakalılaşma' (concrétisation) sürecinde bireyleşir. Yunus Çetin'in Tulpar İHA otonomi mimarisi ve Budak model ailesi bu Simondoncu tekno-estetik bireyleşmenin somut örneğidir.";
+    badges = ["Gilbert Simondon", "Individuation", "Trans-Bireysel", "Tekno-Estetik"];
+    action = { label: "Doktrin & Panteon (/doctrine)", path: "/doctrine" };
+  }
+  else if (
+    q.includes("stiegler") ||
+    q.includes("pharmakon") ||
+    q.includes("epifilojenez")
+  ) {
+    intent = "PHILOSOPHY_STIEGLER";
+    text = "Bernard Stiegler'e göre teknik, insanın biyolojik kalıtım dışındaki üçüncü hafızasıdır (Epiphylogenesis) ve bir 'Pharmakon'dur: Hem zehir hem ilaçtır. Büyük dil modelleri insanı tembelleştirip düşünme yetisini körelten bir zehir olabileceği gibi; yerel uç birimlerde insan bilişini yüz kat hızlandıran bir panzehir de olabilir. Yunus Çetin'in ODTÜ BÖTE temelli pedagojik yaklaşımı teknolojiyi bir özgürleştirici ilaç (Pharmakon) kılmaktır.";
+    badges = ["Bernard Stiegler", "Pharmakon", "Epifilojenez", "Bilişsel Ekoloji"];
+    action = { label: "Doktrin & Panteon (/doctrine)", path: "/doctrine" };
+  }
+  else if (
+    q.includes("wiener") ||
+    q.includes("sibernetik") ||
+    q.includes("cybernetics")
+  ) {
+    intent = "PHILOSOPHY_WIENER";
+    text = "Norbert Wiener'in sibernetik teorisi; termodinamik çözülmeye (entropi) karşı bilgi akışı ve geri besleme (feedback loop) ile yerel düzen adacıkları (negentropi) kurma sanatıdır. Yunus Çetin'in MAVLink2 telemetrisi, deterministik RTOS kontrol döngüleri ve sürü İHA haberleşme optimizasyonu Wiener'ın sibernetik homeostaz prensiplerine dayanır.";
+    badges = ["Norbert Wiener", "Sibernetik", "Negentropi", "Feedback Loop"];
+    action = { label: "Doktrin & Panteon (/doctrine)", path: "/doctrine" };
+  }
+  else if (
+    q.includes("sokrat") ||
+    q.includes("socrates") ||
+    q.includes("ikilem") ||
+    q.includes("dilemma")
+  ) {
+    intent = "PHILOSOPHY_SOCRATIC";
+    text = "Yunus Çetin'in Sokratik Tekno-Etik Laboratuvarı 4 temel varoluşsal ikilemi irdeler:\n1. Otonom Vuruş ve Karar Devri Çıkmazı (İletişim kopunca angajman kime aittir?)\n2. Hiper-Ölçekleme vs. Via Negativa (Parametre yığmak mı, %80 budanmış öz-zekâ mı?)\n3. Veri Feodalizmi vs. Silikon Egemenliği (Bulut köleliği mi, yerli RISC-V çipi mi?)\n4. Kara Kutu Putperestliği vs. Epistemolojik Şeffaflık (Açıklanamayan yapay zekaya hayat emanet edilir mi?)\n\nSitedeki /doctrine sayfasında bu ikilemlerin interaktif analizini deneyimleyebilirsin!";
+    badges = ["Sokratik Simülatör", "Tekno-Etik", "Ontolojik İkilemler"];
+    action = { label: "Sokratik Simülatörü Aç", path: "/doctrine" };
+  }
   else if (
     q.includes("felsefe") ||
     q.includes("doktrin") ||
@@ -88,11 +129,13 @@ export function inferNeuralResponse(input: string): NeuralInferenceResult {
     q.includes("entropi") ||
     q.includes("manifesto") ||
     q.includes("anlam") ||
-    q.includes("felsefi")
+    q.includes("felsefi") ||
+    q.includes("poiesis") ||
+    q.includes("gestell")
   ) {
     intent = "PHILOSOPHY_DOCTRINE";
-    text = "Bahattin Yunus Çetin'in mühendislik felsefesi 8 temel ontolojik sütuna ve sibernetik diyalektiğe dayanır:\n\n1. Bilişimsel Termodinamik & Negentropi: Kod yazmak, evrenin kaçınılmaz entropisine karşı yerel bir düzen vahası kurma direnişidir.\n2. Via Negativa (Budak Doktrini): Zekâ milyarlarca parametre yığmakta değil; Michelangelo'nun heykeli yontması gibi %80 gereksiz gürültüyü budayabilmektedir.\n3. Determinizm ↔ Stokastisizm: RTOS mikrosaniye determinizmi mabedin temeli, PyTorch olasılıksal latent uzayı ise rüzgârda esneyen kubbesidir.\n4. Silikon Egemenliği: Başkasının bulutunda koşan zihin yalnızca bir figürandır. Kendi çipini (Çelik MCU RISC-V) ve telemetrisini yazan bağımsızdır.\n5. Hilomorfik Silikon: Donanım bedendir, tensör ağırlıkları ruh. Bedensiz zihin bir yanılsamadır.\n6. Heidegger'in Gestell'i: Teknolojiyi bir tüketim tuzağından kurtarıp özgürleştirici bir 'Poiesis' (yaratım sanatı) kılmak.\n\nSitedeki /doctrine sayfasında 8 sütunu ve interaktif diyalektik matrisini inceleyebilirsin!";
-    badges = ["8 Temel Doktrin", "Teknoloji Felsefesi", "Sibernetik Ontoloji"];
+    text = "Bahattin Yunus Çetin'in mühendislik felsefesi 8 temel ontolojik sütuna, 8 büyük düşünürün (Simondon, Heidegger, Stiegler, Wiener, Flusser, Anders, Haraway, Turing) panteonuna ve sibernetik diyalektiğe dayanır:\n\n1. Negentropi: Kod yazmak evrenin kaçınılmaz entropisine karşı yerel bir düzen vahası kurmaktır.\n2. Via Negativa: Zekâ parametre biriktirmekte değil, %80 gereksiz gürültüyü yontabilmektedir.\n3. Determinizm ↔ Stokastisizm: RTOS mikrosaniye determinizmi mabet temeli, PyTorch olasılıksal latent uzayı kubbesidir.\n4. Silikon Egemenliği: Kendi çipini (Çelik MCU RISC-V) ve telemetrisini yazmayan, başkasının simülasyonunda kiracıdır.\n5. Hilomorfik Silikon: Donanım bedendir, tensör ağırlıkları ruh.\n6. Heidegger'in Poiesis'i: Tüketim aparatı (Gestell) olmaktan çıkıp şiirsel bir yaratıcı özneye dönüşmek.\n\nSitedeki /doctrine sayfasında interaktif Diyalektik Matrisi, Sokratik İkilem Simülatörünü ve Filozoflar Panteonunu inceleyebilirsin!";
+    badges = ["8 Temel Doktrin", "Filozoflar Panteonu", "Sokratik Simülatör", "Sibernetik Ontoloji"];
     action = { label: "Doktrin Manifestosunu İncele", path: "/doctrine" };
   }
 

@@ -55,13 +55,37 @@ export const CommandTerminal: React.FC = () => {
         } else if (normalized === "help" || normalized === "?") {
             playSound('type');
             setTerminalOutput({
-                text: "KOMUTLAR: whoami, cv, doctrine, tulpar, budak, beeroute, certs, matrix, locks, audio, stats, ping, clear, exit"
+                text: "KOMUTLAR: whoami, cv, doctrine, socrates, thinkers, poiesis, tulpar, budak, beeroute, certs, matrix, locks, audio, stats, ping, clear, exit"
             });
         } else if (normalized === "doctrine" || normalized === "felsefe" || normalized === "philosophy") {
             playSound('type');
             setTerminalOutput({
                 text: "DOKTRİN: Kod yazmaktan önce varoluşu, özgürlüğü ve anlamı kavramak. 8 Ontolojik Sütun & Sibernetik Diyalektik.",
                 action: { label: "Manifestoya Git (/doctrine)", onClick: () => runCommand(() => setLocation("/doctrine")) }
+            });
+        } else if (normalized === "thinkers" || normalized === "filozoflar") {
+            playSound('type');
+            setTerminalOutput({
+                text: "FİLOZOFLAR: Gilbert Simondon (Individuation), Heidegger (Gestell & Poiesis), Stiegler (Pharmakon), Wiener (Negentropi), Flusser (Aparat), Anders, Haraway, Turing.",
+                action: { label: "Panteonu İncele (/doctrine)", onClick: () => runCommand(() => setLocation("/doctrine")) }
+            });
+        } else if (normalized === "socrates" || normalized === "sokrat") {
+            playSound('type');
+            setTerminalOutput({
+                text: "SOKRATİK SİMÜLATÖR: Otonom vuruş yetkisi, Via Negativa, Veri feodalizmi ve Kara kutu putperestliği üzerine 4 ontolojik ikilem aktif.",
+                action: { label: "Sokratik Laboratuvara Git (/doctrine)", onClick: () => runCommand(() => setLocation("/doctrine")) }
+            });
+        } else if (normalized === "poiesis") {
+            playSound('transmit');
+            setTerminalOutput({
+                text: "POIESIS (ποίησις): Hakikatin açığa çıkışı. Kod yazmak merkeziyetçi tüketim köleliğine (Gestell) karşı şiirsel bir özgürleşme eylemidir.",
+                action: { label: "Doktrin Manifestosu", onClick: () => runCommand(() => setLocation("/doctrine")) }
+            });
+        } else if (normalized === "vianegativa" || normalized === "via-negativa" || normalized === "via negativa") {
+            playSound('type');
+            setTerminalOutput({
+                text: "VIA NEGATIVA: Zekâ parametre biriktirmekte değil; vazgeçebildiğiniz gereksizliklerdedir (Budak Edge %80 Model Pruning).",
+                action: { label: "Budak Projesini İncele", onClick: () => runCommand(() => setLocation("/operations/budak-edge")) }
             });
         } else if (normalized === "audio" || normalized === "synth" || normalized === "sound") {
             toggleAmbient();
@@ -229,6 +253,33 @@ export const CommandTerminal: React.FC = () => {
                         <ExternalLink className="w-4 h-4 text-emerald-400" />
                         <span className="font-bold text-xs font-mono text-emerald-400">RESMİ CV'Yİ İNDİR (PDF)</span>
                         <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono">cv</kbd>
+                    </Command.Item>
+                </Command.Group>
+
+                <Command.Group heading="SİBERNETİK VE TEKNOLOJİ FELSEFESİ" className="text-[10px] font-mono text-neon-blue/60 mb-2 px-2 mt-3 uppercase tracking-widest">
+                    <Command.Item
+                        onSelect={() => runCommand(() => setLocation("/doctrine"))}
+                        className="flex items-center gap-3 px-3 py-2 text-white/90 hover:bg-neon-blue/10 rounded cursor-pointer transition-colors data-[selected=true]:bg-neon-blue/15"
+                    >
+                        <BookOpen className="w-4 h-4 text-neon-blue" />
+                        <span className="font-mono text-xs">8 ONTOLOJİK SÜTUN & MANİFESTO</span>
+                        <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono text-neon-blue">doctrine</kbd>
+                    </Command.Item>
+                    <Command.Item
+                        onSelect={() => runCommand(() => setLocation("/doctrine"))}
+                        className="flex items-center gap-3 px-3 py-2 text-white/90 hover:bg-cyan-400/10 rounded cursor-pointer transition-colors data-[selected=true]:bg-cyan-400/15"
+                    >
+                        <Layers className="w-4 h-4 text-cyan-400" />
+                        <span className="font-mono text-xs">FİLOZOFLAR PANTEONU (SİMONDON, HEİDEGGER, WIENER)</span>
+                        <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono text-cyan-400">thinkers</kbd>
+                    </Command.Item>
+                    <Command.Item
+                        onSelect={() => runCommand(() => setLocation("/doctrine"))}
+                        className="flex items-center gap-3 px-3 py-2 text-white/90 hover:bg-rose-500/10 rounded cursor-pointer transition-colors data-[selected=true]:bg-rose-500/15"
+                    >
+                        <HelpCircle className="w-4 h-4 text-rose-400" />
+                        <span className="font-mono text-xs">SOKRATİK SİBERNETİK SİMÜLATÖRÜ (4 İKİLEM)</span>
+                        <kbd className="ml-auto text-[10px] bg-white/5 px-1.5 py-0.5 rounded border border-white/10 font-mono text-rose-400">socrates</kbd>
                     </Command.Item>
                 </Command.Group>
 
