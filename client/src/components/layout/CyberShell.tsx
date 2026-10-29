@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "wouter";
@@ -83,7 +82,7 @@ export const CyberShell: React.FC<CyberShellProps> = ({ children }) => {
                     <Terminal className="text-neon-blue w-6 h-6 animate-pulse" />
                     <Link href="/" className="flex items-center gap-2 group cursor-pointer">
                         <h1 className="text-lg md:text-xl font-[family-name:var(--font-display)] tracking-[0.2em] text-neon-blue group-hover:text-white transition-colors" onMouseEnter={() => playSound('hover')}>
-                            METAL YAKA <span className="text-white/50 text-xs md:text-sm">v4.5.STRATO</span>
+                            METAL YAKA <span className="text-white/50 text-xs md:text-sm">v5.0.STRATO</span>
                         </h1>
                     </Link>
                 </div>
