@@ -18,11 +18,16 @@
   --color-faint: #5c5c63;
   --color-accent: #d6ff3f;
 
-  --color-neon-blue: #d6ff3f;
-  --color-neon-red: #f08a7e;
-  --color-neon-green: #d6ff3f;
+  --color-neon-blue: #00f0ff;
+  --color-neon-cyan: #00f0ff;
+  --color-neon-red: #ff3366;
+  --color-neon-green: #10b981;
+  --color-neon-amber: #f59e0b;
+  --color-neon-purple: #a855f7;
   --color-cyber-black: #08080a;
-  --color-cyber-gray: #101013;
+  --color-cyber-dark: #0d0e12;
+  --color-cyber-gray: #12141a;
+  --color-cyber-card: #151821;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -273,12 +278,16 @@
 main .space-y-12 { max-width: 980px; margin: 0 auto; }
 main .space-y-12 > div:first-child h2, main .space-y-12 > h2 { letter-spacing: -.02em; }
 
-/* Legacy neon helpers now use the calmer palette. */
-.text-neon-blue { color: #b9f36b !important; text-shadow: none !important; }
-.text-neon-red { color: #f08a7e !important; text-shadow: none !important; }
-.text-neon-green { color: #b9f36b !important; text-shadow: none !important; }
-.border-neon-blue { border-color: rgba(185,243,107,.55) !important; box-shadow: none !important; }
-.bg-scanlines { opacity: .04 !important; }
+/* Modern High-Tech Cyber & Holographic Palette */
+.text-neon-blue { color: #00f0ff !important; text-shadow: 0 0 14px rgba(0, 240, 255, 0.45) !important; }
+.text-neon-cyan { color: #00f0ff !important; }
+.text-neon-red { color: #ff3366 !important; text-shadow: 0 0 14px rgba(255, 51, 102, 0.45) !important; }
+.text-neon-green { color: #10b981 !important; text-shadow: 0 0 14px rgba(16, 185, 129, 0.45) !important; }
+.text-neon-volt { color: #d6ff3f !important; text-shadow: 0 0 14px rgba(214, 255, 63, 0.45) !important; }
+.border-neon-blue { border-color: rgba(0, 240, 255, 0.4) !important; }
+.border-neon-green { border-color: rgba(16, 185, 129, 0.4) !important; }
+.border-neon-volt { border-color: rgba(214, 255, 63, 0.4) !important; }
+.bg-scanlines { opacity: .06 !important; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
@@ -403,3 +412,82 @@ main .space-y-12 > div:first-child h2, main .space-y-12 > h2 { letter-spacing: -
 .glow-box-cyan {
   box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.2);
 }
+
+/* ================================================================== */
+/*  Tactical Cyber UI & Aerospace HUD Enhancements                    */
+/* ================================================================== */
+
+.tactical-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(16, 18, 24, 0.85) 0%, rgba(9, 10, 14, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tactical-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
+  pointer-events: none;
+}
+
+.tactical-card:hover {
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 16px 40px -12px rgba(0, 240, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.hud-bracket {
+  position: relative;
+}
+
+.hud-bracket::before {
+  content: '[';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00f0ff;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  opacity: 0.7;
+}
+
+.hud-bracket::after {
+  content: ']';
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00f0ff;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  opacity: 0.7;
+}
+
+.glow-pill-cyan {
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  background: rgba(0, 240, 255, 0.06);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+}
+
+.glow-pill-volt {
+  border: 1px solid rgba(214, 255, 63, 0.3);
+  background: rgba(214, 255, 63, 0.06);
+  box-shadow: 0 0 15px rgba(214, 255, 63, 0.15);
+}
+
+.cyber-grid-dense {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+

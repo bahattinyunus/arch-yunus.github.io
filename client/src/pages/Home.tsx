@@ -311,6 +311,20 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
           </a>
 
           <div className="hidden min-w-0 items-center gap-4 xl:flex 2xl:gap-6">
+            <a
+              href="/doctrine"
+              className="inline-flex items-center gap-1.5 rounded-full border border-neon-blue/40 bg-neon-blue/10 px-2.5 py-1 text-xs font-mono text-neon-blue hover:bg-neon-blue/20 hover:border-neon-blue transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)] shrink-0"
+            >
+              <Sparkles className="h-3 w-3 text-neon-blue" />
+              <span>DOKTRİN</span>
+            </a>
+            <a
+              href="/arsenal"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-mono text-white/80 hover:text-white hover:border-white/30 transition-all shrink-0"
+            >
+              <Cpu className="h-3 w-3 text-accent" />
+              <span>ARSENAL</span>
+            </a>
             {NAV_KEYS.map((n) => {
               const isActive = active === n.href.slice(1);
               return (
@@ -465,6 +479,38 @@ function Navbar({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
                   {(t.nav as any)[n.key]}
                 </motion.a>
               ))}
+
+              <motion.a
+                href="/doctrine"
+                onClick={() => setOpen(false)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.1 + NAV_KEYS.length * 0.04,
+                  ease: EASE,
+                  duration: 0.5,
+                }}
+                className="font-display text-4xl tracking-tight text-neon-blue transition-colors hover:text-white flex items-center justify-between"
+              >
+                <span>Felsefi Doktrin</span>
+                <span className="text-xs font-mono text-neon-blue/60 border border-neon-blue/30 px-2 py-0.5 rounded">/doctrine</span>
+              </motion.a>
+
+              <motion.a
+                href="/arsenal"
+                onClick={() => setOpen(false)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.12 + NAV_KEYS.length * 0.04,
+                  ease: EASE,
+                  duration: 0.5,
+                }}
+                className="font-display text-4xl tracking-tight text-accent transition-colors hover:text-white flex items-center justify-between"
+              >
+                <span>Arsenal & HUD</span>
+                <span className="text-xs font-mono text-accent/60 border border-accent/30 px-2 py-0.5 rounded">/arsenal</span>
+              </motion.a>
 
               <motion.a
                 href="/operations"
@@ -656,10 +702,17 @@ function Hero({ onOpenLab }: { onOpenLab?: (type: CyberLabType) => void }) {
             <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#projeler"
-                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-canvas transition hover:opacity-90"
+                className="group inline-flex items-center gap-2 rounded-full bg-accent text-black font-bold px-6 py-3.5 text-sm transition hover:bg-[#e4ff6b] shadow-[0_0_24px_rgba(214,255,63,0.35)]"
               >
                 {t.hero.ctaProjects}
                 <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+              </a>
+              <a
+                href="/doctrine"
+                className="group inline-flex items-center gap-2 rounded-full border border-neon-blue/50 bg-neon-blue/10 px-5 py-3.5 text-sm font-medium text-neon-blue transition hover:bg-neon-blue/20 hover:border-neon-blue shadow-[0_0_18px_rgba(0,240,255,0.2)]"
+              >
+                <Sparkles className="h-4 w-4 text-neon-blue transition-transform group-hover:rotate-45" />
+                <span>{lang === "tr" ? "Felsefi Doktrin" : "Doctrine"}</span>
               </a>
               <a
                 href="/cv3.pdf"

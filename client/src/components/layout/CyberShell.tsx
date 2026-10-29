@@ -77,17 +77,29 @@ export const CyberShell: React.FC<CyberShellProps> = ({ children }) => {
             <VanguardAI />
 
             {/* Top HUD Bar */}
-            <header className="h-16 border-b border-white/10 flex items-center justify-between px-4 md:px-6 bg-black/40 backdrop-blur-md z-30 relative">
+            <header className="h-16 border-b border-white/10 flex items-center justify-between px-4 md:px-6 bg-black/60 backdrop-blur-xl z-30 relative shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+                <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-neon-blue/40 to-transparent pointer-events-none" />
                 <div className="flex items-center gap-3 md:gap-4">
-                    <Terminal className="text-neon-blue w-6 h-6 animate-pulse" />
+                    <Terminal className="text-neon-blue w-6 h-6 animate-pulse shrink-0" />
                     <Link href="/" className="flex items-center gap-2 group cursor-pointer">
                         <h1 className="text-lg md:text-xl font-[family-name:var(--font-display)] tracking-[0.2em] text-neon-blue group-hover:text-white transition-colors" onMouseEnter={() => playSound('hover')}>
                             METAL YAKA <span className="text-white/50 text-xs md:text-sm">v5.0.STRATO</span>
                         </h1>
                     </Link>
+                    <div className="hidden xl:flex items-center gap-2 pl-4 border-l border-white/10 text-xs font-mono text-white/40">
+                        <span className="text-neon-blue">NODE:</span>
+                        <span>{location.toUpperCase().replace('/', 'SYS://') || 'SYS://ROOT'}</span>
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-3 md:gap-6">
+                <div className="flex items-center gap-3 md:gap-5">
+                    {/* Back to Home Button */}
+                    <Link
+                        href="/"
+                        className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-white/5 hover:border-accent/40 text-xs font-mono text-white/70 hover:text-accent transition-all"
+                    >
+                        <span>← ANASAYFA</span>
+                    </Link>
                     {/* Ambient Synth Sound Toggle */}
                     <button
                         onClick={() => {
